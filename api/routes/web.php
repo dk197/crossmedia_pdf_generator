@@ -14,3 +14,15 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+// add 'api'-prefix for routes
+$router->group(['prefix' => 'api'], function () use ($router) {
+    // localhost:80/api/register
+    $router->post('register', 'AuthController@register');
+
+    $router->post('login', 'AuthController@login');
+
+    // localhost:80/api/test
+    $router->get('test', 'AuthController@test');
+ });
+ 
