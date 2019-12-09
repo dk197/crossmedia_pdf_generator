@@ -24,17 +24,36 @@
         <li class="nav-item">
           <router-link class="nav-link" to="register" active-class="active" exact>Register</router-link>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" @click="logout">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{ showLoginStatus }}</a>
+        </li>
       </ul>
     </div>
   </nav>
 </template>
 
 <script>
-export default {};
+export default {
+    computed: {
+        showLoginStatus() {
+            return this.$store.getters.getLoginStatus
+        }
+    },
+    methods: {
+        logout() {
+        localStorage.removeItem("token");
+        this.$store.commit("logUserOut");
+        this.$router.push("/");
+        }
+    }
+};
 </script>
 
 <style>
 .navbar {
-    border-bottom: 1px solid grey;
+  border-bottom: 1px solid grey;
 }
 </style>
