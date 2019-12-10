@@ -1,7 +1,9 @@
 <template>
 <div>
+	<loader></loader>
     <dmc-header></dmc-header>
     <div class="container-fluid">
+		
 		<router-view></router-view> 
 	</div>
 </div>
@@ -9,11 +11,14 @@
 </template>
 
 <script>
+import Loader from './components/others/Loader'
 import Header from './components/Header'
 export default {
 	components: {
-		dmcHeader: Header
+		dmcHeader: Header,
+		loader: Loader	
 	}
+	
 };
 </script>
 
@@ -21,6 +26,7 @@ export default {
 body {
     color: white;
 }
+<<<<<<< HEAD
 .nav-link {
 	display: inline-block;
 }
@@ -42,4 +48,7 @@ form > h3 {
 .nav-link.router-link-exact-active {
 	border-bottom: 2px solid #42b883;
 }
+=======
+
+>>>>>>> c7d2d529d81eb656f002f43a59009a8dc04d4c6c
 </style>
