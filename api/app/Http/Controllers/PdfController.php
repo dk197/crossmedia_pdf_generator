@@ -63,7 +63,9 @@ class PdfController extends Controller
         $mpdf->showImageErrors = true;
         $mpdf->debug = true;
 
-        // $mpdf->PDFX =  true;
+        $mpdf->PDFXauto =  true;
+        $mpdf->PDFX =  true;
+
         $mpdf->WriteHTML($html);
         $mpdf->Output('visitCard.pdf', \Mpdf\Output\Destination::INLINE);
     }
