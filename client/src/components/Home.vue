@@ -21,19 +21,28 @@ export default {
   width: 80%;
   height: 360px;
 }
-.left-bg, .right-bg {
+.left-bg{
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 50%;
+  width: 77%;
   transition: .25s ease;
 }
+
+.right-bg{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 23%;
+  transition: .25s ease;
+}
+
 .left-bg {
-  background-color:#24800f;
+  background-image: url('../assets/left.png');
   left: 0;
 }
 .right-bg {
-  background-color:#5988ad;
+  background-image: url('../assets/right.png');
   background-position: right;
   right: 0;
 }
@@ -66,15 +75,15 @@ export default {
   right: 0;
 }
 .left-bg:hover {
-  width: 80%;
+  width: 77%;
 }
 .left-bg:hover + .right-bg {
-  width: 20%;
+  width: 23%;
 }
 .right-bg:hover {
-  width: 80%;
+  width: 100%;
 }
 .right-bg:hover + .left-bg {
-  width: 20%;
+  width: 0%;
 }
 </style>
