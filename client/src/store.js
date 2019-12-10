@@ -5,11 +5,15 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store ({
     state: {
-        isLoggeddIn: false
+        isLoggeddIn: false,
+        isLoading: false
     },
     getters: {
         getLoginStatus(state) {
             return state.isLoggeddIn
+        },
+        getLoadingState(state){
+            return state.isLoading
         }
     },
     mutations: {
@@ -18,6 +22,9 @@ export const store = new Vuex.Store ({
         },
         logUserOut(state) {
             state.isLoggeddIn = false
+        },
+        toggleLoadingState(state){
+            state.isLoading = !state.isLoading
         }
     }
 })
