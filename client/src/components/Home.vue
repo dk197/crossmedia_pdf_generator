@@ -2,9 +2,9 @@
     <div>
         <div class="area">
             <div class="container">
-        <div class="left-bg">
-        </div>
         <div class="right-bg">
+        </div>
+        <div class="left-bg">
         </div>
     </div>
             <ul class="circles">
@@ -244,5 +244,6 @@
 }
 .right-bg:hover + .left-bg {
   width: 0%;
+  display:none;
 }
 </style>
