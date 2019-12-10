@@ -1,13 +1,60 @@
 <template>
-    <div class="row">
-        <div class="col-12">
-            <p>Register</p>
-        </div>
+    <div class="row justify-content-center">
+        <form class="col-4" v-on:submit.prevent="register">
+            <h3>Register</h3>
+            <div class="form-group">
+                <label for="user-name">Name:</label>
+                <input type="name" class="form-control" v-model="name" id="user-name" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="user-email">Email address:</label>
+                <input type="email" class="form-control" v-model="email" id="user-email" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="user-password">Password:</label>
+                <input type="password" class="form-control" v-model="password" id="user-password" placeholder="Enter password">
+            </div><div class="form-group">
+                <label for="user-password-confirmation">Password:</label>
+                <input type="password" class="form-control" v-model="passwordConfirmation" id="user-password-confirmation" placeholder="Enter password">
+            </div>
+            <button class="btn btn-primary">Register</button>
+        </form>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+    data() {
+        return {
+            name: '',
+            email: '',
+            password: '',
+            passwordConfirmation: ''
+        }
+    },
+    methods: {
+        register() {
+            if(this.password === this.passwordConfirmation) {
+                axios.post('http://localhost/api/register', {
+                    name: this.name,
+                    email: this.email,
+                    password: this.password,
+                    password_confirmation: this.passwordConfirmation
+                }).then(response  => {
+                    console.log(response.data);
+                    localStorage.setItem('token', response.data.token)
+                    this.$store.commit('logUserIn')
+                    console.log(this.$store.getters.getLoginStatus);
+                    this.$router.push('/')
+                }).catch(function(error) {
+                    console.log(error);
+                });
+            }else {
+                alert('The passwords don\'t match!')
+            }
+        }
+    }
     
 }
 </script>
