@@ -15,7 +15,7 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        //validate incoming request 
+        //validate incoming request
         $this->validate($request, [
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
@@ -32,8 +32,18 @@ class AuthController extends Controller
 
             $user->save();
 
+            $credentials = [
+                'email' => $request->input('email'),
+                'password' => $request->input('password')
+            ];
+            $token = Auth::attempt($credentials);
+
             //return successful response
-            return response()->json(['user' => $user, 'message' => 'CREATED'], 201);
+            return response()->json([
+                'user' => $user,
+                'message' => 'CREATED',
+                'token' => $token
+            ], 201);
 
         } catch (\Exception $e) {
             //return error message
@@ -50,7 +60,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-          //validate incoming request 
+          //validate incoming request
         $this->validate($request, [
             'email' => 'required|string',
             'password' => 'required|string',
@@ -67,7 +77,6 @@ class AuthController extends Controller
 
     public function test() {
         print_r('test');
-        print_r(__DIR__);
     }
 }
 ?>
