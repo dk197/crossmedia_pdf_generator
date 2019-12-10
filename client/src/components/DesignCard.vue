@@ -7,7 +7,7 @@
                 <input v-model="adress" placeholder="deine Mail">
             </div>
             <div id="businessCardCanvas" class="parentElement">
-                <drag-it-dude :parent-width="500">
+                <drag-it-dude :parent-width="500" :parent-height="500">
                 <div class="innerElement">{{ name }}</div>
                 <div class="innerElement">{{ adress }}</div>
                 </drag-it-dude>
@@ -47,7 +47,7 @@ export default {
         -khtml-user-select: none; /* Konqueror HTML */
         -moz-user-select: none; /* Old versions of Firefox */
         -ms-user-select: none; /* Internet Explorer/Edge */
-        user-select: none; /* Non-prefixed version, currently
+            user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
     }
     .parentElement{
