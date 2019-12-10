@@ -24,10 +24,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     // localhost:80/api/test
     $router->get('test', 'AuthController@test');
+
+    $router->get('xtest', 'AuthController@xtest');
  });
 
 $router->group(['prefix' => 'generate'], function () use ($router) {
     // localhost:80/generate/pdf
     $router->get('pdf', 'PdfController@pdfGenerieren');
+
+    $router->get('vcard', 'VCardController@generateVcard');
 })
 ?>

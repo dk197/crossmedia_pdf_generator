@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": "^7.2",
+        "jeroendesloovere/vcard": "^1.7",
         "laravel/lumen-framework": "^6.0",
         "mpdf/mpdf": "^8.0",
         "tymon/jwt-auth": "^1.0"
