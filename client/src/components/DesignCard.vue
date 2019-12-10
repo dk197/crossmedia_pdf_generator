@@ -2,16 +2,20 @@
     <div>
         <h1>Erstelle deine Visitenkarte</h1>
         <p>Deine Kontaktdaten:</p>
-            <div id="businessCardInput">
-                <input v-model="name" placeholder="dein Name">
-                <input v-model="adress" placeholder="deine Mail">
-            </div>
-            <div id="businessCardCanvas" class="parentElement">
-                <drag-it-dude :parent-width="500" :parent-height="500">
-                <div class="innerElement">{{ name }}</div>
-                <div class="innerElement">{{ adress }}</div>
-                </drag-it-dude>
-            </div>
+        <div id="hallo">
+            <input type="number" value="89" placeholder="Breite" id="cardWidth" @change="handleWidth" @>
+            <input type="number" value="51" placeholder="Höhe" id="cardHeight" @change="handleHeight">
+        </div>
+        <div id="businessCardInput">
+            <input v-model="name" placeholder="dein Name">
+            <input v-model="adress" placeholder="deine Mail">
+        </div>
+        <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
+            <drag-it-dude id="visitcardParent">
+            <div class="innerElement">{{ name }}</div>
+            <div class="innerElement">{{ adress }}</div>
+            </drag-it-dude>
+        </div>
     </div>
 </template>
 
@@ -35,12 +39,23 @@ export default {
     },
     components: {
         DragItDude
+    },
+    methods: {
+        handleWidth() {
+            var width = document.getElementById("cardWidth").value;
+            document.getElementById('businessCardCanvas').style.width = width + 'mm';
+        },
+        handleHeight() {
+            var height = document.getElementById("cardHeight").value;
+            document.getElementById('businessCardCanvas').style.height = height +'mm';
+        }
     }
 };
 </script>
 
 <style>
     .innerElement{
+        color: black;
         cursor: pointer;
         -webkit-touch-callout: none; /* iOS Safari */
         -webkit-user-select: none; /* Safari */
