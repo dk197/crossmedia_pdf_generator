@@ -5,16 +5,11 @@
             <div id="businessCardInput">
                 <input v-model="name" placeholder="dein Name">
                 <input v-model="adress" placeholder="deine Mail">
-                <div id="businessCardCanvas">
-                    <drag-it-dude
-                    @activated="handleActivated"
-                    @dragging="handleDragging"
-                    @dropped="handleDropped"
-                    >
-                    <p>{{name}}</p>
-                    <p>{{adress}}</p>
-                    </drag-it-dude>
-                </div>
+            </div>
+            <div id="businessCardCanvas" class="parentElement">
+                <drag-it-dude :parent-width="500">
+                <div class="innerElement">{{ text }}</div>
+                </drag-it-dude>
             </div>
     </div>
 </template>
@@ -26,9 +21,9 @@ new Vue({
   el: '#businessCardInput',
   data: {
     name: '',
-    adress: ''
-  },
-  template: '<div>{{ message }}</div>'
+    adress: '',
+    text: name
+  }
 })
 export default {
     name: 'bc-input',
@@ -40,27 +35,20 @@ export default {
     },
     components: {
         DragItDude
-    },
-    methods: {
-        handleActivated() {
-        this.text = "I am ready for great things!";
-        },
-        handleDragging() {
-        this.text = "Weeee!";
-        },
-        handleDropped() {
-        this.text = "That's place is awesome!";
-        setTimeout(() => {
-            this.text = "Just move me!";
-        }, 3000);
-        }
     }
 };
 </script>
 
 <style>
-    #businessCardCanvas{
+    .parentElement{
         position: relative;
-        float: right;
+        background: white;
+    }
+    #businessCardInput{
+        float: left;
+    }
+    #businessCardCanvas{
+        float: left;
+        left: 10%;
     }
 </style>

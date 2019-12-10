@@ -1,7 +1,5 @@
-<template>
-        
+<template> 
     <div class="container">
-        <bc-input></bc-input>
         <div class="left-bg">
         </div>
         <div class="right-bg">
@@ -10,10 +8,8 @@
 </template>
 
 <script>
-import DesignCard from './DesignCard'
 export default {
     components: {
-		bcInput: DesignCard
 	}
 }
 </script>
