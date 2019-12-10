@@ -60,5 +60,6 @@ export default {
     #businessCardCanvas{
         float: left;
         left: 10%;
+        background: white;
     }
 </style>
