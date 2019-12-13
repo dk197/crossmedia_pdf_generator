@@ -1,7 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 use \mpdf;
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 class PdfController extends Controller
 {
@@ -19,7 +22,26 @@ class PdfController extends Controller
         print_r('test');
     }
 
-    public function pdfGenerieren() {
+    public function pdfGenerieren(Request $request)
+    {
+        print_r($request);
+        return;
+        $this->validate($request, [
+            'cardWidth' => 'required|string',
+            'cardHeight' => 'required|string',
+            'name' => 'required|string',
+            'adress' => 'required|string',
+        ]);
+
+        $cardWidth = $request->only(['cardWidth']);
+        $cardHeight = $request->only(['cardHeight']);
+        $name = $request->only(['name']);
+        $adress = $request->only(['adress']);
+
+    }
+
+
+    public function pdfTestGenerieren() {
         $height = 51;
         $width = 89;
         $html = '

@@ -2,39 +2,42 @@
     <div>
         <h1>Erstelle deine Visitenkarte</h1>
         <p>Deine Kontaktdaten:</p>
-        <div id="hallo">
-            <input type="number" value="89" placeholder="Breite" id="cardWidth" @change="handleWidth" @>
-            <input type="number" value="51" placeholder="Höhe" id="cardHeight" @change="handleHeight">
-        </div>
-        <div id="businessCardInput">
-            <input v-model="name" placeholder="dein Name">
-            <input v-model="adress" placeholder="deine Mail">
-        </div>
+        <form action="/generate/pdf" v-on:submit.prevent="pdf">
+            <h3>Deine Daten:</h3>
+            <div>
+                <input type="number" v-model="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
+                <input type="number" v-model="cardHeight"  placeholder="Höhe" id="cardHeight" @change="handleHeight">
+            </div>
+            <div id="businessCardInput">
+                <input v-model="name" placeholder="dein Name">
+                <input v-model="adress" placeholder="deine Mail">
+            </div>
+            <button class="btn btn-primary">Submit</button>
+        </form>
+        
         <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
             <drag-it-dude id="visitcardParent">
-            <div class="innerElement">{{ name }}</div>
-            <div class="innerElement">{{ adress }}</div>
+                <div class="innerElement">{{ name }}</div>
+            </drag-it-dude>
+            <drag-it-dude id="visitcardParent">
+                <div class="innerElement">{{ adress }}</div>
             </drag-it-dude>
         </div>
+        
     </div>
 </template>
 
 <script>
-import Vue from 'vue';
+import axios from 'axios';
 import DragItDude from 'vue-drag-it-dude';
-new Vue({
-  el: '#businessCardInput',
-  data: {
-    name: '',
-    adress: '',
-  }
-})
 export default {
     name: 'bc-input',
     data () {
         return{
-          name: '',
-          adress: ''
+            cardWidth: '89',
+            cardHeight: '51',
+            name: '',
+            adress: ''
         }
     },
     components: {
@@ -48,6 +51,18 @@ export default {
         handleHeight() {
             var height = document.getElementById("cardHeight").value;
             document.getElementById('businessCardCanvas').style.height = height +'mm';
+        },
+        pdf() {
+            axios.post('http://localhost/generate/pdf', {
+                cardWidth: this.cardWidth,
+                cardHeight: this.cardHeight,
+                name: this.name,
+                adress: this.adress
+            }).then(response  => {
+                console.log(response);
+            }).catch(function(error) {
+                console.log(error);
+            });
         }
     }
 };
