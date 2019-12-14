@@ -24,7 +24,18 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     // localhost:80/api/test
     $router->get('test', 'AuthController@test');
+
+    // routes that need an authorized user
+    $router->group(['middleware' => 'auth:api'], function () use ($router) {
+        $router->get('/secured', function () {
+            return response()->json([
+                'message' => 'Hello!',
+            ]);
+        });
+    });
  });
+
+
 
 $router->group(['prefix' => 'generate'], function () use ($router) {
     // localhost:80/generate/pdf

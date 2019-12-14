@@ -30,12 +30,16 @@
         <li class="nav-item">
           <a class="nav-link" href="#">{{ showLoginStatus }}</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" @click="testAuth">test auth</a>
+        </li>
       </ul>
     </div>
   </nav>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     computed: {
         showLoginStatus() {
@@ -44,9 +48,22 @@ export default {
     },
     methods: {
         logout() {
-        localStorage.removeItem("token");
-        this.$store.commit("logUserOut");
-        this.$router.push("/");
+            localStorage.removeItem("token");
+            this.$store.commit("logUserOut");
+            this.$router.push("/");
+        },
+        testAuth() {
+            axios.get('http://localhost:80/api/secured', { 
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                    }
+                }).then(response => {
+                    // If request is good...
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     }
 };

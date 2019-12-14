@@ -7,7 +7,7 @@
         <div class="left-bg">
         </div>
     </div>
-            <ul class="circles">
+            <!-- <ul class="circles">
                     <li></li>
                     <li></li>
                     <li></li>
@@ -18,7 +18,7 @@
                     <li></li>
                     <li></li>
                     <li></li>
-            </ul>
+            </ul> -->
         </div>
         
     </div>
