@@ -1,9 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use \mpdf;
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+use Illuminate\Http\Request;
 
 
 class PdfController extends Controller
@@ -24,8 +22,6 @@ class PdfController extends Controller
 
     public function pdfGenerieren(Request $request)
     {
-        print_r($request);
-        return;
         $this->validate($request, [
             'cardWidth' => 'required|string',
             'cardHeight' => 'required|string',
