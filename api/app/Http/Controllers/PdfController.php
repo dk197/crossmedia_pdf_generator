@@ -23,17 +23,33 @@ class PdfController extends Controller
     public function pdfGenerieren(Request $request)
     {
         $this->validate($request, [
-            'cardWidth' => 'required|string',
-            'cardHeight' => 'required|string',
-            'name' => 'required|string',
-            'adress' => 'required|string',
+            'cardWidth' => 'required',
+            'cardHeight' => 'required',
+            'name' => 'required',
+            'adress' => 'required',
         ]);
 
-        $cardWidth = $request->only(['cardWidth']);
-        $cardHeight = $request->only(['cardHeight']);
+        $cardWidth = (int)$request->only(['cardWidth']);
+        $cardHeight = (int)$request->only(['cardHeight']);
         $name = $request->only(['name']);
         $adress = $request->only(['adress']);
 
+        $html = "<h1>Hallo</h1>";
+
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => [$cardHeight, $cardWidth],
+            'orientation' => 'L'
+        ]);
+
+        $mpdf->showImageErrors = true;
+        $mpdf->debug = true;
+
+        $mpdf->PDFXauto =  true;
+        $mpdf->PDFX =  true;
+
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('visitCard.pdf', \Mpdf\Output\Destination::INLINE);
     }
 
 

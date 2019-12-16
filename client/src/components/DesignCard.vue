@@ -12,7 +12,7 @@
                 <input v-model="name" placeholder="dein Name">
                 <input v-model="adress" placeholder="deine Mail">
             </div>
-            <button class="btn btn-primary">Submit</button>
+            <button class="btn btn-primary" target="_blank">Submit</button>
         </form>
         
         <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
