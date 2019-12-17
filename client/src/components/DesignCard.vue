@@ -5,7 +5,18 @@
         <form action="/generate/pdf" v-on:submit.prevent="pdf">
             <h3 @click="changeText(1,1)">Deine Daten:</h3>
             <div>
-                <select v-model="fontSize" id="fontSize" @change="changeFontSize">
+                <select id="attributeSelect" @change="createNewAttribute">
+                    <option disabled value="">Please select your attribute</option>
+                    <option>Name</option>
+                    <option>Position</option>
+                    <option>Firma</option>
+                    <option>Adresse</option>
+                    <option>Telefon</option>
+                    <option>Fax</option>
+                    <option>E-Mail</option>
+                    <option>Website</option>
+                </select>
+                <select v-model="fontSize" id="fontSize" @change="changeFontSize(currentAttribute)">
                     <option disabled value="">Please select your font size</option>
                     <option>xx-small</option>
                     <option>x-small</option>
@@ -15,7 +26,7 @@
                     <option>x-large</option>
                     <option>xx-large</option>
                 </select>
-                  <select v-model="fontStyle" id="fontStyle" @change="changeFontStyle">
+                <select v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                     <option disabled value="">Please select your font style</option>
                     <option>Verdana</option>
                     <option>Arial</option>
@@ -26,22 +37,13 @@
                 <input type="number" v-model="cardHeight"  placeholder="Höhe" id="cardHeight" @change="handleHeight">
             </div>
             <div id="businessCardInput">
-                <input v-model="bricks[0].data.text" placeholder="name">
-                <!--
-                <input v-model="name" placeholder="name">
-                <input v-model="adress" placeholder="e-mail">
-                <input v-model="posistion" placeholder="position">
-                <input v-model="company" placeholder="unternehmen/firma">
-                <input v-model="telefon" placeholder="telefon">
-                <input v-model="fax" placeholder="fax">
-                <input v-model="company" placeholder="unternehmen/firma">
-                <input v-model="website" placeholder="website">-->
+                <input v-model="bricks[currentAttribute].data.text" placeholder="name">
             </div>
             <button class="btn btn-primary" target="_blank">Submit</button>
         </form>
         
         <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
-            <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-style="brick.data.fontStyle"></text-brick>
+            <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-style="brick.data.fontStyle" :id="index"></text-brick>
         </div>
         
     </div>
@@ -54,6 +56,8 @@ export default {
     name: 'bc-input',
     data () {
         return{
+            currentAttribute: '0',
+            attributeSelect: '',
             cardWidth: '89',
             cardHeight: '51',
             fontSize: '',
@@ -62,70 +66,25 @@ export default {
             adress: '',
             bricks: [
                 {
-                    attribute: 'name',
+                    attribute: 'Name',
                     data: {
                         fontSize: '',
                         fontStyle: '',
                         text: 'tests'   
                     }
-                },
-                {
-                    attribute: 'position',
-                    data: {
-                        fontSize: '',
-                        fontStyle: '',
-                        text: ''   
-                    }
-                },
-                {
-                    attribute: 'company',
-                    data: {
-                        fontSize: '',
-                        fontStyle: '',
-                        text: ''   
-                    }
-                },
-                {
-                    attribute: 'adress',
-                    data: {
-                        fontSize: '',
-                        fontStyle: '',
-                        text: ''   
-                    }
-                },
-                {
-                    attribute: 'telefon',
-                    data: {
-                        fontSize: '',
-                        fontStyle: '',
-                        text: ''   
-                    }
-                },
-                {
-                    attribute: 'fax',
-                    data: {
-                        fontSize: '',
-                        fontStyle: '',
-                        text: ''   
-                    }
-                },
-                {
-                    attribute: 'email',
-                    data: {
-                        fontSize: '',
-                        fontStyle: '',
-                        text: ''   
-                    }
-                },
-                {
-                    attribute: 'website',
-                    data: {
-                        fontSize: '',
-                        fontStyle: '',
-                        text: ''   
-                    }
                 }
-            ]
+            ],
+            // created: function() {
+            //       this.getJson();
+            //     },
+            //     methods: {
+            //         getJson: function(){
+            //             $.getJSON('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyA_NtdvhXR4TDbYHJKvA1XJz4rjr-DjZ5E',function(task){
+            //               this.list = task;
+            //               console.log(this.list);
+            //             }.bind(this));
+            //         }
+            //     },
         }
     },
     components: {
@@ -158,14 +117,15 @@ export default {
                 console.log(error);
             });
         }, 
-        changeFontSize(){
-            var fontSize = document.getElementById("fontSize").value;
-            document.getElementById("businessCardCanvas").style.fontSize = fontSize;
+        changeFontSize(attribute){
+            var fontSize = event.target.value;
+            this.bricks[attribute].data.fontSize = fontSize;
+            document.getElementById(attribute).style.fontSize = fontSize;
         },
-        changeFontStyle(){
-            var fontStyle = document.getElementById("fontStyle").value;
-            console.log(fontStyle);
-            document.getElementById("businessCardCanvas").style.fontFamily = fontStyle;
+        changeFontStyle(attribute){
+            var fontStyle = event.target.value;
+            this.bricks[attribute].data.fontStyle = fontStyle;
+            document.getElementById(attribute).style.fontFamily = fontStyle;
         },
         changeText(attribute, text) {
             //this.bricks
@@ -179,10 +139,25 @@ export default {
             for (let index = 0; index < array.length; index++) {
                 if (Object.values(array[index]).indexOf(value) > -1) {
                     return index
-                }         
-                return false       
+                }          
             }
-            
+            return false       
+        },
+        createNewAttribute(event){
+            const attr = event.target.value
+            if(this.getKeyFromArray(this.bricks, attr) === false) {
+                const newAttrObj = {
+                    attribute: attr,
+                    data: {
+                        fontSize: '',
+                        fontStyle: '',
+                        text: 'Bitte eintippen'   
+                    }
+                }
+                this.bricks.push(newAttrObj)
+            }
+            const attrKey = this.getKeyFromArray(this.bricks, attr)
+            this.currentAttribute = attrKey
         }
     }
 };
