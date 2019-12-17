@@ -10,10 +10,38 @@
                 <label for="user-password">Password:</label>
                 <input type="password" class="form-control" v-model="password" id="user-password" placeholder="Enter password">
             </div>
-            <button class="btn btn-primary">Login</button>
+            <button class="btn btn-primary form-button">Login</button>
+            <router-link class="nav-link register-link" to="register" active-class="active" exact>No Account? Register here</router-link>
         </form>
     </div>
 </template>
+
+<style>
+    label {
+        padding-top: 5px;
+    }
+    .form-control {
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        width: 400px;
+    }
+    .register-link {
+        margin-left: 20px;
+        color: white;
+        text-transform: none;
+        position: absolute;
+        right: 10%;
+    }
+    .register-link:hover {
+        color: lightgrey;
+        text-transform: none;
+    }
+    .form-button {
+        position: absolute;
+        right: 0;
+    }
+</style>
 
 <script>
 import axios from 'axios'
