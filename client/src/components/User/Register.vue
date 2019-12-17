@@ -18,7 +18,7 @@
                 <input type="password" class="form-control" v-model="passwordConfirmation" id="user-password-confirmation" placeholder="Confirm Password">
             </div>
             <button class="btn btn-primary form-button">Register</button>
-            <router-link class="nav-link login-link" to="login" active-class="active" exact>Have an Account? Login here.</router-link>
+            <router-link class="login-link" to="login" active-class="active" exact>Have an Account? Login here.</router-link>
         </form>
     </div>
 </template>
@@ -38,7 +38,8 @@
         color: white;
         text-transform: none;
         position: absolute;
-        right: 13%;
+        right: 100px;
+        margin-top: 7px;
     }
     .login-link:hover {
         color: lightgrey;
