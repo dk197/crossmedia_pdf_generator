@@ -45,7 +45,4 @@ form > h3 {
 	border-color: #42b883;
 	transform: translateY(-2px);
 }
-.nav-link.router-link-exact-active {
-	border-bottom: 2px solid #42b883;
-}
 </style>

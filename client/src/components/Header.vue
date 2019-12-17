@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <!-- <a class="navbar-brand" href="#">Fancy PDF-Generator</a> -->
-    <img src="../assets/logo.svg" class="logo">
-    <button
+    <a class="logo-link" href="/#/"><img class="logo" src="../assets/logo.svg" ></a>
+    <!-- <button
       class="navbar-toggler"
       type="button"
       data-toggle="collapse"
@@ -12,28 +12,25 @@
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> -->
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link class="nav-link" to="/" active-class="active" exact>Home</router-link>
-        </li>
-        <li class="nav-item">
+      <ul class="navbar-nav">
+        <li v-if="!showLoginStatus" class="nav-item">
           <router-link class="nav-link" to="login" active-class="active" exact>Login</router-link>
         </li>
-        <li class="nav-item">
+        <li v-if="!showLoginStatus" class="nav-item">
           <router-link class="nav-link" to="register" active-class="active" exact>Register</router-link>
         </li>
-        <li class="nav-item">
+        <li v-if="showLoginStatus" class="nav-item">
           <a class="nav-link" href="#" @click="logout">Logout</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="#">{{ showLoginStatus }}</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" @click="testAuth">test auth</a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </nav>
@@ -73,10 +70,38 @@ export default {
 <style>
 .navbar {
   border-bottom: 1px solid grey;
+  display: flex;
+  
 }
 
-.logo{
-  margin-right: 30px;
+.navbar-nav {
+    position: absolute;
+    right: 10%;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
+.nav-link {
+	border-bottom: 2px solid rgb(1, 1, 1, 0);
+}
+
+.nav-link.router-link-exact-active, .nav-link:hover {
+	border-bottom: 2px solid #42b883;
+}
+
+.nav-item {
+  font-size: 18px;
+}
+
+.logo {
+  margin: 10px 30px 10px 0;
   fill: white;
+  width: 200px;
+}
+
+.logo-link {
+    margin-left: 10%;
 }
 </style>
