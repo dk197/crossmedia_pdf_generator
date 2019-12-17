@@ -30,16 +30,6 @@ class PdfController extends Controller
 
         $htmlInput = $request->input(['htmlInput']);
 
-        // $htmlInput = '
-        // <div data-v-4a7fb514="" class="drag-it-dude" id="0" style="left: 56px; top: 76px; font-size: x-large; font-family: Futura;">
-        //     <div data-v-4a7fb514="" class="innerElement">Jakob Schlagenhaufer</div>
-        // </div>
-        // <div data-v-4a7fb514="" class="drag-it-dude" id="1" style="left: 184px; top: 101px; font-size: x-small; font-family: Verdana;">
-        //     <div data-v-4a7fb514="" class="innerElement">
-        //     www.spasti.com
-        //     </div>
-        // </div>';
-
         $html = $htmlInput . '
         <style>
         .drag-it-dude {
