@@ -70,6 +70,7 @@ export default {
     methods: {
         register() {
             if(this.password === this.passwordConfirmation) {
+                this.$store.commit('toggleLoadingState')
                 axios.post('http://localhost/api/register', {
                     name: this.name,
                     email: this.email,
@@ -80,6 +81,7 @@ export default {
                     localStorage.setItem('token', response.data.token)
                     this.$store.commit('logUserIn')
                     console.log(this.$store.getters.getLoginStatus);
+                    this.$store.commit('toggleLoadingState')
                     this.$router.push('/')
                 }).catch(function(error) {
                     console.log(error);

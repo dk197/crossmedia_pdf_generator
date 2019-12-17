@@ -16,6 +16,41 @@
     </div>
 </template>
 
+<script>
+import axios from 'axios'
+export default {
+    data() {
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    created(){
+        if(this.$store.getters.getLoginStatus){
+            this.$router.push('/');
+        }
+    },
+    methods: {
+        login() {
+            this.$store.commit('toggleLoadingState')
+            axios.post('http://localhost/api/login', {
+                email: this.email,
+                password: this.password
+            }).then(response  => {
+                console.log(response.data);
+                localStorage.setItem('token', response.data.token)
+                this.$store.commit('logUserIn')
+                console.log(this.$store.getters.getLoginStatus);
+                this.$store.commit('toggleLoadingState')
+                this.$router.push('/')
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
+    }
+}
+</script>
+
 <style>
     label {
         padding-top: 5px;
@@ -43,36 +78,3 @@
         right: 0;
     }
 </style>
-
-<script>
-import axios from 'axios'
-export default {
-    data() {
-        return {
-            email: '',
-            password: ''
-        }
-    },
-    created(){
-        if(this.$store.getters.getLoginStatus){
-            this.$router.push('/');
-        }
-    },
-    methods: {
-        login() {
-            axios.post('http://localhost/api/login', {
-                email: this.email,
-                password: this.password
-            }).then(response  => {
-                console.log(response.data);
-                localStorage.setItem('token', response.data.token)
-                this.$store.commit('logUserIn')
-                console.log(this.$store.getters.getLoginStatus);
-                this.$router.push('/')
-            }).catch(function(error) {
-                console.log(error);
-            });
-        }
-    }
-}
-</script>
