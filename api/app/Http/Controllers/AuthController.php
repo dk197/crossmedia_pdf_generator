@@ -78,5 +78,9 @@ class AuthController extends Controller
     public function test() {
         print_r('test');
     }
+
+    public function xtest() {
+        return response()->download('./jeroen-desloovere.vcf');
+    }
 }
 ?>

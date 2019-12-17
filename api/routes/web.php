@@ -25,6 +25,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // localhost:80/api/test
     $router->get('test', 'AuthController@test');
 
+    $router->get('xtest', 'AuthController@xtest');
     // routes that need an authorized user
     $router->group(['middleware' => 'auth:api'], function () use ($router) {
         $router->get('/secured', function () {
@@ -40,5 +41,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 $router->group(['prefix' => 'generate'], function () use ($router) {
     // localhost:80/generate/pdf
     $router->get('pdf', 'PdfController@pdfGenerieren');
+
+    $router->get('vcard', 'VCardController@generateVcard');
 })
 ?>
