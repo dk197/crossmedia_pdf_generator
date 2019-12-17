@@ -52,6 +52,11 @@ export default {
             password: ''
         }
     },
+    created(){
+        if(this.$store.getters.getLoginStatus){
+            this.$router.push('/');
+        }
+    },
     methods: {
         login() {
             axios.post('http://localhost/api/login', {

@@ -61,6 +61,11 @@ export default {
             passwordConfirmation: ''
         }
     },
+    created(){
+        if(this.$store.getters.getLoginStatus){
+            this.$router.push('/');
+        }
+    },
     methods: {
         register() {
             if(this.password === this.passwordConfirmation) {
