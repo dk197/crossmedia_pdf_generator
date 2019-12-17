@@ -3,24 +3,52 @@
         <form class="col-4" v-on:submit.prevent="register">
             <h3>Register</h3>
             <div class="form-group">
-                <label for="user-name">Name:</label>
-                <input type="name" class="form-control" v-model="name" id="user-name" placeholder="Enter name">
+                <label for="user-name">Username:</label>
+                <input type="name" class="form-control" v-model="name" id="user-name" placeholder="Username">
             </div>
             <div class="form-group">
-                <label for="user-email">Email address:</label>
-                <input type="email" class="form-control" v-model="email" id="user-email" aria-describedby="emailHelp" placeholder="Enter email">
+                <label for="user-email">E-Mail Address:</label>
+                <input type="email" class="form-control" v-model="email" id="user-email" aria-describedby="emailHelp" placeholder="E-Mail">
             </div>
             <div class="form-group">
                 <label for="user-password">Password:</label>
-                <input type="password" class="form-control" v-model="password" id="user-password" placeholder="Enter password">
+                <input type="password" class="form-control" v-model="password" id="user-password" placeholder="Password">
             </div><div class="form-group">
-                <label for="user-password-confirmation">Password:</label>
-                <input type="password" class="form-control" v-model="passwordConfirmation" id="user-password-confirmation" placeholder="Enter password">
+                <label for="user-password-confirmation">Confirm Password:</label> 
+                <input type="password" class="form-control" v-model="passwordConfirmation" id="user-password-confirmation" placeholder="Confirm Password">
             </div>
-            <button class="btn btn-primary">Register</button>
+            <button class="btn btn-primary form-button">Register</button>
+            <router-link class="nav-link login-link" to="login" active-class="active" exact>Have an Account? Login here.</router-link>
         </form>
     </div>
 </template>
+
+<style>
+    label {
+        padding-top: 5px;
+    }
+    .form-control {
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        width: 400px;
+    }
+    .login-link {
+        margin-left: 20px;
+        color: white;
+        text-transform: none;
+        position: absolute;
+        right: 13%;
+    }
+    .login-link:hover {
+        color: lightgrey;
+        text-transform: none;
+    }
+    .form-button {
+        position: absolute;
+        right: 0;
+    }
+</style>
 
 <script>
 import axios from 'axios'
