@@ -20,9 +20,9 @@
                     <li></li>
             </ul> -->
         </div>
-        <div id="anchortab" class="tabs">
+        <div class="tabs">
  <div class="tab-2">
-     <a href="#anchortab"><label for="tab2-1"><h4>Warum Visitenkarten-Online?</h4></label></a>
+     <label for="tab2-1"><h4>Warum Visitenkarten-Online?</h4></label>
     <input id="tab2-1" name="tabs-two" type="radio" checked="checked">
     <div>
       <h4>Visitenkarten erstellen – die Basis Ihrer Geschäftsausstattung</h4>
