@@ -2,7 +2,7 @@
     <div>
         <h1>Erstelle deine Visitenkarte</h1>
         <p>Deine Kontaktdaten:</p>
-        <form action="/generate/pdf" v-on:submit.prevent="pdf">
+        <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
             <h3 @click="changeText(1,1)">Deine Daten:</h3>
             <div>
                 <select id="attributeSelect" @change="createNewAttribute">
@@ -33,24 +33,22 @@
                     <option>Futura</option>
                     <option>Times</option>
                 </select>
-                <input type="number" v-model="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
-                <input type="number" v-model="cardHeight"  placeholder="Höhe" id="cardHeight" @change="handleHeight">
+                <input type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
+                <input type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
             </div>
             <div id="businessCardInput">
                 <input v-model="bricks[currentAttribute].data.text" placeholder="name">
             </div>
-            <button class="btn btn-primary" target="_blank">Submit</button>
+            <input type="submit" class="btn btn-primary" value="View Pdf">
         </form>
         
         <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
             <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-style="brick.data.fontStyle" :id="index"></text-brick>
         </div>
-        
     </div>
 </template>
 
 <script>
-import axios from 'axios';
 import TextBrick from './TextBrick'
 export default {
     name: 'bc-input',
@@ -104,18 +102,6 @@ export default {
         handleHeight() {
             var height = document.getElementById("cardHeight").value;
             document.getElementById('businessCardCanvas').style.height = height +'mm';
-        },
-        pdf() {
-            axios.post('http://localhost/generate/pdf', {
-                cardWidth: this.cardWidth,
-                cardHeight: this.cardHeight,
-                name: this.name,
-                adress: this.adress
-            }).then(response  => {
-                console.log(response);
-            }).catch(function(error) {
-                console.log(error);
-            });
         }, 
         changeFontSize(attribute){
             var fontSize = event.target.value;
