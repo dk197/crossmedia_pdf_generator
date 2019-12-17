@@ -32,7 +32,11 @@
                           </span>
                         </li>
                       </ul>
-                      <a
+                      <a v-if="getLoginStatus"
+                        href="/#/designcard"
+                        class="btn btn-block btn-primary text-uppercase"
+                      >Zum Editor</a>
+                      <a v-else
                         href="/#/register"
                         class="btn btn-block btn-primary text-uppercase"
                       >Jetzt registrieren</a>
@@ -115,6 +119,16 @@
           </section>
         </div>
 </template>
+
+<script>
+export default {
+  computed:{
+    getLoginStatus(){
+      return this.$store.getters.getLoginStatus
+    }
+  }
+}
+</script>
 
 <style scoped>
     .pricing .card {
