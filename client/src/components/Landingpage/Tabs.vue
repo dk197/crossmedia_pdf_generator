@@ -8,7 +8,14 @@
         <div class="tab-content">
           <div>
             <h4>Visitenkarten erstellen – die Basis Ihrer Geschäftsausstattung</h4>
-            <p>Ein Geschäftstermin ohne Visitenkartentausch? Unvorstellbar. Visitenkarten sind noch immer eines der wichtigsten Werbemittel. Nutzen Sie Ihre Karte, um sich und Ihr Unternehmen vom ersten Aufeinandertreffen an professionell zu präsentieren. Ein Blick auf Vorder- und Rückseite und in wenigen Sekunden entscheidet sich, welchen Eindruck Ihr Kunde von Ihnen und Ihrer Firma hat. Das Gute: Sie können diesen ersten Eindruck selbst steuern! Entscheidend sind Material und Design. Schließlich muss Ihre Karte – z. B. auf einer Messe oder bei einem geschäftlichen Event – aus einer Vielzahl von Kärtchen hervorstechen und beim Empfänger dauerhaft in Erinnerung bleiben. Von der klassischen Visitenkarte bis hin zur Visitenkarte mit Klapp- oder Aufkleber-Funktion – allesamt erhältlich in verschiedenen Materialen, Papierstärken und mit Veredelungen: Ihre Online-Druckerei bietet Ihnen für die unterschiedlichsten Wünsche eine breite Palette an Möglichkeiten zum Visitenkarten drucken an.</p>
+            <p>Ein Geschäftstermin ohne Visitenkartentausch? Unvorstellbar. Visitenkarten sind noch immer eines der wichtigsten Werbemittel. 
+                Nutzen Sie Ihre Karte, um sich und Ihr Unternehmen vom ersten Aufeinandertreffen an professionell zu präsentieren. 
+                Ein Blick auf Vorder- und Rückseite und in wenigen Sekunden entscheidet sich, welchen Eindruck Ihr Kunde von Ihnen und Ihrer Firma hat. 
+                Das Gute: Sie können diesen ersten Eindruck selbst steuern! Entscheidend sind Material und Design. Schließlich muss Ihre Karte – z. B. 
+                auf einer Messe oder bei einem geschäftlichen Event – aus einer Vielzahl von Kärtchen hervorstechen und beim Empfänger dauerhaft 
+                in Erinnerung bleiben. Von der klassischen Visitenkarte bis hin zur Visitenkarte mit Klapp- oder Aufkleber-Funktion – allesamt erhältlich in 
+                verschiedenen Materialen, Papierstärken und mit Veredelungen: Online-Visitenkarten bietet Ihnen für die unterschiedlichsten Wünsche eine 
+                breite Palette an Möglichkeiten zum Visitenkarten drucken und zum Downlaod an.</p>
           </div>
           <img class="vcard" src="../../assets/visitenkarten.png" />
         </div>
