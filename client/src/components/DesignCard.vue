@@ -1,11 +1,6 @@
 <template>
     <div>
         <h1>Erstelle deine Visitenkarte</h1>
-        <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
-            <input type="hidden" name="name1" value="value1">
-            <input type="hidden" name="name2" value="value2">
-            <input type="submit" class="btn btn-primary" value="Open results in a new window"> 
-        </form>
         <p>Deine Kontaktdaten:</p>
         <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
             <h3 @click="changeText(1,1)">Deine Daten:</h3>
@@ -52,7 +47,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import TextBrick from './TextBrick'
 export default {
     name: 'bc-input',
@@ -149,18 +143,6 @@ export default {
         handleHeight() {
             var height = document.getElementById("cardHeight").value;
             document.getElementById('businessCardCanvas').style.height = height +'mm';
-        },
-        pdf() {
-            axios.post('http://localhost/generate/pdf', {
-                cardWidth: this.cardWidth,
-                cardHeight: this.cardHeight,
-                name: this.name,
-                adress: this.adress
-            }).then(response  => {
-                console.log(response);
-            }).catch(function(error) {
-                console.log(error);
-            });
         }, 
         changeFontSize(){
             var fontSize = document.getElementById("fontSize").value;
