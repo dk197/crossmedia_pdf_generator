@@ -3,10 +3,10 @@
         <h1>Erstelle deine Visitenkarte</h1>
         <p>Deine Kontaktdaten:</p>
         <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
-            <h3 @click="changeText(1,1)">Deine Daten:</h3>
+            <h3>Deine Daten:</h3>
             <div>
                 <select id="attributeSelect" @change="createNewAttribute">
-                    <option disabled value="">Please select your attribute</option>
+                    <option disabled :value="currentAttribute">Please select your attribute</option>
                     <option>Name</option>
                     <option>Position</option>
                     <option>Firma</option>
@@ -37,7 +37,9 @@
                 <input type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
             </div>
             <div id="businessCardInput">
-                <input v-model="bricks[currentAttribute].data.text" placeholder="name">
+                <td v-for="(brick, index) in bricks" :key="index">
+                    <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
+                </td>
             </div>
             <input type="hidden" name="htmlInput" id="htmlInput">
             <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
@@ -72,18 +74,7 @@ export default {
                         text: 'tests'   
                     }
                 }
-            ],
-            // created: function() {
-            //       this.getJson();
-            //     },
-            //     methods: {
-            //         getJson: function(){
-            //             $.getJSON('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyA_NtdvhXR4TDbYHJKvA1XJz4rjr-DjZ5E',function(task){
-            //               this.list = task;
-            //               console.log(this.list);
-            //             }.bind(this));
-            //         }
-            //     },
+            ]
         }
     },
     components: {
@@ -148,6 +139,9 @@ export default {
         },
         handleHtml() {
             document.getElementById('htmlInput').value = document.getElementById('businessCardCanvas').innerHTML;
+        },
+        changeCurrentAttribute(index){
+            this.currentAttribute = index;
         }
     }
 };
