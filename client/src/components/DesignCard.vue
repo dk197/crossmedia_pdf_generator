@@ -26,12 +26,10 @@
                     <option>x-large</option>
                     <option>xx-large</option>
                 </select>
-                <select v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
+                <select v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)" @click="axiosTest()">
                     <option disabled value="">Please select your font style</option>
-                    <option>Verdana</option>
-                    <option>Arial</option>
-                    <option>Futura</option>
-                    <option>Times</option>
+                    <option v-for="(family, index) in fontFamilies.items" :key="index">{{fontFamilies.items[index].family}}</option>
+                    
                 </select>
                 <input type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
                 <input type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
@@ -53,6 +51,7 @@
 
 <script>
 import TextBrick from './TextBrick'
+import axios from 'axios';
 export default {
     name: 'bc-input',
     data () {
@@ -70,11 +69,12 @@ export default {
                     attribute: 'Name',
                     data: {
                         fontSize: '',
-                        fontStyle: '',
-                        text: 'tests'   
+                        fontStyle: '', 
+                        text: ''   
                     }
                 }
-            ]
+            ],
+            fontFamilies: []
         }
     },
     components: {
@@ -135,13 +135,23 @@ export default {
                 this.bricks.push(newAttrObj)
             }
             const attrKey = this.getKeyFromArray(this.bricks, attr)
-            this.currentAttribute = attrKey
+            this.changeCurrentAttribute(attrKey);
         },
         handleHtml() {
             document.getElementById('htmlInput').value = document.getElementById('businessCardCanvas').innerHTML;
         },
         changeCurrentAttribute(index){
             this.currentAttribute = index;
+        },
+        axiosTest(){
+            axios.get('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyA_NtdvhXR4TDbYHJKvA1XJz4rjr-DjZ5E')
+            .then(response  => {
+                this.fontFamilies = response.data;
+                console.log(this.fontFamilies);
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
         }
     }
 };
