@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="wrapper">
 	<loader></loader>
     <dmc-header></dmc-header>
     <div class="container-fluid">
@@ -27,6 +27,17 @@ export default {
 
 <style>
 
+html, body {
+	height: 100%;
+}
+
+.wrapper {
+	position: relative;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
 :focus {
 	outline: none;
 }
@@ -40,6 +51,7 @@ body {
 }
 .container-fluid {
 	margin-top: 50px;
+	padding-bottom: 200px;
 }
 form > h3 {
 	margin-bottom: 20px;

@@ -12,10 +12,11 @@
 <style scoped>
     .footer {
         background-color: #42b883;
+        display: flex;
         height: 200px;
         position: absolute;
+        bottom: 0px;
         width: 100%;
-        bottom: 0;
     }
     
     .logo {
