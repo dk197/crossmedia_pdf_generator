@@ -80,6 +80,11 @@ export default {
     components: {
         TextBrick
     },
+    created(){
+        if(!this.$store.getters.getLoginStatus){
+            this.$router.push('/');
+        }
+    },
     computed: {
         getBrickValue(attribute) {
             const key = this.getKeyFromArray(this.bricks, attribute)
