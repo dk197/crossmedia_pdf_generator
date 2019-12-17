@@ -1,6 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Fancy PDF-Generator</a>
+    <!-- <a class="navbar-brand" href="#">Fancy PDF-Generator</a> -->
+    <img src="../assets/logo.svg" class="logo">
     <button
       class="navbar-toggler"
       type="button"
@@ -72,5 +73,10 @@ export default {
 <style>
 .navbar {
   border-bottom: 1px solid grey;
+}
+
+.logo{
+  margin-right: 30px;
+  fill: white;
 }
 </style>

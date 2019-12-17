@@ -48,7 +48,7 @@
               <li><span class="fa-li"><i class="fas fa-check"></i></span><strong></strong></li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span></li>
             </ul>
-            <a href="#" class="btn btn-block btn-primary text-uppercase">Jetzt registrieren</a>
+            <a href="/#/register" class="btn btn-block btn-primary text-uppercase">Jetzt registrieren</a>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
               <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>bestellbar bis 190g/qm</li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span><strong></strong></li>
             </ul>
-            <a href="#" class="btn btn-block btn-primary text-uppercase">Kontaktieren Sie uns hier</a>
+            <a href="mailto:visitenkartenonline@dieseemailexistiertnicht.de" class="btn btn-block btn-primary text-uppercase">Kontaktieren Sie uns hier</a>
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@
               <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>bestellbar bis 270g/qm</li>
               <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>persönliche Beratung</li>
             </ul>
-            <a href="#" class="btn btn-block btn-primary text-uppercase">Kontaktieren Sie uns hier</a>
+            <a href="mailto:visitenkartenonline@dieseemailexistiertnicht.de" class="btn btn-block btn-primary text-uppercase">Kontaktieren Sie uns hier</a>
           </div>
         </div>
       </div>
@@ -96,7 +96,7 @@
       <h4>Sofort starten</h4>
       <p>Verlieren Sie keine Zeit! Bringen Sie noch heute Ihr Geschäft auf eine neue Ebene und werden so zum Erfolgsmensch. Mit unserem Editor erstellen Sie simpel wie professionell Ihren neuen Erfolgsausweis. Geizen Sie nicht mit Ihren USP´s #selflove.</p>
       <h5>Ihr Visitenkarten-Online Team</h5>
-      <a href="#" class="btn-secondary btn" style="margin-top: 20px">Jetzt zum Editor</a>
+      <a href="/#/designcard" class="btn-secondary btn" style="margin-top: 20px">Jetzt zum Editor</a>
     </div>
   </div>
 </div>
