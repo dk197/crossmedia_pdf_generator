@@ -42,11 +42,6 @@ class PdfController extends Controller
 
         $html = $htmlInput . '
         <style>
-        @page {
-            margin: 0mm;
-            margin-header: 0mm;
-            margin-footer: 0mm;
-        }
         .drag-it-dude {
             position: absolute;
         }
