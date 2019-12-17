@@ -30,7 +30,7 @@
     </div>
   </div>
   <div class="tab-2 t3">
-    <label for="tab2-2">Unsere Preise</label>
+    <label for="tab2-2"><h4>Unsere Preise</h4></label>
     <input id="tab2-2" name="tabs-two" type="radio">
     <div style="width: 300%;">
       <section class="pricing py-5">
@@ -40,11 +40,11 @@
       <div class="col-lg-4">
         <div class="card mb-5 mb-lg-0">
           <div class="card-body">
-            <h5 class="card-title text-muted text-uppercase text-center">Kostenfrei</h5>
+            <h5 class="card-title text-body text-uppercase text-center">Kostenfrei</h5>
             <hr>
             <ul class="fa-ul">
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Visitenkarten Online-Editor</li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Download als PDF/X </li>
+              <li class="text-body"><span class="fa-li"><i class="fas fa-times"></i></span>Visitenkarten Online-Editor</li>
+              <li class="text-body"><span class="fa-li"><i class="fas fa-times"></i></span>Download als PDF/X </li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span><strong></strong></li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span></li>
             </ul>
@@ -56,12 +56,12 @@
       <div class="col-lg-4">
         <div class="card mb-5 mb-lg-0">
           <div class="card-body">
-            <h5 class="card-title text-muted text-uppercase text-center">Einsteiger</h5>
+            <h5 class="card-title text-body text-uppercase text-center">Einsteiger</h5>
             <hr>
             <ul class="fa-ul">
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Visitenkarten Online-Editor</li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Download als PDF/X </li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>bestellbar bis 190g/qm</li>
+              <li class="text-body"><span class="fa-li"><i class="fas fa-times"></i></span>Visitenkarten Online-Editor</li>
+              <li class="text-body"><span class="fa-li"><i class="fas fa-times"></i></span>Download als PDF/X </li>
+              <li class="text-body"><span class="fa-li"><i class="fas fa-times"></i></span>bestellbar bis 190g/qm</li>
               <li><span class="fa-li"><i class="fas fa-check"></i></span><strong></strong></li>
             </ul>
             <a href="mailto:visitenkartenonline@dieseemailexistiertnicht.de" class="btn btn-block btn-primary text-uppercase">Kontaktieren Sie uns hier</a>
@@ -72,13 +72,13 @@
       <div class="col-lg-4">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title text-muted text-uppercase text-center">Pro</h5>
+            <h5 class="card-title text-body text-uppercase text-center">Pro</h5>
             <hr>
             <ul class="fa-ul">
-             <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Visitenkarten Online-Editor</li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>Download als PDF/X </li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>bestellbar bis 270g/qm</li>
-              <li class="text-muted"><span class="fa-li"><i class="fas fa-times"></i></span>persönliche Beratung</li>
+             <li class="text-body"><span class="fa-li"><i class="fas fa-times"></i></span>Visitenkarten Online-Editor</li>
+              <li class="text-body"><span class="fa-li"><i class="fas fa-times"></i></span>Download als PDF/X </li>
+              <li class="text-body"><span class="fa-li"><i class="fas fa-times"></i></span>bestellbar bis 270g/qm</li>
+              <li class="text-body"><span class="fa-li"><i class="fas fa-times"></i></span>persönliche Beratung</li>
             </ul>
             <a href="mailto:visitenkartenonline@dieseemailexistiertnicht.de" class="btn btn-block btn-primary text-uppercase">Kontaktieren Sie uns hier</a>
           </div>
@@ -90,7 +90,7 @@
     </div>
   </div>
   <div class="tab-2">
-    <label for="tab2-3">Unser Editor</label>
+    <label for="tab2-3"><h4>Unser Editor</h4></label>
     <input id="tab2-3" name="tabs-two" type="radio">
     <div>
       <h4>Sofort starten</h4>
@@ -137,7 +137,7 @@ select:focus {
     text-align: center; }
   .tabs [class^="tab"] [type="radio"],
   .tabs [class*=" tab"] [type="radio"] {
-    border-bottom: 1px solid rgba(239, 237, 239, 0.5);
+    border-bottom: 3px solid rgba(239, 237, 239, 0.5);
     cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -151,10 +151,10 @@ select:focus {
     .tabs [class^="tab"] [type="radio"]:hover, .tabs [class^="tab"] [type="radio"]:focus,
     .tabs [class*=" tab"] [type="radio"]:hover,
     .tabs [class*=" tab"] [type="radio"]:focus {
-      border-bottom: 1px solid #fd264f; }
+      border-bottom: 3px solid #41B883; }
     .tabs [class^="tab"] [type="radio"]:checked,
     .tabs [class*=" tab"] [type="radio"]:checked {
-      border-bottom: 2px solid #fd264f; }
+      border-bottom: 5px solid #41B883; }
     .tabs [class^="tab"] [type="radio"]:checked + div,
     .tabs [class*=" tab"] [type="radio"]:checked + div {
       opacity: 1; }
@@ -216,9 +216,7 @@ select:focus {
   margin-bottom: 1rem;
 }
 
-.pricing .text-muted {
-  opacity: 0.7;
-}
+
 
 .pricing .btn {
   font-size: 80%;
@@ -226,7 +224,7 @@ select:focus {
   letter-spacing: .1rem;
   font-weight: bold;
   padding: 1rem;
-  opacity: 0.7;
+  opacity: 1;
   transition: all 0.2s;
 }
 
