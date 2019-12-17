@@ -101,7 +101,10 @@ export default {
   border-bottom: 3px solid #41b883;
 }
 .tabs [class^="tab"] [type="radio"]:checked,
-.tabs [class*=" tab"] [type="radio"]:checked {
+.tabs [class*=" tab"] [type="radio"]:checked,
+#tab2-2:focus,
+#tab2-1:focus,
+#tab2-3:focus {
   border-bottom: 5px solid #41b883;
 }
 .tabs [class^="tab"] [type="radio"]:checked + div,

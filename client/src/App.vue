@@ -6,6 +6,7 @@
 		
 		<router-view></router-view> 
 	</div>
+	<Footer></Footer>
 </div>
 	
 </template>
@@ -13,16 +14,23 @@
 <script>
 import Loader from './components/others/Loader'
 import Header from './components/Header'
+import Footer from './components/Footer'
 export default {
 	components: {
 		dmcHeader: Header,
-		loader: Loader	
+		loader: Loader,
+		Footer: Footer,
 	}
 	
 };
 </script>
 
 <style>
+
+:focus {
+	outline: none;
+}
+
 body {
     color: white;
 }
