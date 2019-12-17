@@ -26,9 +26,7 @@ class PdfController extends Controller
 
         $this->validate($request, [
             'cardWidth' => 'required',
-            'cardHeight' => 'required',
-            'name' => 'required',
-            'adress' => 'required',
+            'cardHeight' => 'required'
         ]);
 
         $cardWidth = $request->input('cardWidth');
