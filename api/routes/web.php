@@ -32,6 +32,6 @@ $router->group(['prefix' => 'generate'], function () use ($router) {
     // localhost:80/generate/pdf
     $router->post('pdf', 'PdfController@pdfGenerieren');
     // localhost:80/generate/pdfTest
-    $router->get('pdfTest', 'PdfController@pdfTestGenerieren');
+    $router->get('pdfAusgabe', 'PdfController@pdfAusgabe');
 })
 ?>

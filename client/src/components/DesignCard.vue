@@ -1,18 +1,23 @@
 <template>
     <div>
         <h1>Erstelle deine Visitenkarte</h1>
+        <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
+            <input type="hidden" name="name1" value="value1">
+            <input type="hidden" name="name2" value="value2">
+            <input type="submit" class="btn btn-primary" value="Open results in a new window"> 
+        </form>
         <p>Deine Kontaktdaten:</p>
-        <form action="/generate/pdf" v-on:submit.prevent="pdf">
+        <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
             <h3>Deine Daten:</h3>
             <div>
-                <input type="number" v-model="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
-                <input type="number" v-model="cardHeight"  placeholder="Höhe" id="cardHeight" @change="handleHeight">
+                <input type="number" v-model="cardWidth" name="cardWidth" placeholder="Breite" id="cardWidth" @change="handleWidth">
+                <input type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
             </div>
             <div id="businessCardInput">
-                <input v-model="name" placeholder="dein Name">
-                <input v-model="adress" placeholder="deine Mail">
+                <input v-model="name" name="name"  placeholder="dein Name">
+                <input v-model="adress" name="adress" placeholder="deine Mail">
             </div>
-            <button class="btn btn-primary" target="_blank">Submit</button>
+            <input type="submit" class="btn btn-primary" value="View Pdf">
         </form>
         
         <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
@@ -23,7 +28,6 @@
                 <div class="innerElement">{{ adress }}</div>
             </drag-it-dude>
         </div>
-        
     </div>
 </template>
 
@@ -63,6 +67,12 @@ export default {
             }).catch(function(error) {
                 console.log(error);
             });
+        },
+        pdfAusgabe() {
+            var link=document.createElement('a');
+            link.href="http://localhost:80/generate/pdfAusgabe";
+            link.target="_blank";
+            link.click();
         }
     }
 };
