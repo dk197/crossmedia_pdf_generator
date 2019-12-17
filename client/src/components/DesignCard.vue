@@ -39,7 +39,8 @@
             <div id="businessCardInput">
                 <input v-model="bricks[currentAttribute].data.text" placeholder="name">
             </div>
-            <input type="submit" class="btn btn-primary" value="View Pdf">
+            <input type="hidden" name="htmlInput" id="htmlInput">
+            <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
         </form>
         
         <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
@@ -144,6 +145,9 @@ export default {
             }
             const attrKey = this.getKeyFromArray(this.bricks, attr)
             this.currentAttribute = attrKey
+        },
+        handleHtml() {
+            document.getElementById('htmlInput').value = document.getElementById('businessCardCanvas').innerHTML;
         }
     }
 };
