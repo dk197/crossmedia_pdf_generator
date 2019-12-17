@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -40,8 +42,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
 $router->group(['prefix' => 'generate'], function () use ($router) {
     // localhost:80/generate/pdf
-    $router->get('pdf', 'PdfController@pdfGenerieren');
-
-    $router->get('vcard', 'VCardController@generateVcard');
+    $router->post('pdf', 'PdfController@pdfGenerieren');
 })
 ?>

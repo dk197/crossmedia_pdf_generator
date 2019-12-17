@@ -1,7 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 use \mpdf;
+use Illuminate\Http\Request;
+
 
 class PdfController extends Controller
 {
@@ -15,40 +16,33 @@ class PdfController extends Controller
         //
     }
 
-    public function test() {
-        print_r('test');
-    }
+    public function pdfGenerieren(Request $request)
+    {
+        header("Access-Control-Allow-Origin: *");
 
-    public function pdfGenerieren() {
-        $height = 51;
-        $width = 89;
-        $html = '
-        <html>
-            <div class="Content">
-                <div class="Container Container-Left">
-                    <img src="http://api.qrserver.com/v1/create-qr-code/?data=HelloWorld&amp;size=50x50" alt="" title="" />
-                </div>
-                <div class="Container Container-Right">
-                    <p class="Firstname">Max</p>
-                    <p class="Lastname">Mustermann</p>
-                </div>
-            </div>
-        </html>
+        $this->validate($request, [
+            'cardWidth' => 'required',
+            'cardHeight' => 'required'
+        ]);
+
+        $cardWidth = $request->input('cardWidth');
+        $cardHeight = $request->input('cardHeight');
+
+        $htmlInput = $request->input(['htmlInput']);
+
+        $html = $htmlInput . '
         <style>
-            @page {
-                margin: 0mm;
-                margin-header: 0mm;
-                margin-footer: 0mm;
-            }
-
-        </style>
-        ';
+        .drag-it-dude {
+            position: absolute;
+        }
+        </style>';
 
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-8',
-            'format' => [$height, $width],
+            'format' => [$cardHeight, $cardWidth],
             'orientation' => 'L'
         ]);
+
         $mpdf->showImageErrors = true;
         $mpdf->debug = true;
 
@@ -56,6 +50,6 @@ class PdfController extends Controller
         $mpdf->PDFX =  true;
 
         $mpdf->WriteHTML($html);
-        $mpdf->Output('visitCard.pdf', \Mpdf\Output\Destination::INLINE);
+        $mpdf->Output('', 'I');
     }
 }
