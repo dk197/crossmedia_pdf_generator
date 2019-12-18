@@ -17,13 +17,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li v-if="!showLoginStatus" class="nav-item">
-          <router-link class="nav-link" to="login" active-class="active" exact>Login</router-link>
+          <router-link class="nav-link" to="login" active-class="active" exact>Einloggen</router-link>
         </li>
         <li v-if="!showLoginStatus" class="nav-item">
-          <router-link class="nav-link" to="register" active-class="active" exact>Register</router-link>
+          <router-link class="nav-link" to="register" active-class="active" exact>Registrieren</router-link>
         </li>
         <li v-if="showLoginStatus" class="nav-item">
-          <a class="nav-link" href="#" @click="logout">Logout</a>
+          <router-link class="nav-link" to="designcard" active-class="active" exact>Zum Editor</router-link>
+        </li>
+        <li v-if="showLoginStatus" class="nav-item">
+          <a class="nav-link" href="#" @click="logout">Ausloggen</a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">{{ showLoginStatus }}</a>
