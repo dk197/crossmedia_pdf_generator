@@ -5,7 +5,7 @@
             <div class="dc-input-area">
                 <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
                     <!-- <h3>Deine Daten:</h3> -->
-                    <div class=dc-options>
+                    <div class="dc-data">
                         <h4>Optionen:</h4>
                         <p class="dc-label">Schriftgröße:</p>
                         <select class="dc-input" v-model="fontSize" id="fontSize" @change="changeFontSize(currentAttribute)">
@@ -278,7 +278,7 @@ export default {
         width: 200px;
     }
     .dc-input-size {
-        width: 50px;
+        width: 60px;
     }
     .dc-card-options {
         display: flex;
