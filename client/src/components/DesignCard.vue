@@ -32,17 +32,22 @@
                     </div>
                     <div class="dc-data">
                         <h4>Daten:</h4>
-                        <select class="dc-input" id="attributeSelect" @change="createNewAttribute">
-                            <option disabled :value="currentAttribute">Datentyp</option>
-                            <option>Name</option>
-                            <option>Position</option>
-                            <option>Firma</option>
-                            <option>Adresse</option>
-                            <option>Telefon</option>
-                            <option>Fax</option>
-                            <option>E-Mail</option>
-                            <option>Website</option>
-                        </select>
+                        <div class="input-group">
+                            <select class="dc-input" id="attributeSelect" >
+                                <option disabled :value="currentAttribute">Datentyp</option>
+                                <option>Name</option>
+                                <option>Position</option>
+                                <option>Firma</option>
+                                <option>Adresse</option>
+                                <option>Telefon</option>
+                                <option>Fax</option>
+                                <option>E-Mail</option>
+                                <option>Website</option>
+                            </select>
+                            <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" @click="createNewAttribute">+</button>
+                            </span>
+                        </div>
                         <div id="businessCardInput">
                             <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
                                 <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
@@ -141,8 +146,8 @@ export default {
             }
             return false       
         },
-        createNewAttribute(event){
-            const attr = event.target.value
+        createNewAttribute(){
+            const attr = document.getElementById('attributeSelect').value;
             if(this.getKeyFromArray(this.bricks, attr) === false) {
                 const newAttrObj = {
                     attribute: attr,
