@@ -43,5 +43,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 $router->group(['prefix' => 'generate'], function () use ($router) {
     // localhost:80/generate/pdf
     $router->post('pdf', 'PdfController@pdfGenerieren');
+    // localhost:80/generate/pdf
+    $router->get('fonts', 'FontController@fontsAktuallisieren');
 })
 ?>

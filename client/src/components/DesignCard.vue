@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>Erstelle deine Visitenkarte</h1>
+        <a href="http://localhost:80/generate/fonts" target="_blank" class="btn btn-primary">Fonts Aktuallisieren</a>
         <p>Deine Kontaktdaten:</p>
         <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
             <h3>Deine Daten:</h3>
