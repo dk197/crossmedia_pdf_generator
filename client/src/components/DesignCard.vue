@@ -4,6 +4,7 @@
         <a href="http://localhost:80/generate/fonts" target="_blank" class="btn btn-primary">Fonts Aktuallisieren</a>
         <p>Deine Kontaktdaten:</p>
         <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
+        <link rel="stylesheet" :href="fontUrl">
             <h3>Deine Daten:</h3>
             <div>
                 <select id="attributeSelect" @change="createNewAttribute">
@@ -28,11 +29,12 @@
                     <option>xx-large</option>
                 </select>
                 <select v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
-                    <option disabled value="">Please select your font style</option>
-                    <option>Verdana</option>
-                    <option>Arial</option>
-                    <option>Futura</option>
-                    <option>Times</option>
+                    <option disabled value="">
+                        Please select your font style
+                    </option>
+                    <option v-for="(fontFamily, index) in fontFamilies" :key="index" v-bind="{id: fontFamily.family, href:fontFamily.files.regular}">
+                        {{fontFamily.family}}
+                    </option>
                 </select>
                 <input type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
                 <input type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
@@ -51,11 +53,14 @@
         </div>
     </div>
 </template>
-
 <script>
 import TextBrick from './TextBrick'
+import axios from 'axios';
 export default {
     name: 'bc-input',
+    mounted: function(){
+        this.loadGoogleFonts();
+    },
     data () {
         return{
             currentAttribute: '0',
@@ -64,6 +69,7 @@ export default {
             cardHeight: '51',
             fontSize: '',
             fontStyle: 'Futura',
+            fontUrl: '',
             name: '',
             adress: '',
             bricks: [
@@ -71,11 +77,13 @@ export default {
                     attribute: 'Name',
                     data: {
                         fontSize: '',
-                        fontStyle: '',
-                        text: 'tests'   
+                        fontStyle: '', 
+                        fontUrl: '',
+                        text: ''   
                     }
                 }
-            ]
+            ],
+            fontFamilies: []
         }
     },
     components: {
@@ -101,10 +109,13 @@ export default {
             this.bricks[attribute].data.fontSize = fontSize;
             document.getElementById(attribute).style.fontSize = fontSize;
         },
-        changeFontStyle(attribute){
+        changeFontStyle(attr){
             var fontStyle = event.target.value;
-            this.bricks[attribute].data.fontStyle = fontStyle;
-            document.getElementById(attribute).style.fontFamily = fontStyle;
+            this.bricks[attr].data.fontStyle = fontStyle;
+            var fontUrl = document.getElementById(fontStyle).getAttribute("href");
+            this.bricks[attr].data.fontUrl = fontUrl;
+            document.getElementById(attr).style.fontFamily = fontStyle;
+            console.log(this.bricks)
         },
         changeText(attribute, text) {
             //this.bricks
@@ -130,19 +141,30 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontUrl: '',
                         text: 'Bitte eintippen'   
                     }
                 }
                 this.bricks.push(newAttrObj)
             }
             const attrKey = this.getKeyFromArray(this.bricks, attr)
-            this.currentAttribute = attrKey
+            this.changeCurrentAttribute(attrKey);
         },
         handleHtml() {
             document.getElementById('htmlInput').value = document.getElementById('businessCardCanvas').innerHTML;
         },
         changeCurrentAttribute(index){
             this.currentAttribute = index;
+        },
+        loadGoogleFonts(){
+            axios.get('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyA_NtdvhXR4TDbYHJKvA1XJz4rjr-DjZ5E')
+            .then(response  => {
+                this.fontFamilies = response.data.items;
+                console.log(this.fontFamilies);
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
         }
     }
 };
