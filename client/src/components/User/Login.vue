@@ -3,15 +3,15 @@
         <form class="col-4" v-on:submit.prevent="login">
             <h3>Login</h3>
             <div class="form-group">
-                <label for="user-email">Email address:</label>
+                <label for="user-email">E-Mail Adresse:</label>
                 <input type="email" class="form-control" v-model="email" id="user-email" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
             <div class="form-group">
-                <label for="user-password">Password:</label>
+                <label for="user-password">Passwort:</label>
                 <input type="password" class="form-control" v-model="password" id="user-password" placeholder="Enter password">
             </div>
-            <button class="btn btn-primary form-button">Login</button>
-            <router-link class="register-link" to="register" active-class="active" exact>No Account? Register here.</router-link>
+            <button class="btn btn-primary form-button">Einloggen</button>
+            <router-link class="register-link" to="register" active-class="active" exact>Registrieren</router-link>trz
         </form>
     </div>
 </template>
@@ -51,7 +51,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     label {
         padding-top: 5px;
     }
@@ -66,7 +66,7 @@ export default {
         color: white;
         text-transform: none;
         position: absolute;
-        right: 80px;
+        right: 120px;
         margin-top:7px
     }
     .register-link:hover {

@@ -3,22 +3,22 @@
         <form class="col-4" v-on:submit.prevent="register">
             <h3>Register</h3>
             <div class="form-group">
-                <label for="user-name">Username:</label>
+                <label for="user-name">Benutzername:</label>
                 <input type="name" class="form-control" v-model="name" id="user-name" placeholder="Username">
             </div>
             <div class="form-group">
-                <label for="user-email">E-Mail Address:</label>
+                <label for="user-email">E-Mail Addresse:</label>
                 <input type="email" class="form-control" v-model="email" id="user-email" aria-describedby="emailHelp" placeholder="E-Mail">
             </div>
             <div class="form-group">
-                <label for="user-password">Password:</label>
+                <label for="user-password">Passwort:</label>
                 <input type="password" class="form-control" v-model="password" id="user-password" placeholder="Password">
             </div><div class="form-group">
-                <label for="user-password-confirmation">Confirm Password:</label> 
+                <label for="user-password-confirmation">Passwort wiederholen:</label> 
                 <input type="password" class="form-control" v-model="passwordConfirmation" id="user-password-confirmation" placeholder="Confirm Password">
             </div>
             <button class="btn btn-primary form-button">Register</button>
-            <router-link class="login-link" to="login" active-class="active" exact>Have an Account? Login here.</router-link>
+            <router-link class="login-link" to="login" active-class="active" exact>Einloggen</router-link>
         </form>
     </div>
 </template>

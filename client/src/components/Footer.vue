@@ -13,7 +13,7 @@
     .footer {
         background-color: #42b883;
         display: flex;
-        height: 200px;
+        height: 150px;
         position: absolute;
         bottom: 0px;
         width: 100%;

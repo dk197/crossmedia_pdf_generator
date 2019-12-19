@@ -51,7 +51,7 @@ body {
 }
 .container-fluid {
 	margin-top: 50px;
-	padding-bottom: 200px;
+	padding-bottom: 150px;
 }
 form > h3 {
 	margin-bottom: 20px;
