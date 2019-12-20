@@ -258,9 +258,11 @@ export default {
     }
     .dc-input-area {
         width: 40%;
+        z-index: 50;
     }
     .dc-card-area {
         padding-top: 170px;
+        z-index: 10;
     }
     .dc-input {
         display: block;
