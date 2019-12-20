@@ -22,7 +22,7 @@
                         <p class="dc-label">Schriftart:</p>
                         <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                             <option disabled value="">Schriftart</option>
-                             <option v-for="(fontFamily, index) in fontFamilies" :key="index" v-bind="{id: fontFamily.family, href:fontFamily.files.regular}">
+                            <option v-for="(fontFamily, index) in fontFamilies" :key="index" v-bind="{id: fontFamily.family, href: fontFamily.files.regular}" v-bind:style="{ fontFamily: fontFamily.family }">
                                 {{fontFamily.family}}
                             </option>
                         </select>
@@ -80,6 +80,7 @@ export default {
             cardHeight: '51',
             fontSize: '',
             fontStyle: 'Futura',
+            fontUrl: '',
             name: '',
             adress: '',
             bricks: [
@@ -87,7 +88,9 @@ export default {
                     attribute: 'Name',
                     data: {
                         fontSize: '',
-                        fontStyle: '',
+                        fontStyle: '', 
+                        fontUrl: '',
+                        text: ''   
                     }
                 },
                 {
@@ -171,10 +174,13 @@ export default {
             this.bricks[attribute].data.fontSize = fontSize;
             document.getElementById(attribute).style.fontSize = fontSize;
         },
-        changeFontStyle(attribute){
+        changeFontStyle(attr){
             var fontStyle = event.target.value;
-            this.bricks[attribute].data.fontStyle = fontStyle;
-            document.getElementById(attribute).style.fontFamily = fontStyle;
+            this.bricks[attr].data.fontStyle = fontStyle;
+            var fontUrl = document.getElementById(fontStyle).getAttribute("href");
+            this.bricks[attr].data.fontUrl = fontUrl;
+            document.getElementById(attr).style.fontFamily = fontStyle;
+            console.log(this.bricks)
         },
         changeText(attribute, text) {
             //this.bricks
@@ -182,7 +188,6 @@ export default {
             console.log(text)
             const key = this.getKeyFromArray(this.bricks, attribute)
             console.log(key)
-
         },
         getKeyFromArray(array, value) {
             for (let index = 0; index < array.length; index++) {
@@ -200,15 +205,14 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
-                        // text: 'Bitte eintippen'
-                    },
-                    
-
+                        fontUrl: '',
+                        text: 'Bitte eintippen'   
+                    }
                 }
                 this.bricks.push(newAttrObj)
             }
             const attrKey = this.getKeyFromArray(this.bricks, attr)
-            this.currentAttribute = attrKey
+            this.changeCurrentAttribute(attrKey);
         },
         handleHtml() {
             document.getElementById('htmlInput').value = document.getElementById('businessCardCanvas').innerHTML;
@@ -217,11 +221,21 @@ export default {
             this.currentAttribute = index;
         },
         loadGoogleFonts(){
-            alert();
             axios.get('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyA_NtdvhXR4TDbYHJKvA1XJz4rjr-DjZ5E')
             .then(response  => {
                 this.fontFamilies = response.data.items;
-                console.log(this.fontFamilies);
+                var sheet = window.document.styleSheets[0];
+                for (var i = 0; i < this.fontFamilies.length; i++) {
+                    var selector = "@font-face ";
+                    var rules = "font-family: "+ this.fontFamilies[i].family +";src: url('"+ this.fontFamilies[i].files.regular +"');";
+                    var index = sheet.cssRules.length;
+                    if("insertRule" in sheet) {
+                        sheet.insertRule(selector + "{" + rules + "}", index);
+                    }
+                    else if("addRule" in sheet) {
+                        sheet.addRule(selector, rules, index);
+                    }
+                }                
             })
             .catch(function(error) {
                 console.log(error);
@@ -232,6 +246,15 @@ export default {
 </script>
 
 <style>
+    /* @font-face {
+        font-family: Actor;
+        src: url('http://fonts.gstatic.com/s/actor/v9/wEOzEBbCkc5cO3ekXygtUMIO.ttf');
+    }
+
+    @font-face {
+        font-family: ABeeZee;
+        src: url('http://fonts.gstatic.com/s/abeezee/v13/esDR31xSG-6AGleN6tKukbcHCpE.ttf');
+    } */
     .innerElement{
         color: black;
         cursor: pointer;
