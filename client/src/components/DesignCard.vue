@@ -22,10 +22,9 @@
                         <p class="dc-label">Schriftart:</p>
                         <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                             <option disabled value="">Schriftart</option>
-                            <option>Verdana</option>
-                            <option>Arial</option>
-                            <option>Futura</option>
-                            <option>Times</option>
+                             <option v-for="(fontFamily, index) in fontFamilies" :key="index" v-bind="{id: fontFamily.family, href:fontFamily.files.regular}">
+                                {{fontFamily.family}}
+                            </option>
                         </select>
                         <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
                         <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
@@ -67,8 +66,12 @@
 
 <script>
 import TextBrick from './TextBrick'
+import axios from 'axios';
 export default {
     name: 'bc-input',
+    mounted: function(){
+        this.loadGoogleFonts();
+    },
     data () {
         return{
             currentAttribute: '0',
@@ -136,7 +139,8 @@ export default {
                         fontStyle: '',
                     }
                 },
-            ]
+            ],
+            fontFamilies: []
         }
     },
     components: {
@@ -211,6 +215,17 @@ export default {
         },
         changeCurrentAttribute(index){
             this.currentAttribute = index;
+        },
+        loadGoogleFonts(){
+            alert();
+            axios.get('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyA_NtdvhXR4TDbYHJKvA1XJz4rjr-DjZ5E')
+            .then(response  => {
+                this.fontFamilies = response.data.items;
+                console.log(this.fontFamilies);
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
         }
     }
 };
