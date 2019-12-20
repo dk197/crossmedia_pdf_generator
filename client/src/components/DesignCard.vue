@@ -27,12 +27,12 @@
                             <option>Futura</option>
                             <option>Times</option>
                         </select>
-                        <p class="dc-label">Breite:</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
-                        <p class="dc-label">Höhe:</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
+                        <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
+                        <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
                     </div>
                     <div class="dc-data">
                         <h4>Daten:</h4>
-                        <select class="dc-input" id="attributeSelect" @change="createNewAttribute">
+                        <!-- <select class="dc-input" id="attributeSelect" @change="createNewAttribute">
                             <option disabled :value="currentAttribute">Datentyp</option>
                             <option>Name</option>
                             <option>Position</option>
@@ -42,7 +42,7 @@
                             <option>Fax</option>
                             <option>E-Mail</option>
                             <option>Website</option>
-                        </select>
+                        </select> -->
                         <div id="businessCardInput">
                             <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
                                 <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
@@ -52,10 +52,9 @@
                             <input type="hidden" name="htmlInput" id="htmlInput">
                             <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
                         </div>
-                        
                     </div>
-                    
                 </form>
+                <button class="dc-custom btn btn-success" @click="createNewAttribute">+ Extrafeld</button>
             </div>
             <div class="dc-card-area">
                 <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
@@ -86,9 +85,57 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
-                        // text: 'tests'   
                     }
-                }
+                },
+                {
+                    attribute: 'Position',
+                    data: {
+                        fontSize: '',
+                        fontStyle: '',
+                    }
+                },
+                {
+                    attribute: 'Firma',
+                    data: {
+                        fontSize: '',
+                        fontStyle: '',
+                    }
+                },
+                {
+                    attribute: 'Adresse',
+                    data: {
+                        fontSize: '',
+                        fontStyle: '',
+                    }
+                },
+                {
+                    attribute: 'Telefon',
+                    data: {
+                        fontSize: '',
+                        fontStyle: '',
+                    }
+                },
+                {
+                    attribute: 'Fax',
+                    data: {
+                        fontSize: '',
+                        fontStyle: '', 
+                    }
+                },
+                {
+                    attribute: 'E-Mail',
+                    data: {
+                        fontSize: '',
+                        fontStyle: '',
+                    }
+                },
+                {
+                    attribute: 'Webseite',
+                    data: {
+                        fontSize: '',
+                        fontStyle: '',
+                    }
+                },
             ]
         }
     },
@@ -201,6 +248,7 @@ export default {
     }
     .dc-heading {
         margin-left: 10%;
+        margin-bottom: 30px;
     }
     .dc-content {
         display: flex;
@@ -272,6 +320,17 @@ export default {
     }
     .dc-label{
         padding-top: 7px;
+    }
 
+
+    /* optional */
+    .dc-submit {
+        margin-top: 70px;
+    }
+    .dc-custom {
+        position: absolute;
+        bottom:60px;
+        background-color: white;
+        color:grey;
     }
 </style>
