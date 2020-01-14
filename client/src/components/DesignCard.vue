@@ -75,7 +75,6 @@
                             <option style="fontFamily: TaameyDavidCLM-Medium">  TaameyDavidCLM-Medium  </option>
                             <option style="fontFamily: damase_v.2">damase_v.2</option>
                             <option style="fontFamily: LateefRegOT">  LateefRegOT  </option>
-                            <option style="fontFamily: Sun-ExtA">  Sun-ExtA  </option>
                             <option style="fontFamily: UnBatang_0613"> UnBatang_0613  </option>
                         </select>
                         <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">

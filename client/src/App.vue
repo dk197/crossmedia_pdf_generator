@@ -118,6 +118,5 @@ form > h3 {
 @font-face { font-family: "TaameyDavidCLM-Medium"; src: url("../../api/vendor/mpdf/mpdf/ttfonts/TaameyDavidCLM-Medium.ttf") format('truetype'); }
 @font-face { font-family: "damase_v.2"; src: url("../../api/vendor/mpdf/mpdf/ttfonts/damase_v.2.ttf") format('truetype'); }
 @font-face { font-family: "LateefRegOT"; src: url("../../api/vendor/mpdf/mpdf/ttfonts/LateefRegOT.ttf") format('truetype'); }
-@font-face { font-family: "Sun-ExtA"; src: url("../../api/vendor/mpdf/mpdf/ttfonts/Sun-ExtA.ttf") format('truetype'); }
 @font-face { font-family: "UnBatang_0613"; src: url("../../api/vendor/mpdf/mpdf/ttfonts/UnBatang_0613.ttf") format('truetype'); }
 </style>
