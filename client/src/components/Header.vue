@@ -74,6 +74,7 @@ export default {
 .navbar {
   border-bottom: 1px solid grey;
   display: flex;
+  padding: 0.5rem 10%;
   
 }
 
@@ -102,9 +103,5 @@ export default {
   margin: 10px 30px 10px 0;
   fill: white;
   width: 200px;
-}
-
-.logo-link {
-    margin-left: 10%;
 }
 </style>

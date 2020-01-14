@@ -19,6 +19,8 @@
                             <option value="25px">25px</option>
                             <option value="30px">30px</option>
                         </select>
+                        <p class="dc-label">Schriftfarbe:</p>
+                        <input class="dc-input" v-model="fontColor" id="fontColor" type="color" @change="changeFontColor(currentAttribute)" name="favcolor" value="#ff0000"><br><br>
                         <p class="dc-label">Schriftart:</p>
                         <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                             <option disabled value="">Schriftart</option>
@@ -73,11 +75,10 @@
                         </div>
                     </div>
                 </form>
-                <button class="dc-custom btn btn-success" @click="createNewAttribute">+ Extrafeld</button>
             </div>
             <div class="dc-card-area">
                 <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
-                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-style="brick.data.fontStyle" :id="index"></text-brick>
+                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index"></text-brick>
                 </div>
             </div>
         </div>
@@ -102,6 +103,7 @@ export default {
             cardHeight: '51',
             fontSize: '',
             fontStyle: 'Futura',
+            fontColor: '',
             fontTyp: '',
             fontUrl: '',
             name: '',
@@ -112,6 +114,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '', 
+                        fontColor: '',
                         fontTyp: '',
                         fontUrl: '',
                         text: ''   
@@ -122,6 +125,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                         fontTyp: '',
                     }
                 },
@@ -130,6 +134,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                         fontTyp: '',
                     }
                 },
@@ -138,6 +143,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                         fontTyp: '',
                     }
                 },
@@ -146,6 +152,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                         fontTyp: '',
                     }
                 },
@@ -154,6 +161,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '', 
+                        fontColor: '',
                         fontTyp: '',
                     }
                 },
@@ -162,6 +170,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                         fontTyp: '',
                     }
                 },
@@ -170,6 +179,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                         fontTyp: '',
                     }
                 },
@@ -199,6 +209,11 @@ export default {
             var fontSize = event.target.value;
             this.bricks[attribute].data.fontSize = fontSize;
             document.getElementById(attribute).style.fontSize = fontSize;
+        },
+        changeFontColor(attribute){
+            var fontColor = event.target.value;
+            this.bricks[attribute].data.fontColor = fontColor;
+            document.getElementById(attribute).style.color = fontColor;
         },
         changeFontStyle(attr){
             var fontStyle = event.target.value;
@@ -237,23 +252,6 @@ export default {
             }
             return false       
         },
-        createNewAttribute(event){
-            const attr = event.target.value
-            if(this.getKeyFromArray(this.bricks, attr) === false) {
-                const newAttrObj = {
-                    attribute: attr,
-                    data: {
-                        fontSize: '',
-                        fontStyle: '',
-                        fontUrl: '',
-                        text: 'Bitte eintippen'   
-                    }
-                }
-                this.bricks.push(newAttrObj)
-            }
-            const attrKey = this.getKeyFromArray(this.bricks, attr)
-            this.changeCurrentAttribute(attrKey);
-        },
         handleHtml() {
             document.getElementById('htmlInput').value = document.getElementById('businessCardCanvas').innerHTML;
         },
@@ -266,7 +264,7 @@ export default {
 
 <style>
     .innerElement{
-        color: black;
+        /* color: black; */
         cursor: pointer;
         -webkit-touch-callout: none; /* iOS Safari */
         -webkit-user-select: none; /* Safari */
@@ -289,10 +287,10 @@ export default {
     }
     #businessCardCanvas{
         float: left;
-        /* left: 10%; */
         background: white;
         font-size: 12px;
         font-family: Futura;
+        color: black;
     }
     .dc-heading {
         margin-left: 10%;
@@ -309,7 +307,7 @@ export default {
         z-index: 50;
     }
     .dc-card-area {
-        padding-top: 170px;
+        padding-top: 140px;
         z-index: 10;
     }
     .dc-input {
@@ -352,7 +350,7 @@ export default {
         width: 200px;
     }
     .dc-input-size {
-        width: 50px;
+        width: 100px;
     }
     .dc-card-options {
         display: flex;

@@ -1,10 +1,10 @@
 <template>
     <div class="footer">
-        <div class="fotter-left">
+        <div class="footer-left">
              <a class="logo-link" href="/#/"><img class="logo" src="../assets/logograu.svg" ></a>
         </div>
-        <div class="fotter-right">
-
+        <div class="footer-right">
+            <router-link class="footer-link" to="impressum" active-class="active" exact>Impressum</router-link>
         </div>
     </div>
 </template>
@@ -17,9 +17,22 @@
         position: absolute;
         bottom: 0px;
         width: 100%;
+        padding: 0.5rem 10%;
     }
     
     .logo {
-        width: 300px;
+        height: 120px;
+    }
+
+    .footer-left, .footer-right {
+        width: 50%;
+    }
+
+    .footer-link {
+        color: #212529;
+        font-size: 20px;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 50px;
     }
 </style>
