@@ -17,6 +17,9 @@ export default{
         fontStyle: {
             default: 'Futura'
         },
+        fontColor: {
+            default: 'black'
+        },
         fontURL:{
             default: ''
         }
