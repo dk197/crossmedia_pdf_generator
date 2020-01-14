@@ -51,7 +51,7 @@
                             <option style="fontFamily: lateef">  lateef  </option>
                             <option style="fontFamily: unbatang"> unbatang  </option>
                         </select>
-                        <p class="dc-label">Schriftgröße:</p>
+                        <p class="dc-label">Schriftschnitt:</p>
                         <select class="dc-input" v-model="fontTyp" id="fontTyp" @change="changeFontTyp(currentAttribute)">
                             <option disabled value="">Schriftschnitt</option>
                             <option value="italic">italic</option>
