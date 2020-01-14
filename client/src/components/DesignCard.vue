@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="dc-heading" >Erstelle deine Visitenkarte</h1>
+        <h1 class="dc-heading">Erstelle deine Visitenkarte</h1>
         <div class="dc-content">
             <div class="dc-input-area">
                 <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
@@ -24,9 +24,60 @@
                         <p class="dc-label">Schriftart:</p>
                         <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                             <option disabled value="">Schriftart</option>
-                            <option v-for="(fontFamily, index) in fontFamilies" :key="index" v-bind:style="{ fontFamily: fontFamily.family }">
-                                {{fontFamily.family}}
-                            </option>
+                            <option style="fontFamily: DejaVuSansCondensed">  DejaVuSansCondensed </option> 
+                            <option style="fontFamily: DejaVuSansCondensed-Bold">DejaVuSansCondensed-Bold  </option>
+                            <option style="fontFamily: DejaVuSansCondensed-Oblique">  DejaVuSansCondensed-Oblique  </option>
+                            <option style="fontFamily: DejaVuSansCondensed-BoldOblique">  DejaVuSansCondensed-BoldOblique  </option>
+                            <option style="fontFamily: DejaVuSans"> DejaVuSans  </option>
+                            <option style="fontFamily: DejaVuSans-Bold">DejaVuSans-Bold  </option>
+                            <option style="fontFamily: DejaVuSans-Oblique">DejaVuSans-Oblique  </option>
+                            <option style="fontFamily: DejaVuSans-BoldOblique">DejaVuSans-BoldOblique  </option>
+                            <option style="fontFamily: DejaVuSerif">  DejaVuSerif  </option>
+                            <option style="fontFamily: DejaVuSerif-Bold">  DejaVuSerif-Bold </option> 
+                            <option style="fontFamily: DejaVuSerif-Italic">  DejaVuSerif-Italic  </option>
+                            <option style="fontFamily: DejaVuSerif-BoldItalic">  DejaVuSerif-BoldItalic  </option>
+                            <option style="fontFamily: DejaVuSerifCondensed">  DejaVuSerifCondensed  </option>
+                            <option style="fontFamily: DejaVuSerifCondensed-Bold">  DejaVuSerifCondensed-Bold </option> 
+                            <option style="fontFamily: DejaVuSerifCondensed-Italic">  DejaVuSerifCondensed-Italic  </option>
+                            <option style="fontFamily: DejaVuSerifCondensed-BoldItalic">  DejaVuSerifCondensed-BoldItalic  </option>
+                            <option style="fontFamily: DejaVuSansMono">  DejaVuSansMono  </option>
+                            <option style="fontFamily: DejaVuSansMono-Bold">  DejaVuSansMono-Bold </option> 
+                            <option style="fontFamily: DejaVuSansMono-Oblique">  DejaVuSansMono-Oblique  </option>
+                            <option style="fontFamily: DejaVuSansMono-BoldOblique">  DejaVuSansMono-BoldOblique  </option>
+                            <option style="fontFamily: FreeSans">  FreeSans  </option>
+                            <option style="fontFamily: FreeSansBold "> FreeSansBold  </option>
+                            <option style="fontFamily: FreeSansOblique">  FreeSansOblique  </option>
+                            <option style="fontFamily: FreeSansBoldOblique">  FreeSansBoldOblique  </option>
+                            <option style="fontFamily: FreeSerif">  FreeSerif  </option>
+                            <option style="fontFamily: FreeSerifBold">  FreeSerifBold  </option>
+                            <option style="fontFamily: FreeSerifItalic">  FreeSerifItalic  </option>
+                            <option style="fontFamily: FreeSerifBoldItalic">  FreeSerifBoldItalic  </option>
+                            <option style="fontFamily: FreeMono"> FreeMono  </option>
+                            <option style="fontFamily: FreeMonoBold">  FreeMonoBold  </option>
+                            <option style="fontFamily: FreeMonoOblique">  FreeMonoOblique  </option>
+                            <option style="fontFamily: FreeMonoBoldOblique">  FreeMonoBoldOblique  </option>
+                            <option style="fontFamily: ocrb10">  ocrb10  </option>
+                            <option style="fontFamily: Abyssinica_SIL">  Abyssinica_SIL  </option>
+                            <option style="fontFamily: AboriginalSansREGULAR">  AboriginalSansREGULAR  </option>
+                            <option style="fontFamily: Jomolhari">  Jomolhari  </option>
+                            <option style="fontFamily: TaiHeritagePro">  TaiHeritagePro  </option>
+                            <option style="fontFamily: lannaalif-v1-03">  lannaalif-v1-03  </option>
+                            <option style="fontFamily: DBSILBR">  DBSILBR  </option>
+                            <option style="fontFamily: Garuda">  Garuda  </option>
+                            <option style="fontFamily: Garuda-Bold">  Garuda-Bold  </option>
+                            <option style="fontFamily: Garuda-Oblique">  Garuda-Oblique  </option>
+                            <option style="fontFamily: Garuda-BoldOblique">  Garuda-BoldOblique  </option>
+                            <option style="fontFamily: KhmerOS">  KhmerOS  </option>
+                            <option style="fontFamily: Dhyana-Regular">  Dhyana-Regular  </option>
+                            <option style="fontFamily: Dhyana-Bold"> Dhyana-Bold  </option>
+                            <option style="fontFamily: Tharlon-Regular">  Tharlon-Regular  </option>
+                            <option style="fontFamily: Padauk-book">  Padauk-book  </option>
+                            <option style="fontFamily: ZawgyiOne">  ZawgyiOne  </option>
+                            <option style="fontFamily: ayar">  ayar  </option>
+                            <option style="fontFamily: TaameyDavidCLM-Medium">  TaameyDavidCLM-Medium  </option>
+                            <option style="fontFamily: damase_v.2">damase_v.2</option>
+                            <option style="fontFamily: LateefRegOT">  LateefRegOT  </option>
+                            <option style="fontFamily: UnBatang_0613"> UnBatang_0613  </option>
                         </select>
                         <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
                         <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
@@ -56,12 +107,10 @@
 
 <script>
 import TextBrick from './TextBrick'
-import axios from 'axios';
 export default {
     name: 'bc-input',
     created: function(){
         console.log('loading')
-        this.loadGoogleFonts();
         if(!this.$store.getters.getLoginStatus){
             this.$router.push('/');
         }
@@ -205,30 +254,6 @@ export default {
         },
         changeCurrentAttribute(index){
             this.currentAttribute = index;
-        },
-        loadGoogleFonts(){
-            console.log('test')
-            axios.get('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyA_NtdvhXR4TDbYHJKvA1XJz4rjr-DjZ5E')
-            .then(response  => {
-                console.log('test2')
-                this.fontFamilies = response.data.items;
-                var sheet = window.document.styleSheets[0];
-                for (var i = 0; i < this.fontFamilies.length; i++) {
-                    var selector = "@font-face ";
-                    var rules = "font-family: "+ this.fontFamilies[i].family +";src: url('"+ this.fontFamilies[i].files.regular +"');";
-                    var index = sheet.cssRules.length;
-                    if("insertRule" in sheet) {
-                        sheet.insertRule(selector + "{" + rules + "}", index);
-                    }
-                    else if("addRule" in sheet) {
-                        sheet.addRule(selector, rules, index);
-                    }
-                }        
-                console.log(sheet)        
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
         }
     }
 };
