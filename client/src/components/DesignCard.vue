@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="dc-heading" style="fontFamily: aboriginalsans" @click="test()">Erstelle deine Visitenkarte</h1>
+        <h1 class="dc-heading" style="fontFamily: aboriginalsans">Erstelle deine Visitenkarte</h1>
         <div class="dc-content">
             <div class="dc-input-area">
                 <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
@@ -149,9 +149,6 @@ export default {
         }
     },
     methods: {
-        test(){
-            /api/vendor/mpdf/mpdf/ttfonts/AboriginalSansREGULAR.ttf
-        },
         handleWidth(e) {
             const width = e.target.value
             document.getElementById('businessCardCanvas').style.width = width + 'mm';

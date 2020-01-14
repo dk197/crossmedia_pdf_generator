@@ -26,7 +26,10 @@ export default {
 </script>
 
 <style>
-
+  @font-face {
+    font-family: 'aboriginalsans';
+    src: url('../../api/vendor/mpdf/mpdf/ttfonts/AboriginalSansREGULAR.ttf') format('truetype'); 
+  }
 html, body {
 	height: 100%;
 }
