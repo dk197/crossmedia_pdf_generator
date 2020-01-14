@@ -33,7 +33,9 @@ class VCardController extends Controller
 
         // return vcard as a string
         // return $vcard->getOutput();
-        print_r('BEGIN:VCARD\nVERSION:3.0\nN:Mustermann;Max\nFN:Max Mustermann\nORG:Firma');
+        $vcardString = $vcard->getOutput();
+        return response($vcardString, '200')
+            ->header('Content-Type', 'text/x-vcard');
 
         // return vcard as a download
         // return $vcard->download();
