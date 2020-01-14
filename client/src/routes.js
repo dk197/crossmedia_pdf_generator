@@ -27,7 +27,7 @@ export const routes = [
         component: DesignCard
     },
     {
-        path: '/impressuum',
+        path: '/impressum',
         component: Impressum
     }
 ]
