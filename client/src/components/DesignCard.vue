@@ -19,6 +19,18 @@
                             <option value="25px">25px</option>
                             <option value="30px">30px</option>
                         </select>
+                        <p class="dc-label">Schriftfarbe:</p>
+                        <select class="dc-input" v-model="fontColor" id="fontColor" @change="changeFontColor(currentAttribute)">
+                            <option disabled value="">Schriftfarbe</option>
+                            <option value="red">red</option>
+                            <option value="green">green</option>
+                            <option value="12px">12px</option>
+                            <option value="14px">14px</option>
+                            <option value="16px">16px</option>
+                            <option value="20px">20px</option>
+                            <option value="25px">25px</option>
+                            <option value="30px">30px</option>
+                        </select>
                         <p class="dc-label">Schriftart:</p>
                         <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                             <option disabled value="">Schriftart</option>
@@ -46,7 +58,7 @@
             </div>
             <div class="dc-card-area">
                 <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
-                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-style="brick.data.fontStyle" :id="index"></text-brick>
+                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index"></text-brick>
                 </div>
             </div>
         </div>
@@ -73,6 +85,7 @@ export default {
             cardHeight: '51',
             fontSize: '',
             fontStyle: 'Futura',
+            fontColor: '',
             fontUrl: '',
             name: '',
             adress: '',
@@ -82,6 +95,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '', 
+                        fontColor: '',
                         fontUrl: '',
                         text: ''   
                     }
@@ -91,6 +105,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                     }
                 },
                 {
@@ -98,6 +113,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                     }
                 },
                 {
@@ -105,6 +121,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                     }
                 },
                 {
@@ -112,6 +129,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                     }
                 },
                 {
@@ -119,6 +137,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '', 
+                        fontColor: '',
                     }
                 },
                 {
@@ -126,6 +145,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                     }
                 },
                 {
@@ -133,6 +153,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontColor: '',
                     }
                 },
             ],
@@ -161,6 +182,11 @@ export default {
             var fontSize = event.target.value;
             this.bricks[attribute].data.fontSize = fontSize;
             document.getElementById(attribute).style.fontSize = fontSize;
+        },
+        changeFontColor(attribute){
+            var fontColor = event.target.value;
+            this.bricks[attribute].data.fontColor = fontColor;
+            document.getElementById(attribute).style.color = fontColor;
         },
         changeFontStyle(attr){
             var fontStyle = event.target.value;
@@ -238,7 +264,7 @@ export default {
 
 <style>
     .innerElement{
-        color: black;
+        /* color: black; */
         cursor: pointer;
         -webkit-touch-callout: none; /* iOS Safari */
         -webkit-user-select: none; /* Safari */
@@ -265,6 +291,7 @@ export default {
         background: white;
         font-size: 12px;
         font-family: Futura;
+        color: black;
     }
     .dc-heading {
         margin-left: 10%;
