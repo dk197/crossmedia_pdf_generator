@@ -42,7 +42,6 @@
                         </div>
                     </div>
                 </form>
-                <button class="dc-custom btn btn-success" @click="createNewAttribute">+ Extrafeld</button>
             </div>
             <div class="dc-card-area">
                 <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
@@ -185,23 +184,6 @@ export default {
             }
             return false       
         },
-        createNewAttribute(event){
-            const attr = event.target.value
-            if(this.getKeyFromArray(this.bricks, attr) === false) {
-                const newAttrObj = {
-                    attribute: attr,
-                    data: {
-                        fontSize: '',
-                        fontStyle: '',
-                        fontUrl: '',
-                        text: 'Bitte eintippen'   
-                    }
-                }
-                this.bricks.push(newAttrObj)
-            }
-            const attrKey = this.getKeyFromArray(this.bricks, attr)
-            this.changeCurrentAttribute(attrKey);
-        },
         handleHtml() {
             document.getElementById('htmlInput').value = document.getElementById('businessCardCanvas').innerHTML;
         },
@@ -261,7 +243,6 @@ export default {
     }
     #businessCardCanvas{
         float: left;
-        /* left: 10%; */
         background: white;
         font-size: 12px;
         font-family: Futura;
@@ -281,7 +262,7 @@ export default {
         z-index: 50;
     }
     .dc-card-area {
-        padding-top: 170px;
+        padding-top: 140px;
         z-index: 10;
     }
     .dc-input {
@@ -324,7 +305,7 @@ export default {
         width: 200px;
     }
     .dc-input-size {
-        width: 50px;
+        width: 100px;
     }
     .dc-card-options {
         display: flex;
