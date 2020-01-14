@@ -20,17 +20,7 @@
                             <option value="30px">30px</option>
                         </select>
                         <p class="dc-label">Schriftfarbe:</p>
-                        <select class="dc-input" v-model="fontColor" id="fontColor" @change="changeFontColor(currentAttribute)">
-                            <option disabled value="">Schriftfarbe</option>
-                            <option value="red">red</option>
-                            <option value="green">green</option>
-                            <option value="12px">12px</option>
-                            <option value="14px">14px</option>
-                            <option value="16px">16px</option>
-                            <option value="20px">20px</option>
-                            <option value="25px">25px</option>
-                            <option value="30px">30px</option>
-                        </select>
+                        <input class="dc-input" v-model="fontColor" id="fontColor" type="color" @change="changeFontColor(currentAttribute)" name="favcolor" value="#ff0000"><br><br>
                         <p class="dc-label">Schriftart:</p>
                         <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                             <option disabled value="">Schriftart</option>
