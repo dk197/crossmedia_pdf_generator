@@ -32,9 +32,10 @@ class VCardController extends Controller
 
 
         // return vcard as a string
-        //return $vcard->getOutput();
+        // return $vcard->getOutput();
+        print_r('BEGIN:VCARD\nVERSION:3.0\nN:Mustermann;Max\nFN:Max Mustermann\nORG:Firma');
 
         // return vcard as a download
-        return $vcard->download();
+        // return $vcard->download();
     }
 }
