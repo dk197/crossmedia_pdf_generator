@@ -22,7 +22,7 @@
                         <p class="dc-label">Schriftart:</p>
                         <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                             <option disabled value="">Schriftart</option>
-                             <option v-for="(fontFamily, index) in fontFamilies" :key="index" v-bind="{id: fontFamily.family, href:fontFamily.files.regular}">
+                            <option v-for="(fontFamily, index) in fontFamilies" :key="index" v-bind:style="{ fontFamily: fontFamily.family }">
                                 {{fontFamily.family}}
                             </option>
                         </select>
@@ -31,17 +31,6 @@
                     </div>
                     <div class="dc-data">
                         <h4>Daten:</h4>
-                        <!-- <select class="dc-input" id="attributeSelect" @change="createNewAttribute">
-                            <option disabled :value="currentAttribute">Datentyp</option>
-                            <option>Name</option>
-                            <option>Position</option>
-                            <option>Firma</option>
-                            <option>Adresse</option>
-                            <option>Telefon</option>
-                            <option>Fax</option>
-                            <option>E-Mail</option>
-                            <option>Website</option>
-                        </select> -->
                         <div id="businessCardInput">
                             <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
                                 <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
@@ -69,8 +58,12 @@ import TextBrick from './TextBrick'
 import axios from 'axios';
 export default {
     name: 'bc-input',
-    mounted: function(){
+    created: function(){
+        console.log('loading')
         this.loadGoogleFonts();
+        if(!this.$store.getters.getLoginStatus){
+            this.$router.push('/');
+        }
     },
     data () {
         return{
@@ -80,6 +73,7 @@ export default {
             cardHeight: '51',
             fontSize: '',
             fontStyle: 'Futura',
+            fontUrl: '',
             name: '',
             adress: '',
             bricks: [
@@ -87,7 +81,9 @@ export default {
                     attribute: 'Name',
                     data: {
                         fontSize: '',
-                        fontStyle: '',
+                        fontStyle: '', 
+                        fontUrl: '',
+                        text: ''   
                     }
                 },
                 {
@@ -146,11 +142,6 @@ export default {
     components: {
         TextBrick
     },
-    created(){
-        if(!this.$store.getters.getLoginStatus){
-            this.$router.push('/');
-        }
-    },
     computed: {
         getBrickValue(attribute) {
             const key = this.getKeyFromArray(this.bricks, attribute)
@@ -158,8 +149,8 @@ export default {
         }
     },
     methods: {
-        handleWidth() {
-            var width = document.getElementById("cardWidth").value;
+        handleWidth(e) {
+            const width = e.target.value
             document.getElementById('businessCardCanvas').style.width = width + 'mm';
         },
         handleHeight() {
@@ -171,10 +162,13 @@ export default {
             this.bricks[attribute].data.fontSize = fontSize;
             document.getElementById(attribute).style.fontSize = fontSize;
         },
-        changeFontStyle(attribute){
+        changeFontStyle(attr){
             var fontStyle = event.target.value;
-            this.bricks[attribute].data.fontStyle = fontStyle;
-            document.getElementById(attribute).style.fontFamily = fontStyle;
+            this.bricks[attr].data.fontStyle = fontStyle;
+            // var fontUrl = document.getElementById(fontStyle).getAttribute("href");
+            // this.bricks[attr].data.fontUrl = fontUrl;
+            document.getElementById(attr).style.fontFamily = fontStyle;
+            // console.log(this.bricks)
         },
         changeText(attribute, text) {
             //this.bricks
@@ -182,7 +176,6 @@ export default {
             console.log(text)
             const key = this.getKeyFromArray(this.bricks, attribute)
             console.log(key)
-
         },
         getKeyFromArray(array, value) {
             for (let index = 0; index < array.length; index++) {
@@ -200,15 +193,14 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
-                        // text: 'Bitte eintippen'
-                    },
-                    
-
+                        fontUrl: '',
+                        text: 'Bitte eintippen'   
+                    }
                 }
                 this.bricks.push(newAttrObj)
             }
             const attrKey = this.getKeyFromArray(this.bricks, attr)
-            this.currentAttribute = attrKey
+            this.changeCurrentAttribute(attrKey);
         },
         handleHtml() {
             document.getElementById('htmlInput').value = document.getElementById('businessCardCanvas').innerHTML;
@@ -217,11 +209,24 @@ export default {
             this.currentAttribute = index;
         },
         loadGoogleFonts(){
-            alert();
+            console.log('test')
             axios.get('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyA_NtdvhXR4TDbYHJKvA1XJz4rjr-DjZ5E')
             .then(response  => {
+                console.log('test2')
                 this.fontFamilies = response.data.items;
-                console.log(this.fontFamilies);
+                var sheet = window.document.styleSheets[0];
+                for (var i = 0; i < this.fontFamilies.length; i++) {
+                    var selector = "@font-face ";
+                    var rules = "font-family: "+ this.fontFamilies[i].family +";src: url('"+ this.fontFamilies[i].files.regular +"');";
+                    var index = sheet.cssRules.length;
+                    if("insertRule" in sheet) {
+                        sheet.insertRule(selector + "{" + rules + "}", index);
+                    }
+                    else if("addRule" in sheet) {
+                        sheet.addRule(selector, rules, index);
+                    }
+                }        
+                console.log(sheet)        
             })
             .catch(function(error) {
                 console.log(error);
