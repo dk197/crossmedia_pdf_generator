@@ -49,6 +49,14 @@
                             <option style="fontFamily: lateef">  lateef  </option>
                             <option style="fontFamily: unbatang"> unbatang  </option>
                         </select>
+                        <p class="dc-label">Schriftgröße:</p>
+                        <select class="dc-input" v-model="fontTyp" id="fontTyp" @change="changeFontTyp(currentAttribute)">
+                            <option disabled value="">Schriftschnitt</option>
+                            <option value="italic">italic</option>
+                            <option value="italic-bold">italic-bold</option>
+                            <option value="normal">normal</option>
+                            <option value="bold">bold</option>
+                        </select>
                         <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
                         <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
                     </div>
@@ -94,6 +102,7 @@ export default {
             cardHeight: '51',
             fontSize: '',
             fontStyle: 'Futura',
+            fontTyp: '',
             fontUrl: '',
             name: '',
             adress: '',
@@ -103,6 +112,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '', 
+                        fontTyp: '',
                         fontUrl: '',
                         text: ''   
                     }
@@ -112,6 +122,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontTyp: '',
                     }
                 },
                 {
@@ -119,6 +130,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontTyp: '',
                     }
                 },
                 {
@@ -126,6 +138,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontTyp: '',
                     }
                 },
                 {
@@ -133,6 +146,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontTyp: '',
                     }
                 },
                 {
@@ -140,6 +154,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '', 
+                        fontTyp: '',
                     }
                 },
                 {
@@ -147,6 +162,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontTyp: '',
                     }
                 },
                 {
@@ -154,6 +170,7 @@ export default {
                     data: {
                         fontSize: '',
                         fontStyle: '',
+                        fontTyp: '',
                     }
                 },
             ],
@@ -190,6 +207,20 @@ export default {
             // this.bricks[attr].data.fontUrl = fontUrl;
             document.getElementById(attr).style.fontFamily = fontStyle;
             // console.log(this.bricks)
+        },
+        changeFontTyp(attribute){
+            var fontTyp = event.target.value;
+            this.bricks[attribute].data.fontTyp = fontTyp;
+            if(fontTyp == "bold"){
+                document.getElementById(attribute).style.fontWeight = fontTyp;
+                document.getElementById(attribute).style.fontStyle = "normal";
+            }else if (fontTyp == "italic-bold"){
+                document.getElementById(attribute).style.fontStyle = "italic";
+                document.getElementById(attribute).style.fontWeight = "bold";
+            }else{
+                document.getElementById(attribute).style.fontStyle = fontTyp;
+                document.getElementById(attribute).style.fontWeight = "normal";
+            }
         },
         changeText(attribute, text) {
             //this.bricks
