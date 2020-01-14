@@ -4,7 +4,7 @@
         <p>Dies ist eine Studienarbeit von:<br>
         <b>Jonas Hauser, Johannes Manner, Jakob Schlagenhaufer, Dominik Schäfer und Nathalie Wich</b> <br> 
         aus dem Studiengang ON17 an der DHBW Mosbach</p>
-        <img class="dhbw-logo" src="../assets/DHBW-Logo.svg">
+        <img class="dhbw-logo" src="../assets/dhbw-logo.svg">
     </div>
 </template>
 
