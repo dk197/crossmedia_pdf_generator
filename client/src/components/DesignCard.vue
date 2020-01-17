@@ -69,6 +69,16 @@
                                 <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
                             </td>
                         </div>
+                        <p class="dc-label">Schriftgröße:</p>
+                        <input type="button" class="btn btn-primary" value="Toggle QrCode" @click="toggleQr()">
+                        <select class="dc-input" id="qrSize" @change="changeQrSize(currentAttribute)">
+                            <option disabled value="">Qr Size</option>
+                            <option value="20px">20px</option>
+                            <option value="40px">40px</option>
+                            <option value="60px">60px</option>
+                            <option value="80px">80px</option>
+                            <option value="100px">100px</option>
+                        </select>
                         <div class="dc-submit">                                                    
                             <input type="hidden" name="htmlInput" id="htmlInput">
                             <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
@@ -79,7 +89,7 @@
             <div class="dc-card-area">
                 <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
                     <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index + '-text'"></text-brick>
-                    <img-brick v-for="(brickI, index) in bricksI" :key="'img-' + index" :img="brickI.data.imgUrl" :width="brickI.data.width" :id="index + '-img'"></img-brick>
+                    <img-brick v-for="(brickI, index) in bricksI" :key="'img-' + index" :src="brickI.data.src" :width="brickI.data.width" :style="brickI.data.show" :id="index + '-img'"></img-brick>
                 </div>
             </div>
         </div>
@@ -188,10 +198,11 @@ export default {
             ],
             bricksI: [
                 {
-                    attribute: 'Img',
+                    attribute: 'Qr',
                     data: {
-                        src: '',
-                        width: '30px',
+                        src: 'https://qrickit.com/api/qr.php?d=BEGIN%3aVCARD%0d%0aVERSION%3a3',
+                        width: '50px',
+                        show: 'display: none',
                     }
                 }
             ],
@@ -213,6 +224,13 @@ export default {
         }
     },
     methods: {
+        toggleQr() {
+            if(this.bricksI['0'].data.show == 'display: none'){
+                this.bricksI['0'].data.show = 'display: block';
+            }else{
+                this.bricksI['0'].data.show = 'display: none';
+            }    
+        },
         handleWidth(e) {
             const width = e.target.value
             document.getElementById('businessCardCanvas').style.width = width + 'mm';
@@ -221,6 +239,10 @@ export default {
             var height = document.getElementById("cardHeight").value;
             document.getElementById('businessCardCanvas').style.height = height +'mm';
         }, 
+        changeQrSize(attribute){
+            var width = event.target.value;
+            this.bricksI[attribute].data.width = width;
+        },
         changeFontSize(attribute){
             var fontSize = event.target.value;
             this.bricks[attribute].data.fontSize = fontSize;
