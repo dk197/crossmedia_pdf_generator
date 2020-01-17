@@ -69,6 +69,12 @@
                                 <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
                             </td>
                         </div>
+                        <p class="dc-label">Schriftgröße:</p>
+                        <input  class="dc-submit btn btn-primary" type="button" value="Toggle QrCode" @click="toggleQr()">
+                        <input  class="dc-input" type="number" value="50" name="qrSize" id="qrSize" @change="changeQrSize()">
+                        <input  class="dc-submit btn btn-primary" type="button" value="Toggle Logo" @click="toggleLogo()">
+                        <input class="dc-input" type="file" id="file" ref="file" @change="handleFileUpload" accept=".jpg, .jpeg, .png"/>
+                        <input  class="dc-input" type="number" value="50" id="logoSize" @change="changeLogoSize()">
                         <div class="dc-submit">                                                    
                             <input type="hidden" name="htmlInput" id="htmlInput">
                             <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
@@ -78,7 +84,8 @@
             </div>
             <div class="dc-card-area">
                 <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
-                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index"></text-brick>
+                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index + '-text'"></text-brick>
+                    <img-brick v-for="(brickI, index) in bricksI" :key="'img-' + index" :src="brickI.data.src" :width="brickI.data.width" :style="brickI.data.show" :id="index + '-img'"></img-brick>
                 </div>
             </div>
         </div>
@@ -87,6 +94,7 @@
 
 <script>
 import TextBrick from './TextBrick'
+import ImgBrick from './ImgBrick'
 export default {
     name: 'bc-input',
     created: function(){
@@ -184,19 +192,65 @@ export default {
                     }
                 },
             ],
+            bricksI: [
+                {
+                    attribute: 'Qr',
+                    data: {
+                        src: 'https://qrickit.com/api/qr.php?d=BEGIN%3aVCARD%0d%0aVERSION%3a3',
+                        width: '50px',
+                        show: 'display: none',
+                    }
+                },
+                {
+                    attribute: 'Logo',
+                    data: {
+                        src: null,
+                        width: '50px',
+                        show: null,
+                    }
+                }
+            ],
             fontFamilies: []
         }
     },
     components: {
-        TextBrick
+        TextBrick,
+        ImgBrick
     },
     computed: {
         getBrickValue(attribute) {
             const key = this.getKeyFromArray(this.bricks, attribute)
             return this.bricks[key].data.text
+        },
+        getBrickIValue(attribute) {
+            const key = this.getKeyFromArray(this.bricksI, attribute)
+            return this.bricksI[key].data.img
         }
     },
     methods: {
+        toggleLogo() {
+            if(this.bricksI['1'].data.show == 'display: none'){
+                this.bricksI['1'].data.show = 'display: ';
+            }else{
+                this.bricksI['1'].data.show = 'display: none';
+            }    
+        },
+        changeLogoSize(){
+            var width = event.target.value;
+            this.bricksI['1'].data.width = width;
+        },
+        handleFileUpload(e) {
+            const file = e.target.files[0];
+            this.bricksI['1'].data.src = URL.createObjectURL(file);
+            alert(file.webkitRelativePath)
+        },
+        toggleQr() {
+            if(this.bricksI['0'].data.show == 'display: none'){
+                this.bricksI['0'].data.show = 'display: ';
+            }else{
+                this.bricksI['0'].data.show = 'display: none';
+            }    
+        },
         handleWidth(e) {
             const width = e.target.value
             document.getElementById('businessCardCanvas').style.width = width + 'mm';
@@ -205,36 +259,41 @@ export default {
             var height = document.getElementById("cardHeight").value;
             document.getElementById('businessCardCanvas').style.height = height +'mm';
         }, 
+        changeQrSize(){
+            var width = event.target.value;
+            this.bricksI['0'].data.width = width;
+        },
         changeFontSize(attribute){
             var fontSize = event.target.value;
             this.bricks[attribute].data.fontSize = fontSize;
-            document.getElementById(attribute).style.fontSize = fontSize;
+            document.getElementById(attribute + '-text').style.fontSize = fontSize;
         },
         changeFontColor(attribute){
             var fontColor = event.target.value;
             this.bricks[attribute].data.fontColor = fontColor;
-            document.getElementById(attribute).style.color = fontColor;
+            document.getElementById(attribute + '-text').style.color = fontColor;
         },
         changeFontStyle(attr){
+            console.log(attr);
             var fontStyle = event.target.value;
             this.bricks[attr].data.fontStyle = fontStyle;
             // var fontUrl = document.getElementById(fontStyle).getAttribute("href");
             // this.bricks[attr].data.fontUrl = fontUrl;
-            document.getElementById(attr).style.fontFamily = fontStyle;
+            document.getElementById(attr + '-text').style.fontFamily = fontStyle;
             // console.log(this.bricks)
         },
         changeFontTyp(attribute){
             var fontTyp = event.target.value;
             this.bricks[attribute].data.fontTyp = fontTyp;
             if(fontTyp == "bold"){
-                document.getElementById(attribute).style.fontWeight = fontTyp;
-                document.getElementById(attribute).style.fontStyle = "normal";
+                document.getElementById(attribute + '-text').style.fontWeight = fontTyp;
+                document.getElementById(attribute + '-text').style.fontStyle = "normal";
             }else if (fontTyp == "italic-bold"){
-                document.getElementById(attribute).style.fontStyle = "italic";
-                document.getElementById(attribute).style.fontWeight = "bold";
+                document.getElementById(attribute + '-text').style.fontStyle = "italic";
+                document.getElementById(attribute + '-text').style.fontWeight = "bold";
             }else{
-                document.getElementById(attribute).style.fontStyle = fontTyp;
-                document.getElementById(attribute).style.fontWeight = "normal";
+                document.getElementById(attribute + '-text').style.fontStyle = fontTyp;
+                document.getElementById(attribute + '-text').style.fontWeight = "normal";
             }
         },
         changeText(attribute, text) {
