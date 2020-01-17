@@ -78,7 +78,8 @@
             </div>
             <div class="dc-card-area">
                 <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
-                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index"></text-brick>
+                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index + '-text'"></text-brick>
+                    <img-brick v-for="(brickI, index) in bricksI" :key="'img-' + index" :img="brickI.data.imgUrl" :width="brickI.data.width" :id="index + '-img'"></img-brick>
                 </div>
             </div>
         </div>
@@ -87,6 +88,7 @@
 
 <script>
 import TextBrick from './TextBrick'
+import ImgBrick from './ImgBrick'
 export default {
     name: 'bc-input',
     created: function(){
@@ -184,16 +186,30 @@ export default {
                     }
                 },
             ],
+            bricksI: [
+                {
+                    attribute: 'Img',
+                    data: {
+                        src: '',
+                        width: '30px',
+                    }
+                }
+            ],
             fontFamilies: []
         }
     },
     components: {
-        TextBrick
+        TextBrick,
+        ImgBrick
     },
     computed: {
         getBrickValue(attribute) {
             const key = this.getKeyFromArray(this.bricks, attribute)
             return this.bricks[key].data.text
+        },
+        getBrickIValue(attribute) {
+            const key = this.getKeyFromArray(this.bricksI, attribute)
+            return this.bricksI[key].data.img
         }
     },
     methods: {
@@ -208,33 +224,34 @@ export default {
         changeFontSize(attribute){
             var fontSize = event.target.value;
             this.bricks[attribute].data.fontSize = fontSize;
-            document.getElementById(attribute).style.fontSize = fontSize;
+            document.getElementById(attribute + '-text').style.fontSize = fontSize;
         },
         changeFontColor(attribute){
             var fontColor = event.target.value;
             this.bricks[attribute].data.fontColor = fontColor;
-            document.getElementById(attribute).style.color = fontColor;
+            document.getElementById(attribute + '-text').style.color = fontColor;
         },
         changeFontStyle(attr){
+            console.log(attr);
             var fontStyle = event.target.value;
             this.bricks[attr].data.fontStyle = fontStyle;
             // var fontUrl = document.getElementById(fontStyle).getAttribute("href");
             // this.bricks[attr].data.fontUrl = fontUrl;
-            document.getElementById(attr).style.fontFamily = fontStyle;
+            document.getElementById(attr + '-text').style.fontFamily = fontStyle;
             // console.log(this.bricks)
         },
         changeFontTyp(attribute){
             var fontTyp = event.target.value;
             this.bricks[attribute].data.fontTyp = fontTyp;
             if(fontTyp == "bold"){
-                document.getElementById(attribute).style.fontWeight = fontTyp;
-                document.getElementById(attribute).style.fontStyle = "normal";
+                document.getElementById(attribute + '-text').style.fontWeight = fontTyp;
+                document.getElementById(attribute + '-text').style.fontStyle = "normal";
             }else if (fontTyp == "italic-bold"){
-                document.getElementById(attribute).style.fontStyle = "italic";
-                document.getElementById(attribute).style.fontWeight = "bold";
+                document.getElementById(attribute + '-text').style.fontStyle = "italic";
+                document.getElementById(attribute + '-text').style.fontWeight = "bold";
             }else{
-                document.getElementById(attribute).style.fontStyle = fontTyp;
-                document.getElementById(attribute).style.fontWeight = "normal";
+                document.getElementById(attribute + '-text').style.fontStyle = fontTyp;
+                document.getElementById(attribute + '-text').style.fontWeight = "normal";
             }
         },
         changeText(attribute, text) {
