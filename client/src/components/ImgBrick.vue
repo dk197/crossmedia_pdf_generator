@@ -9,8 +9,7 @@ import DragItDude from 'vue-drag-it-dude';
 export default{
     props: {
         src: {
-            default: '',
-            required: true
+            default: ''
         },
         show: {
             default: ''

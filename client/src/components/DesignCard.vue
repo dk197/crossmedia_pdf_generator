@@ -70,15 +70,11 @@
                             </td>
                         </div>
                         <p class="dc-label">Schriftgröße:</p>
-                        <input type="button" class="btn btn-primary" value="Toggle QrCode" @click="toggleQr()">
-                        <select class="dc-input" id="qrSize" @change="changeQrSize(currentAttribute)">
-                            <option disabled value="">Qr Size</option>
-                            <option value="20px">20px</option>
-                            <option value="40px">40px</option>
-                            <option value="60px">60px</option>
-                            <option value="80px">80px</option>
-                            <option value="100px">100px</option>
-                        </select>
+                        <input  class="dc-submit btn btn-primary" type="button" value="Toggle QrCode" @click="toggleQr()">
+                        <input  class="dc-input" type="number" value="50" name="qrSize" id="qrSize" @change="changeQrSize()">
+                        <input  class="dc-submit btn btn-primary" type="button" value="Toggle Logo" @click="toggleLogo()">
+                        <input class="dc-input" type="file" id="file" ref="file" @change="handleFileUpload" accept=".jpg, .jpeg, .png"/>
+                        <input  class="dc-input" type="number" value="50" id="logoSize" @change="changeLogoSize()">
                         <div class="dc-submit">                                                    
                             <input type="hidden" name="htmlInput" id="htmlInput">
                             <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
@@ -204,6 +200,14 @@ export default {
                         width: '50px',
                         show: 'display: none',
                     }
+                },
+                {
+                    attribute: 'Logo',
+                    data: {
+                        src: null,
+                        width: '50px',
+                        show: null,
+                    }
                 }
             ],
             fontFamilies: []
@@ -224,9 +228,25 @@ export default {
         }
     },
     methods: {
+        toggleLogo() {
+            if(this.bricksI['1'].data.show == 'display: none'){
+                this.bricksI['1'].data.show = 'display: ';
+            }else{
+                this.bricksI['1'].data.show = 'display: none';
+            }    
+        },
+        changeLogoSize(){
+            var width = event.target.value;
+            this.bricksI['1'].data.width = width;
+        },
+        handleFileUpload(e) {
+            const file = e.target.files[0];
+            this.bricksI['1'].data.src = URL.createObjectURL(file);
+            alert(file.webkitRelativePath)
+        },
         toggleQr() {
             if(this.bricksI['0'].data.show == 'display: none'){
-                this.bricksI['0'].data.show = 'display: block';
+                this.bricksI['0'].data.show = 'display: ';
             }else{
                 this.bricksI['0'].data.show = 'display: none';
             }    
@@ -239,9 +259,9 @@ export default {
             var height = document.getElementById("cardHeight").value;
             document.getElementById('businessCardCanvas').style.height = height +'mm';
         }, 
-        changeQrSize(attribute){
+        changeQrSize(){
             var width = event.target.value;
-            this.bricksI[attribute].data.width = width;
+            this.bricksI['0'].data.width = width;
         },
         changeFontSize(attribute){
             var fontSize = event.target.value;
