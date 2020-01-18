@@ -7,6 +7,7 @@
                     <!-- <h3>Deine Daten:</h3> -->
                     <div class=dc-options>
                         <h4>Optionen:</h4>
+                        <div>
                         <p class="dc-label">Schriftgröße:</p>
                         <select class="dc-input" v-model="fontSize" id="fontSize" @change="changeFontSize(currentAttribute)">
                             <option disabled value="">Schriftgröße</option>
@@ -61,6 +62,16 @@
                         </select>
                         <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
                         <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
+                        </div>
+                        <div>
+                            <p class="dc-label">Breite QR-Code(px):</p>
+                            <input  class="dc-input dc-input-size" type="number" value="50" name="qrSize" id="qrSize" @change="changeQrSize()">
+                            <p class="dc-label">Datei für Logo:</p>
+                            <input class="dc-input logo-input" type="file" id="file" ref="file" @change="handleFileUpload" accept=".jpg, .jpeg, .png"/>
+                            <p class="dc-label">Breite des Logos(px):</p>
+                            <input  class="dc-input dc-input-size" type="number" value="50" id="logoSize" @change="changeLogoSize()">
+                            
+                        </div>
                     </div>
                     <div class="dc-data">
                         <h4>Daten:</h4>
@@ -68,13 +79,11 @@
                             <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
                                 <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
                             </td>
+                            <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
+                            <input  class="dc-button btn btn-primary" type="button" value=" +/- Logo " @click="toggleLogo()">
                         </div>
-                        <p class="dc-label">Schriftgröße:</p>
-                        <input  class="dc-submit btn btn-primary" type="button" value="Toggle QrCode" @click="toggleQr()">
-                        <input  class="dc-input" type="number" value="50" name="qrSize" id="qrSize" @change="changeQrSize()">
-                        <input  class="dc-submit btn btn-primary" type="button" value="Toggle Logo" @click="toggleLogo()">
-                        <input class="dc-input" type="file" id="file" ref="file" @change="handleFileUpload" accept=".jpg, .jpeg, .png"/>
-                        <input  class="dc-input" type="number" value="50" id="logoSize" @change="changeLogoSize()">
+                        
+                    
                         <div class="dc-submit">                                                    
                             <input type="hidden" name="htmlInput" id="htmlInput">
                             <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
@@ -366,7 +375,7 @@ export default {
         z-index: 50;
     }
     .dc-card-area {
-        padding-top: 140px;
+        padding-top: 230px;
         z-index: 10;
     }
     .dc-input {
@@ -398,11 +407,15 @@ export default {
     .dc-options {
         display: flex;
         margin-bottom: 50px;
+        flex-direction: column;
+    }
+    .dc-options> div {
+        display: flex;
     }
     .dc-options h4{
         margin-right: 20px;
     }
-    .dc-options > * {
+    .dc-options > div > * {
         margin-right: 10px
     }
     .dc-data select{
@@ -427,17 +440,15 @@ export default {
     }
     .dc-label{
         padding-top: 7px;
+        min-width: max-content;
     }
-
-
-    /* optional */
-    .dc-submit {
-        margin-top: 70px;
+    .dc-button {
+        width: 200px;
+        margin-right: 10px;
     }
-    .dc-custom {
-        position: absolute;
-        bottom:60px;
-        background-color: white;
-        color:grey;
+    .logo-input {
+        padding: 3px;
+        width: 270px;
     }
+    
 </style>
