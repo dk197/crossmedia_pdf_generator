@@ -3,7 +3,8 @@
         <h1 class="dc-heading">Erstelle deine Visitenkarte</h1>
         <div class="dc-content">
             <div class="dc-input-area">
-                <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
+                <!-- <form method="post" action="http://localhost:80/generate/pdf" target="_blank"> -->
+                <form @submit.prevent="handleFormSubmit" target="_blank">
                     <!-- <h3>Deine Daten:</h3> -->
                     <div class=dc-options>
                         <h4>Optionen:</h4>
@@ -65,7 +66,7 @@
                         </div>
                         <div>
                             <p class="dc-label">Breite QR-Code(px):</p>
-                            <input  class="dc-input dc-input-size" type="number" value="50" name="qrSize" id="qrSize" @change="changeQrSize()">
+                            <input  class="dc-input dc-input-size" type="number" value="50" v-model="qrSize" name="qrSize" id="qrSize" @change="changeQrSize()">
                             <p class="dc-label">Datei für Logo:</p>
                             <input class="dc-input logo-input" type="file" id="file" ref="file" @change="handleFileUpload" accept=".jpg, .jpeg, .png"/>
                             <p class="dc-label">Breite des Logos(px):</p>
@@ -102,6 +103,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import TextBrick from './TextBrick'
 import ImgBrick from './ImgBrick'
 export default {
@@ -114,6 +116,8 @@ export default {
     },
     data () {
         return{
+            qrSize: '',
+            htmlInput: '',
             currentAttribute: '0',
             attributeSelect: '',
             cardWidth: '89',
@@ -237,6 +241,23 @@ export default {
         }
     },
     methods: {
+        handleFormSubmit() {
+            console.log(this.htmlInput);
+            axios.post('http://localhost/generate/pdf', {
+                favColor: this.fontColor,
+                cardWidth: this.cardWidth,
+                cardHeight: this.cardHeight,
+                qrSize: this.qrSize,
+                htmlInput: this.htmlInput
+            }).then(response  => {
+                console.log(response.data);
+                var file = new Blob([response.data], { type: 'application/pdf' });
+                var fileURL = URL.createObjectURL(file);
+                window.open(fileURL, '');
+            }).catch(function(error) {
+                console.log(error);
+            });
+        },  
         toggleLogo() {
             if(this.bricksI['1'].data.show == 'display: none'){
                 this.bricksI['1'].data.show = 'display: ';
@@ -321,6 +342,8 @@ export default {
             return false       
         },
         handleHtml() {
+            const html = document.getElementById('businessCardCanvas').innerHTML;
+            this.htmlInput = html 
             document.getElementById('htmlInput').value = document.getElementById('businessCardCanvas').innerHTML;
         },
         changeCurrentAttribute(index){
