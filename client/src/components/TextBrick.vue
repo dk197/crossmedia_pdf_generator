@@ -12,7 +12,7 @@ export default{
             required: true
         },
         fontSize: {
-            default: '12px'
+            default: '20px'
         },
         fontStyle: {
             default: 'freesans'

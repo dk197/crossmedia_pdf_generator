@@ -115,13 +115,12 @@ export default {
     },
     data () {
         return{
-            selectedInputField: '',
             currentAttribute: '0',
             attributeSelect: '',
             cardWidth: '89',
             cardHeight: '51',
-            fontSize: '20px',
-            fontStyle: 'freesans',
+            fontSize: '',
+            fontStyle: '',
             fontColor: '',
             fontTyp: '',
             fontUrl: '',
@@ -244,7 +243,6 @@ export default {
     },
     methods: {
         getSelectedInputField(index) {
-            this.selectedInputField = index
             this.fontSize = this.bricks[index].data.fontSize;
             this.fontStyle = this.bricks[index].data.fontStyle;
             this.fontColor = this.bricks[index].data.fontColor;
