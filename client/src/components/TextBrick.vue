@@ -15,13 +15,10 @@ export default{
             default: '12px'
         },
         fontStyle: {
-            default: 'Futura'
+            default: 'freesans'
         },
         fontColor: {
             default: 'black'
-        },
-        fontURL:{
-            default: ''
         }
     },
     components: {
