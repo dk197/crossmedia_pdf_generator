@@ -78,7 +78,7 @@
                         <h4>Daten:</h4>
                         <div id="businessCardInput">
                             <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
-                                <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
+                                <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)" v-on:click="getSelectedInputField(index)">
                             </td>
                             <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
                             <input  class="dc-button btn btn-primary" type="button" value=" +/- Logo " @click="toggleLogo()">
@@ -115,12 +115,13 @@ export default {
     },
     data () {
         return{
+            selectedInputField: '',
             currentAttribute: '0',
             attributeSelect: '',
             cardWidth: '89',
             cardHeight: '51',
-            fontSize: '',
-            fontStyle: 'Futura',
+            fontSize: '20px',
+            fontStyle: 'freesans',
             fontColor: '',
             fontTyp: '',
             fontUrl: '',
@@ -242,6 +243,13 @@ export default {
         }
     },
     methods: {
+        getSelectedInputField(index) {
+            this.selectedInputField = index
+            this.fontSize = this.bricks[index].data.fontSize;
+            this.fontStyle = this.bricks[index].data.fontStyle;
+            this.fontColor = this.bricks[index].data.fontColor;
+            this.fontTyp = this.bricks[index].data.fontTyp;
+        },
         toggleLogo() {
             if(this.bricksI['1'].data.show == 'display: none'){
                 this.bricksI['1'].data.show = 'display: ';
@@ -365,7 +373,7 @@ export default {
         float: left;
         background: white;
         font-size: 12px;
-        font-family: Futura;
+        font-family: freesans;
         color: black;
     }
     .dc-heading {
