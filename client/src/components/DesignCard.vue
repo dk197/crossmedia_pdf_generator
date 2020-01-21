@@ -333,6 +333,27 @@ export default {
         },
         colorChanged(color) {
             this.color = color;
+            // this.CYMKtoRGB(color.channels[0], color.channels[1], color.channels[2], color.channels[3])
+        },
+        CYMKtoRGB(c, m, y, k) {
+            c = (c / 100);
+            m = (m / 100);
+            y = (y / 100);
+            k = (k / 100);
+            
+            c = c * (1 - k) + k;
+            m = m * (1 - k) + k;
+            y = y * (1 - k) + k;
+            
+            var r = 1 - c;
+            var g = 1 - m;
+            var b = 1 - y;
+
+            r = Math.round(255 * r);
+            g = Math.round(255 * g);
+            b = Math.round(255 * b);
+            
+            return `rgb(${r}, ${g}, ${b})`
         }
     }
 };
@@ -469,5 +490,12 @@ export default {
         height: calc(1.5em + .75rem + 2px) !important;
         border: none !important;
     }
-    
+
+    .sb-color_picker-picker {
+        width: 200px !important;
+    }
+
+    .sb-color_picker-picker-list {
+        display: none !important;
+    }
 </style>
