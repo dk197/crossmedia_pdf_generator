@@ -21,8 +21,7 @@
                             <option value="30px">30px</option>
                         </select>
                         <p class="dc-label">Schriftfarbe:</p>
-                        <channel-color-picker :color="color" @color-change="colorChanged"/>
-                        <!-- <input class="dc-input" v-model="fontColor" id="fontColor" type="color" @change="changeFontColor(currentAttribute)" name="favcolor" value="#ff0000"><br><br> -->
+                        <input class="dc-input" v-model="fontColor" id="fontColor" type="color" @change="changeFontColor(currentAttribute)" name="favcolor" value="#ff0000"><br><br>
                         <p class="dc-label">Schriftart:</p>
                         <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                             <option disabled value="">Schriftart</option>
@@ -220,11 +219,7 @@ export default {
                     }
                 }
             ],
-            fontFamilies: [],
-            color: {
-                type: "cmyk",
-                channels: [0, 0, 0, 0]
-            }
+            fontFamilies: []
         }
     },
     components: {
@@ -330,9 +325,6 @@ export default {
         },
         changeCurrentAttribute(index){
             this.currentAttribute = index;
-        },
-        colorChanged(color) {
-            this.color = color;
         }
     }
 };
@@ -457,17 +449,6 @@ export default {
     .logo-input {
         padding: 3px;
         width: 270px;
-    }
-
-    .sb-color_picker-current-icon {
-        width: 100px;
-    }
-
-    .sb-color_picker-current {
-        padding: .7rem !important;
-        padding-right: 0 !important;
-        height: calc(1.5em + .75rem + 2px) !important;
-        border: none !important;
     }
     
 </style>
