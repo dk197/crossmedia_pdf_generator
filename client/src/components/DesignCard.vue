@@ -3,8 +3,8 @@
         <h1 class="dc-heading">Erstelle deine Visitenkarte</h1>
         <div class="dc-content">
             <div class="dc-input-area">
-                <!-- <form method="post" action="http://localhost:80/generate/pdf" target="_blank"> -->
-                <form @submit.prevent="handleFormSubmit" target="_blank">
+                <!-- <form method="post" action="http://localhost:80/generate/pdf" @submit="handleFormSubmit" target="_blank"> -->
+                <form @submit.prevent="handleFormSubmit">
                     <!-- <h3>Deine Daten:</h3> -->
                     <div class=dc-options>
                         <h4>Optionen:</h4>
@@ -250,10 +250,22 @@ export default {
                 qrSize: this.qrSize,
                 htmlInput: this.htmlInput
             }).then(response  => {
-                console.log(response.data);
-                var file = new Blob([response.data], { type: 'application/pdf' });
-                var fileURL = URL.createObjectURL(file);
-                window.open(fileURL, '');
+
+                const url = window.URL.createObjectURL(new Blob([response.data]
+                ,{type: "application/pdf", responseType: 'arraybuffer'}))
+                var link = document.createElement('a');
+                link.href = url;
+                // link.setAttribute('download', 'resume.pdf');
+                link.setAttribute('download', 'resume.pdf');
+                document.body.appendChild(link);
+                link.click();
+
+                // console.log(response);
+                // // console.log(response.data);
+                // var file = new Blob([response.data], { type: 'application/pdf', responseType: 'arraybuffer' });
+                // var fileURL = URL.createObjectURL(file);
+                // window.open(fileURL, '');
+                // // window.open("data:application/pdf;base64, " + response.data);
             }).catch(function(error) {
                 console.log(error);
             });

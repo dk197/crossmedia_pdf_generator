@@ -6,7 +6,7 @@
 </template>
 <script>
 import DragItDude from 'vue-drag-it-dude';
-export default{
+export default {
     props: {
         text: {
             required: true

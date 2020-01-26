@@ -19,9 +19,9 @@ class PdfController extends Controller
     public function pdfGenerieren(Request $request)
     {
         header("Access-Control-Allow-Origin: *");
-        // print_r($request);
+        header('Content-Type: application/pdf');
+        // print_r($request->input('htmlInput'));
         // return response()->json($request);
-
 
         $this->validate($request, [
             'cardWidth' => 'required',
@@ -31,8 +31,7 @@ class PdfController extends Controller
         $cardWidth = $request->input('cardWidth');
         $cardHeight = $request->input('cardHeight');
 
-        // $htmlInput = $request->input(['htmlInput']);
-        $htmlInput = '<div data-v-4a7fb514="" class="drag-it-dude" id="0-text"><div data-v-4a7fb514="" class="innerElement">test</div></div><div data-v-4a7fb514="" class="drag-it-dude" id="1-text"><div data-v-4a7fb514="" class="innerElement"></div></div><div data-v-4a7fb514="" class="drag-it-dude" id="2-text"><div data-v-4a7fb514="" class="innerElement"></div></div><div data-v-4a7fb514="" class="drag-it-dude" id="3-text"><div data-v-4a7fb514="" class="innerElement"></div></div><div data-v-4a7fb514="" class="drag-it-dude" id="4-text"><div data-v-4a7fb514="" class="innerElement"></div></div><div data-v-4a7fb514="" class="drag-it-dude" id="5-text"><div data-v-4a7fb514="" class="innerElement"></div></div><div data-v-4a7fb514="" class="drag-it-dude" id="6-text"><div data-v-4a7fb514="" class="innerElement"></div></div><div data-v-4a7fb514="" class="drag-it-dude" id="7-text"><div data-v-4a7fb514="" class="innerElement"></div></div><div data-v-4823d924="" class="drag-it-dude" id="0-img" style="display: none;"><div data-v-4823d924="" class="innerElement"><img data-v-4823d924="" src="https://qrickit.com/api/qr.php?d=BEGIN%3aVCARD%0d%0aVERSION%3a3" width="50px"></div></div><div data-v-4823d924="" class="drag-it-dude" id="1-img"><div data-v-4823d924="" class="innerElement"><img data-v-4823d924="" width="50px"></div></div>';
+        $htmlInput = $request->input(['htmlInput']);
 
         $html = $htmlInput . '
         <style>
@@ -54,6 +53,10 @@ class PdfController extends Controller
         $mpdf->PDFX =  true;
 
         $mpdf->WriteHTML($html);
+        
         $mpdf->Output('', 'I');
+        // $test = $mpdf->Output('', 'I');
+        // $test = chunk_split(base64_encode($test));
+        // print_r($test);
     }
 }
