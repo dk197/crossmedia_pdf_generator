@@ -47,5 +47,7 @@ $router->group(['prefix' => 'generate'], function () use ($router) {
     $router->get('fonts', 'FontController@fontsAktuallisieren');
 
     $router->get('vcard', 'VCardController@generateVcard');
+
+    $router->get('staticqrcode', 'QrCodeController@generateStaticQrCode');
 })
 ?>

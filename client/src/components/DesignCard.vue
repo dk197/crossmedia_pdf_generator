@@ -3,7 +3,7 @@
         <h1 class="dc-heading">Erstelle deine Visitenkarte</h1>
         <div class="dc-content">
             <div class="dc-input-area">
-                <form method="post" action="http://localhost:80/generate/pdf" target="_blank">
+                <form method="post" action="http://localhost:80/generate/pdf">
                     <!-- <h3>Deine Daten:</h3> -->
                     <div class=dc-options>
                         <h4>Optionen:</h4>
@@ -80,7 +80,7 @@
                         <h4>Daten:</h4>
                         <div id="businessCardInput">
                             <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
-                                <input v-model="bricks[index].data.text" :name="bricks[index].attribute" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
+                                <input v-model="bricks[index].data.text" :name="bricks[index].attribute.toLowerCase()" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
                             </td>
                             <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
                             <input  class="dc-button btn btn-primary" type="button" value=" +/- Logo " @click="toggleLogo()">
