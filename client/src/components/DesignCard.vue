@@ -246,11 +246,12 @@ export default {
             this.fontSize = this.bricks[index].data.fontSize;
             this.fontStyle = this.bricks[index].data.fontStyle;
             this.fontColor = this.bricks[index].data.fontColor;
-            var r = this.bricks[index].data.fontColor.match(/\d{1,3}/[0]);
-            var g = this.bricks[index].data.fontColor.match(/\d{1,3}/[1]);
-            var b = this.bricks[index].data.fontColor.match(/\d{1,3}/[2]);
-            console.log(r);
-            this.color.channels = this.RGBtoCMYK(r, g, b);
+            if (this.bricks[index].data.fontColor.length !== 0) {
+                 var r = this.bricks[index].data.fontColor.match(/\d{1,3}/gm)[0];
+                var g = this.bricks[index].data.fontColor.match(/\d{1,3}/gm)[1];
+                var b = this.bricks[index].data.fontColor.match(/\d{1,3}/gm)[2];
+                this.color.channels = this.RGBtoCMYK(r,g,b);
+            }
             this.fontTyp = this.bricks[index].data.fontTyp;
         },
         toggleLogo() {
