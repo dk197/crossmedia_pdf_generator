@@ -178,7 +178,7 @@ export default {
                     }
                 },
                 {
-                    attribute: 'Fax',
+                    attribute: 'Tel_Geschaeftlich',
                     data: {
                         fontSize: '',
                         fontStyle: '', 
