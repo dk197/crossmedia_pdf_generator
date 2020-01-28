@@ -18,6 +18,12 @@ class PdfController extends Controller
 
     public function pdfGenerieren(Request $request)
     {
+        //save the file for Pdf generation
+        $uniqueIdent = uniqid();
+        $target_dir = "uploads/";
+        $target_file = $target_dir . $uniqueIdent . basename($_FILES['fileToUpload']['name']);
+        move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
+
         header("Access-Control-Allow-Origin: *");
 
         $this->validate($request, [
@@ -29,6 +35,12 @@ class PdfController extends Controller
         $cardHeight = $request->input('cardHeight');
 
         $htmlInput = $request->input(['htmlInput']);
+
+        //replace src from blob to the temp. Filepath
+        $search = '/src="blob:http(.*?")/';
+        $replace = 'src="' . $target_file . '"';
+        $string = $htmlInput;
+        $htmlInput = preg_replace($search,$replace,$string);
 
         $html = $htmlInput . '
         <style>
@@ -51,5 +63,8 @@ class PdfController extends Controller
 
         $mpdf->WriteHTML($html);
         $mpdf->Output('', 'I');
+        
+        //delete temp file
+        unlink($target_file);
     }
 }
