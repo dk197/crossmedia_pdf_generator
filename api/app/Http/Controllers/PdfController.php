@@ -29,7 +29,7 @@ class PdfController extends Controller
 
         header("Access-Control-Allow-Origin: *");
         
-        return response()->json($request);
+        // return response()->json($request);
 
         $this->validate($request, [
             'cardWidth' => 'required',
@@ -42,10 +42,10 @@ class PdfController extends Controller
             'position' => $request->input(['position']),
             'firma' => $request->input(['firma']),
             'adresse' => $request->input(['adresse']),
-            'telefon' => $request->input(['telefon']),
-            'fax' => $request->input(['fax']),
+            'telefon_privat' => $request->input(['telefon']),
+            'telefon_geschaeftlich' => $request->input(['tel_geschaeftlich']),
             'email' => $request->input(['e-mail']),
-            'website' => $request->input(['website']),
+            'website' => $request->input(['webseite']),
         ];
 
         if($request->input('dynamicQrCode') === 'on') {
@@ -56,6 +56,8 @@ class PdfController extends Controller
         }else {
             // generate static qrcode
             $qrcode = $this->generateStaticQrCode($qrcodeData);
+            // print_r($qrcode);
+            return;
         }
 
         $cardWidth = $request->input('cardWidth');
@@ -96,16 +98,18 @@ class PdfController extends Controller
     }
 
     public function generateStaticQrCode($data) {
-        $oQRC = new QRCode; // Create vCard Object
-        $oQRC->fullName($data['name']) // Add Full Name
+        $oQRC = new QRCode; 
+        $oQRC->fullName($data['name']) 
             ->role($data['position'])
             ->organization($data['firma'])
             ->address($data['adresse'])
-            ->workPhone($data['telefon'])
-            ->email('ph7software@gmail.com') // Add Email Address
-            ->finish(); // End vCard
+            ->workPhone($data['telefon_geschaeftlich'])
+            ->homePhone($data['telefon_privat'])
+            ->email($data['email']) 
+            ->url($data['website']) 
+            ->finish(); 
         
-        // echo '<p><img src="' . $oQRC->get(300) . '" alt="QR Code" /></p>'; // Generate and display the QR Code
-        $oQRC->display(); // Display
+        echo '<p><img src="' . $oQRC->get(300) . '" alt="QR Code" /></p>'; // Generate and display the QR Code
+        // $oQRC->display(); // Display
     }
 }
