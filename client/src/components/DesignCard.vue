@@ -25,8 +25,8 @@
             <div class="dc-card-area">
                   <h4>Vorschau:</h4>
                     <div class="card-options">
-                        <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
-                        <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
+                        <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" max="110" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
+                        <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" max="120" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
                     </div>
                 <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
                     <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index + '-text'"></text-brick>
