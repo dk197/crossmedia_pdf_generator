@@ -55,12 +55,15 @@ class PdfController extends Controller
             // make database entry
             // create specific url
             // create qrcode with the url
-            $this->insertVCardInformation($qrcodeData);
+            $vcardId = $this->insertVCardInformation($qrcodeData);
+            $url = 'http://2c94cc02.ngrok.io/getvcard/'.$vcardId;
+            $encodedUrl = urlencode($url);
+            $qrcode = '<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='.$encodedUrl.'&choe=UTF-8">';
         }else {
             // generate static qrcode
             $qrcode = $this->generateStaticQrCode($qrcodeData);
             // print_r($qrcode);
-            return;
+            // return;
         }
 
         $cardWidth = $request->input('cardWidth');
@@ -111,6 +114,8 @@ class PdfController extends Controller
         $vcard->email = $data['email'];
         $vcard->webseite = $data['website'];
         $vcard->save();
+
+        return $vcard->id;
     }
 
     public function generateStaticQrCode($data) {
@@ -125,7 +130,9 @@ class PdfController extends Controller
             ->url($data['website']) 
             ->finish(); 
         
-        echo '<p><img src="' . $oQRC->get(300) . '" alt="QR Code" /></p>'; // Generate and display the QR Code
+        return '<img src="' . $oQRC->get(300) . '" alt="QR Code" />';
+
+        // echo '<p><img src="' . $oQRC->get(300) . '" alt="QR Code" /></p>'; // Generate and display the QR Code
         // $oQRC->display(); // Display
     }
 }
