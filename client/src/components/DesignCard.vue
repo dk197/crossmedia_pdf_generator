@@ -71,6 +71,8 @@
                             <input class="dc-input logo-input" type="file" id="file" ref="file" @change="handleFileUpload" accept=".jpg, .jpeg, .png"/>
                             <p class="dc-label">Breite des Logos(px):</p>
                             <input  class="dc-input dc-input-size" type="number" value="50" id="logoSize" @change="changeLogoSize()">
+                            <p class="dc-label">Dynamischer QR-Code:</p>
+                            <input class="dc-input" type="checkbox" name="dynamicQrCode" v-model="dynamicQrCode">
                             
                         </div>
                     </div>
@@ -115,6 +117,7 @@ export default {
     },
     data () {
         return{
+            dynamicQrCode: false,
             currentAttribute: '0',
             attributeSelect: '',
             cardWidth: '89',
