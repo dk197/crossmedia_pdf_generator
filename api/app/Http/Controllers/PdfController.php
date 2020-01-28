@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\VCard;
 use \mpdf;
 use Illuminate\Http\Request;
 use QRCode;
@@ -42,8 +44,8 @@ class PdfController extends Controller
             'position' => $request->input(['position']),
             'firma' => $request->input(['firma']),
             'adresse' => $request->input(['adresse']),
-            'telefon_privat' => $request->input(['telefon']),
-            'telefon_geschaeftlich' => $request->input(['tel_geschaeftlich']),
+            'telefon_privat' => $request->input(['telefon_privat']),
+            'telefon_geschaeftlich' => $request->input(['telefon_geschaeftlich']),
             'email' => $request->input(['e-mail']),
             'website' => $request->input(['webseite']),
         ];
@@ -53,6 +55,7 @@ class PdfController extends Controller
             // make database entry
             // create specific url
             // create qrcode with the url
+            $this->insertVCardInformation($qrcodeData);
         }else {
             // generate static qrcode
             $qrcode = $this->generateStaticQrCode($qrcodeData);
@@ -95,6 +98,19 @@ class PdfController extends Controller
         
         //delete temp file
         unlink($target_file);
+    }
+
+    public function insertVCardInformation($data) {
+        $vcard = new VCard();
+        $vcard->name = $data['name'];
+        $vcard->position  = $data['position'];
+        $vcard->firma = $data['firma'];
+        $vcard->adresse = $data['adresse'];
+        $vcard->telefon_privat = $data['telefon_privat'];
+        $vcard->telefon_geschaeftlich = $data['telefon_geschaeftlich'];
+        $vcard->email = $data['email'];
+        $vcard->webseite = $data['website'];
+        $vcard->save();
     }
 
     public function generateStaticQrCode($data) {

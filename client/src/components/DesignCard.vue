@@ -3,7 +3,7 @@
         <h1 class="dc-heading">Erstelle deine Visitenkarte</h1>
         <div class="dc-content">
             <div class="dc-input-area">
-                <form method="post" action="http://localhost:80/generate/pdf" target="_blank" enctype="multipart/form-data">
+                <form method="post" action="http://localhost:80/generate/pdf" enctype="multipart/form-data">
                     <!-- <h3>Deine Daten:</h3> -->
                     <div class=dc-options>
                         <h4>Optionen:</h4>
@@ -169,7 +169,7 @@ export default {
                     }
                 },
                 {
-                    attribute: 'Telefon',
+                    attribute: 'Telefon_privat',
                     data: {
                         fontSize: '',
                         fontStyle: '',
@@ -178,7 +178,7 @@ export default {
                     }
                 },
                 {
-                    attribute: 'Tel_Geschaeftlich',
+                    attribute: 'Telefon_Geschaeftlich',
                     data: {
                         fontSize: '',
                         fontStyle: '', 
