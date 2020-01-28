@@ -19,6 +19,9 @@ class PdfController extends Controller
     public function pdfGenerieren(Request $request)
     {
         //save the file for Pdf generation
+        if (!file_exists('uploads/')) {
+            mkdir('uploads/', 0777, true);
+        }
         $uniqueIdent = uniqid();
         $target_dir = "uploads/";
         $target_file = $target_dir . $uniqueIdent . basename($_FILES['fileToUpload']['name']);
