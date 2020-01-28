@@ -255,6 +255,8 @@ export default {
                 var g = this.bricks[index].data.fontColor.match(/\d{1,3}/gm)[1];
                 var b = this.bricks[index].data.fontColor.match(/\d{1,3}/gm)[2];
                 this.color.channels = this.RGBtoCMYK(r,g,b);
+            } else {
+                this.color.channels = [0,0,0,100]
             }
             this.fontTyp = this.bricks[index].data.fontTyp;
         },
