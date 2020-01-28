@@ -80,7 +80,7 @@
                         <h4>Daten:</h4>
                         <div id="businessCardInput">
                             <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
-                                <input v-model="bricks[index].data.text" :name="bricks[index].attribute" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
+                                <!-- <input v-model="bricks[index].data.text" :name="bricks[index].attribute" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)"> -->
                                 <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)" v-on:click="getSelectedInputField(index)">
                             </td>
                             <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
