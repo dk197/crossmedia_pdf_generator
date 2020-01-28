@@ -3,7 +3,7 @@
         <h1 class="dc-heading">Erstelle deine Visitenkarte</h1>
         <div class="dc-content">
             <div class="dc-input-area">
-                <form method="post" action="http://localhost:80/generate/pdf">
+                <form method="post" action="http://localhost:80/generate/pdf" target="_blank" enctype="multipart/form-data">
                     <!-- <h3>Deine Daten:</h3> -->
                     <div class=dc-options>
                         <h4>Optionen:</h4>
@@ -68,7 +68,7 @@
                             <p class="dc-label">Breite QR-Code(px):</p>
                             <input  class="dc-input dc-input-size" type="number" value="50" name="qrSize" id="qrSize" @change="changeQrSize()">
                             <p class="dc-label">Datei für Logo:</p>
-                            <input class="dc-input logo-input" type="file" id="file" ref="file" @change="handleFileUpload" accept=".jpg, .jpeg, .png"/>
+                            <input class="dc-input logo-input" type="file" id="fileToUpload" ref="file" @change="handleFileUpload" name="fileToUpload" accept=".jpg, .jpeg, .png"/>
                             <p class="dc-label">Breite des Logos(px):</p>
                             <input  class="dc-input dc-input-size" type="number" value="50" id="logoSize" @change="changeLogoSize()">
                             <p class="dc-label">Dynamischer QR-Code:</p>
@@ -92,7 +92,7 @@
                             <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
                         </div>
                     </div>
-                </form>
+                </form>                
             </div>
             <div class="dc-card-area">
                 <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
@@ -258,8 +258,7 @@ export default {
         },
         handleFileUpload(e) {
             const file = e.target.files[0];
-            this.bricksI['1'].data.src = URL.createObjectURL(file);
-            alert(file.webkitRelativePath)
+            this.bricksI[1].data.src = URL.createObjectURL(file);
         },
         toggleQr() {
             if(this.bricksI['0'].data.show == 'display: none'){
