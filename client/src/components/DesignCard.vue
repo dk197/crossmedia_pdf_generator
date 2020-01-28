@@ -21,7 +21,7 @@
                             <option value="30px">30px</option>
                         </select>
                         <p class="dc-label">Schriftfarbe:</p>
-                        <channel-color-picker :color="color" @color-change="colorChanged"/>
+                        <channel-color-picker id="fontColor" v-model="fontColor" :color="color" @color-change="colorChanged"/>
                         <!-- <input class="dc-input" v-model="fontColor" id="fontColor" type="color" @change="changeFontColor(currentAttribute)" name="favcolor" value="#ff0000"><br><br> -->
                         <p class="dc-label">Schriftart:</p>
                         <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
@@ -223,7 +223,7 @@ export default {
             fontFamilies: [],
             color: {
                 type: "cmyk",
-                channels: [0, 0, 0, 0]
+                channels: [0, 0, 0, 100]
             }
         }
     },
@@ -246,6 +246,11 @@ export default {
             this.fontSize = this.bricks[index].data.fontSize;
             this.fontStyle = this.bricks[index].data.fontStyle;
             this.fontColor = this.bricks[index].data.fontColor;
+            var r = this.bricks[index].data.fontColor.match(/\d{1,3}/[0]);
+            var g = this.bricks[index].data.fontColor.match(/\d{1,3}/[1]);
+            var b = this.bricks[index].data.fontColor.match(/\d{1,3}/[2]);
+            console.log(r);
+            this.color.channels = this.RGBtoCMYK(r, g, b);
             this.fontTyp = this.bricks[index].data.fontTyp;
         },
         toggleLogo() {
@@ -339,7 +344,10 @@ export default {
         },
         colorChanged(color) {
             this.color = color;
-            // this.CYMKtoRGB(color.channels[0], color.channels[1], color.channels[2], color.channels[3])
+            const newColor = this.CYMKtoRGB(color.channels[0], color.channels[1], color.channels[2], color.channels[3])
+            this.bricks[this.currentAttribute].data.fontColor = newColor;
+            document.getElementById(this.currentAttribute + '-text').style.color = newColor; 
+            // console.log(color.channels);
         },
         CYMKtoRGB(c, m, y, k) {
             c = (c / 100);
@@ -360,6 +368,31 @@ export default {
             b = Math.round(255 * b);
             
             return `rgb(${r}, ${g}, ${b})`
+            
+        },
+        RGBtoCMYK(r, g, b) {
+            var c = 1 - (r / 255);
+            var m = 1 - (g / 255);
+            var y = 1 - (b / 255);
+            var k = Math.min(c, Math.min(m, y));
+            
+            c = (c - k) / (1 - k);
+            m = (m - k) / (1 - k);
+            y = (y - k) / (1 - k);
+            
+        
+            c = Math.round(c * 10000) / 100;
+            m = Math.round(m * 10000) / 100;
+            y = Math.round(y * 10000) / 100;
+            k = Math.round(k * 10000) / 100;
+            
+            
+            c = isNaN(c) ? 0 : c;
+            m = isNaN(m) ? 0 : m;
+            y = isNaN(y) ? 0 : y;
+            k = isNaN(k) ? 0 : k;
+            
+            return [c, m, y, k];
         }
     }
 };
