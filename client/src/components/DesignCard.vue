@@ -21,7 +21,8 @@
                             <option value="30px">30px</option>
                         </select>
                         <p class="dc-label">Schriftfarbe:</p>
-                        <input class="dc-input" v-model="fontColor" id="fontColor" type="color" @change="changeFontColor(currentAttribute)" name="favcolor" value="#ff0000"><br><br>
+                        <channel-color-picker :color="color" @color-change="colorChanged"/>
+                        <!-- <input class="dc-input" v-model="fontColor" id="fontColor" type="color" @change="changeFontColor(currentAttribute)" name="favcolor" value="#ff0000"><br><br> -->
                         <p class="dc-label">Schriftart:</p>
                         <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                             <option disabled value="">Schriftart</option>
@@ -70,6 +71,8 @@
                             <input class="dc-input logo-input" type="file" id="fileToUpload" ref="file" @change="handleFileUpload" name="fileToUpload" accept=".jpg, .jpeg, .png"/>
                             <p class="dc-label">Breite des Logos(px):</p>
                             <input  class="dc-input dc-input-size" type="number" value="50" id="logoSize" @change="changeLogoSize()">
+                            <p class="dc-label">Dynamischer QR-Code:</p>
+                            <input class="dc-input" type="checkbox" name="dynamicQrCode" v-model="dynamicQrCode">
                             
                         </div>
                     </div>
@@ -77,7 +80,7 @@
                         <h4>Daten:</h4>
                         <div id="businessCardInput">
                             <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
-                                <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
+                                <input v-model="bricks[index].data.text" :name="bricks[index].attribute" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
                             </td>
                             <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
                             <input  class="dc-button btn btn-primary" type="button" value=" +/- Logo " @click="toggleLogo()">
@@ -114,6 +117,7 @@ export default {
     },
     data () {
         return{
+            dynamicQrCode: false,
             currentAttribute: '0',
             attributeSelect: '',
             cardWidth: '89',
@@ -219,7 +223,11 @@ export default {
                     }
                 }
             ],
-            fontFamilies: []
+            fontFamilies: [],
+            color: {
+                type: "cmyk",
+                channels: [0, 0, 0, 0]
+            }
         }
     },
     components: {
@@ -324,6 +332,30 @@ export default {
         },
         changeCurrentAttribute(index){
             this.currentAttribute = index;
+        },
+        colorChanged(color) {
+            this.color = color;
+            // this.CYMKtoRGB(color.channels[0], color.channels[1], color.channels[2], color.channels[3])
+        },
+        CYMKtoRGB(c, m, y, k) {
+            c = (c / 100);
+            m = (m / 100);
+            y = (y / 100);
+            k = (k / 100);
+            
+            c = c * (1 - k) + k;
+            m = m * (1 - k) + k;
+            y = y * (1 - k) + k;
+            
+            var r = 1 - c;
+            var g = 1 - m;
+            var b = 1 - y;
+
+            r = Math.round(255 * r);
+            g = Math.round(255 * g);
+            b = Math.round(255 * b);
+            
+            return `rgb(${r}, ${g}, ${b})`
         }
     }
 };
@@ -449,5 +481,23 @@ export default {
         padding: 3px;
         width: 270px;
     }
-    
+
+    .sb-color_picker-current-icon {
+        width: 100px;
+    }
+
+    .sb-color_picker-current {
+        padding: .7rem !important;
+        padding-right: 0 !important;
+        height: calc(1.5em + .75rem + 2px) !important;
+        border: none !important;
+    }
+
+    .sb-color_picker-picker {
+        width: 200px !important;
+    }
+
+    .sb-color_picker-picker-list {
+        display: none !important;
+    }
 </style>
