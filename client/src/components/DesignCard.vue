@@ -5,10 +5,38 @@
             <div class="dc-input-area">
                 <form method="post" action="http://localhost:80/generate/pdf" target="_blank" enctype="multipart/form-data">
                     <!-- <h3>Deine Daten:</h3> -->
-                    <div class=dc-options>
-                        <h4>Optionen:</h4>
-                        <div>
-                        <p class="dc-label">Schriftgröße:</p>
+                    <div class="dc-data">
+                        <h4>Daten:</h4>
+                        <div id="businessCardInput">
+                            <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
+                                <!-- <input v-model="bricks[index].data.text" :name="bricks[index].attribute" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)"> -->
+                                <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)" v-on:click="getSelectedInputField(index)">
+                            </td>
+                            <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
+                            <input  class="dc-button btn btn-primary" type="button" value=" +/- Logo " @click="toggleLogo()">
+                        </div>
+                        <div class="dc-submit">                                                    
+                            <input type="hidden" name="htmlInput" id="htmlInput">
+                            <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
+                        </div>
+                    </div>
+                </form>                
+            </div>
+            <div class="dc-card-area">
+                  <h4>Vorschau:</h4>
+                    <div class="card-options">
+                        <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
+                        <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
+                    </div>
+                <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
+                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index + '-text'"></text-brick>
+                    <img-brick v-for="(brickI, index) in bricksI" :key="'img-' + index" :src="brickI.data.src" :width="brickI.data.width" :style="brickI.data.show" :id="index + '-img'"></img-brick>
+                </div>
+            </div>
+            <div class="dc-options-area">
+                <h4>Optionen:</h4>
+                <div class=dc-options>
+                    <div class="dc-options-1">
                         <select class="dc-input" v-model="fontSize" id="fontSize" @change="changeFontSize(currentAttribute)">
                             <option disabled value="">Schriftgröße</option>
                             <option value="8px">8px</option>
@@ -20,10 +48,8 @@
                             <option value="25px">25px</option>
                             <option value="30px">30px</option>
                         </select>
-                        <p class="dc-label">Schriftfarbe:</p>
                         <channel-color-picker id="fontColor" v-model="fontColor" :color="color" @color-change="colorChanged"/>
                         <!-- <input class="dc-input" v-model="fontColor" id="fontColor" type="color" @change="changeFontColor(currentAttribute)" name="favcolor" value="#ff0000"><br><br> -->
-                        <p class="dc-label">Schriftart:</p>
                         <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                             <option disabled value="">Schriftart</option>
                             <option style="fontFamily: dejavusanscondensed">  dejavusanscondensed </option> 
@@ -53,7 +79,6 @@
                             <option style="fontFamily: lateef">  lateef  </option>
                             <option style="fontFamily: unbatang"> unbatang  </option>
                         </select>
-                        <p class="dc-label">Schriftschnitt:</p>
                         <select class="dc-input" v-model="fontTyp" id="fontTyp" @change="changeFontTyp(currentAttribute)">
                             <option disabled value="">Schriftschnitt</option>
                             <option value="italic">italic</option>
@@ -61,44 +86,25 @@
                             <option value="normal">normal</option>
                             <option value="bold">bold</option>
                         </select>
-                        <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
-                        <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
+                    </div>
+                    <div class="dc-options-2">
+                        <div>
+                            <p class="dc-label">Datei für Logo:</p>
+                            <input class="dc-input logo-input" type="file" id="fileToUpload" ref="file" @change="handleFileUpload" name="fileToUpload" accept=".jpg, .jpeg, .png"/>
+                        </div>
+                        <div>
+                            <p class="dc-label">Breite des Logos(px):</p>
+                            <input  class="dc-input dc-input-size" type="number" value="50" id="logoSize" @change="changeLogoSize()">
+                        </div>
+                        <div>
+                            <p class="dc-label">Dynamischer QR-Code:</p>
+                            <input class="dc-input" type="checkbox" name="dynamicQrCode" v-model="dynamicQrCode">
                         </div>
                         <div>
                             <p class="dc-label">Breite QR-Code(px):</p>
                             <input  class="dc-input dc-input-size" type="number" value="50" name="qrSize" id="qrSize" @change="changeQrSize()">
-                            <p class="dc-label">Datei für Logo:</p>
-                            <input class="dc-input logo-input" type="file" id="fileToUpload" ref="file" @change="handleFileUpload" name="fileToUpload" accept=".jpg, .jpeg, .png"/>
-                            <p class="dc-label">Breite des Logos(px):</p>
-                            <input  class="dc-input dc-input-size" type="number" value="50" id="logoSize" @change="changeLogoSize()">
-                            <p class="dc-label">Dynamischer QR-Code:</p>
-                            <input class="dc-input" type="checkbox" name="dynamicQrCode" v-model="dynamicQrCode">
-                            
                         </div>
                     </div>
-                    <div class="dc-data">
-                        <h4>Daten:</h4>
-                        <div id="businessCardInput">
-                            <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
-                                <!-- <input v-model="bricks[index].data.text" :name="bricks[index].attribute" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)"> -->
-                                <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)" v-on:click="getSelectedInputField(index)">
-                            </td>
-                            <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
-                            <input  class="dc-button btn btn-primary" type="button" value=" +/- Logo " @click="toggleLogo()">
-                        </div>
-                        
-                    
-                        <div class="dc-submit">                                                    
-                            <input type="hidden" name="htmlInput" id="htmlInput">
-                            <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
-                        </div>
-                    </div>
-                </form>                
-            </div>
-            <div class="dc-card-area">
-                <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
-                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index + '-text'"></text-brick>
-                    <img-brick v-for="(brickI, index) in bricksI" :key="'img-' + index" :src="brickI.data.src" :width="brickI.data.width" :style="brickI.data.show" :id="index + '-img'"></img-brick>
                 </div>
             </div>
         </div>
@@ -433,6 +439,7 @@ export default {
         font-size: 12px;
         font-family: freesans;
         color: black;
+        margin-top: 10px;
     }
     .dc-heading {
         margin-left: 10%;
@@ -443,14 +450,17 @@ export default {
         width: 100%;
         position: relative;
         padding: 0 10%;
+        justify-content: space-between;
     }
     .dc-input-area {
-        width: 40%;
+        /* width: 40%; */
         z-index: 50;
     }
     .dc-card-area {
-        padding-top: 230px;
         z-index: 10;
+    }
+    .dc-options-area {
+        width: 40%;
     }
     .dc-input {
         display: block;
@@ -471,6 +481,9 @@ export default {
         margin-right: 10px;
         margin-bottom: 10px;
     }
+    .card-options {
+        display: flex;
+    }
     .dc-input input{
         border: none;
         width: 180px;
@@ -481,22 +494,34 @@ export default {
     .dc-options {
         display: flex;
         margin-bottom: 50px;
-        flex-direction: column;
+        flex-direction: row;
+        margin-top: 10px;
     }
-    .dc-options> div {
-        display: flex;
+    .dc-options-1 {
+        margin-right: 40px;
     }
     .dc-options h4{
         margin-right: 20px;
     }
-    .dc-options > div > * {
-        margin-right: 10px
+    .dc-options-1 > * {
+        width: 150px;
+        margin-bottom: 10px;
+    }
+    .dc-options-2 > div {
+        display: flex;
+        width: 800px;
+        margin-bottom: 10px;
+    }
+    .dc-options-2 > div > .dc-label {
+        width: 180px;
+        
     }
     .dc-data select{
         width: 200px;
     }
     .dc-input-size {
-        width: 100px;
+        width: 75px;
+        margin-right: 10px;
     }
     .dc-card-options {
         display: flex;
@@ -515,6 +540,7 @@ export default {
     .dc-label{
         padding-top: 7px;
         min-width: max-content;
+        margin-bottom: 0;
     }
     .dc-button {
         width: 200px;
