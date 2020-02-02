@@ -4,14 +4,14 @@
             <h3>Login</h3>
             <div class="form-group">
                 <label for="user-email">E-Mail Adresse:</label>
-                <input type="email" class="form-control" v-model="email" id="user-email" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" v-model="email" required id="user-email" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
             <div class="form-group">
                 <label for="user-password">Passwort:</label>
-                <input type="password" class="form-control" v-model="password" id="user-password" placeholder="Enter password">
+                <input type="password" class="form-control" v-model="password" required id="user-password" placeholder="Enter password">
             </div>
             <button class="btn btn-primary form-button">Einloggen</button>
-            <router-link class="register-link" to="register" active-class="active" exact>Registrieren</router-link>trz
+            <router-link class="register-link" to="register" active-class="active" exact>Registrieren</router-link>
         </form>
     </div>
 </template>
