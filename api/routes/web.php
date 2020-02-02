@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Auth;
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -31,10 +34,12 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('xtest', 'AuthController@xtest');
     // routes that need an authorized user
-    $router->group(['middleware' => 'auth:api'], function () use ($router) {
-        $router->get('/secured', function () {
+    $router->group(['middleware' => 'auth:api', 'prefix' => 'secured'], function () use ($router) {
+        $router->get('/getvcards', function () {
+            // $user = Auth::user();
             return response()->json([
-                'message' => 'Hello!',
+                // 'message' => 'Hello!',
+                Auth::user()
             ]);
         });
     });
