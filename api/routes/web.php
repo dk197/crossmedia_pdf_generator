@@ -24,6 +24,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->post('login', 'AuthController@login');
 
+    $router->get('/getvcard/{id}', 'PdfController@getDynamicVcard');
+
     // localhost:80/api/test
     $router->get('test', 'AuthController@test');
 

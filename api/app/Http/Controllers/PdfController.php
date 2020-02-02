@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\VCard;
 use \mpdf;
 use Illuminate\Http\Request;
+use JeroenDesloovere\VCard\VCard as JeroenDesloovereVCardVCard;
 use QRCode;
 
 class PdfController extends Controller
@@ -50,22 +51,19 @@ class PdfController extends Controller
             'website' => $request->input(['webseite']),
         ];
 
-        if($request->input('dynamicQrCode') === 'on') {
-            // generate vcard
-            // make database entry
-            // create specific url
-            // create qrcode with the url
-            $vcardId = $this->insertVCardInformation($qrcodeData);
-            $url = 'http://2c94cc02.ngrok.io/getvcard/'.$vcardId;
-            $encodedUrl = urlencode($url);
-            $qrcode = '<img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl='.$encodedUrl.'&choe=UTF-8">';
-        }else {
-            // generate static qrcode
-            $qrcode = $this->generateStaticQrCode($qrcodeData);
-            // print_r($qrcode);
-            // return;
-        }
+        $qrSize = $request->input(['qrSize']);
 
+        if($request->input('dynamicQrCode') === 'on') {
+            $vcardId = $this->insertVCardInformation($qrcodeData);
+            $ngrok = 'http://d152355e.ngrok.io';
+            $url = $ngrok.'/api/getvcard/'.$vcardId;
+            $encodedUrl = urlencode($url);
+            $qrcode = '<img src="https://chart.googleapis.com/chart?chs='.$qrSize.'x'.$qrSize.'&cht=qr&chl='.$encodedUrl.'&choe=UTF-8">';
+        }else {
+            $qrcode = $this->generateStaticQrCode($qrcodeData, $qrSize);
+        }
+        echo $qrcode;
+        return;
         $cardWidth = $request->input('cardWidth');
         $cardHeight = $request->input('cardHeight');
 
@@ -118,21 +116,42 @@ class PdfController extends Controller
         return $vcard->id;
     }
 
-    public function generateStaticQrCode($data) {
+    public function generateStaticQrCode($data, $qrSize) {
         $oQRC = new QRCode; 
+
         $oQRC->fullName($data['name']) 
             ->role($data['position'])
             ->organization($data['firma'])
             ->address($data['adresse'])
             ->workPhone($data['telefon_geschaeftlich'])
             ->homePhone($data['telefon_privat'])
-            ->email($data['email']) 
-            ->url($data['website']) 
-            ->finish(); 
+            ->email($data['email']); 
         
-        return '<img src="' . $oQRC->get(300) . '" alt="QR Code" />';
+        if($data['website'] !== '') {
+            $oQRC->url($data['website']); 
+        }
 
-        // echo '<p><img src="' . $oQRC->get(300) . '" alt="QR Code" /></p>'; // Generate and display the QR Code
-        // $oQRC->display(); // Display
+        $oQRC->finish(); 
+
+        return '<img src="' . $oQRC->get($qrSize) . '"/>';
+    }
+
+    public function getDynamicVcard($id) {
+        $vcardModel = VCard::where('id', $id)->get()->first();
+        $vcard = new JeroenDesloovereVCardVCard();
+
+        $vcard->addName($vcardModel->name);
+        $vcard->addCompany($vcardModel->firma);
+        $vcard->addRole($vcardModel->position);
+        $vcard->addEmail($vcardModel->email);
+        $vcard->addPhoneNumber($vcardModel->telefon_privat, 'Privat');
+        $vcard->addPhoneNumber($vcardModel->telefon_geschaeftlich, 'WORK');
+        $vcard->addAddress(null, null, null, null, null, null, $vcardModel->adresse);
+        $vcard->addURL($vcardModel->webseite);
+
+        $vcardString = $vcard->getOutput();
+
+        return response($vcardString, '200')
+            ->header('Content-Type', 'text/x-vcard');
     }
 }
