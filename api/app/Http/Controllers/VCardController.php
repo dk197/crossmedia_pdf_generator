@@ -52,18 +52,19 @@ class VCardController extends Controller
     }
 
     public function editVcard(Request $request) {
-        header("Access-Control-Allow-Origin: *");
-        print_r($request);
-        // $vcard = AppVCard::where('id', $id)->get()->first();
-        // $vcard->name = $request->input('name');
-        // $vcard->position = $request->position;
-        // $vcard->firma = $request->firma;
-        // $vcard->adresse = $request->adresse;
-        // $vcard->telefon_privat = $request->telefon_privat;
-        // $vcard->telefon_geschaeftlich = $request->telefon_geschaeftlich;
-        // $vcard->email = $request->email;
-        // $vcard->webseite = $request->webseite;
-        // $vcard->save();
-        // return response()->json($vcard);
+        // header("Access-Control-Allow-Origin: *");
+        // print_r($request);
+        $vcard = AppVCard::where('id', $request->id + 1)->get()->first();
+        $vcard->name = $request->name;
+        $vcard->position = $request->position;
+        $vcard->firma = $request->firma;
+        $vcard->adresse = $request->adresse;
+        $vcard->telefon_privat = $request->telefon_privat;
+        $vcard->telefon_geschaeftlich = $request->telefon_geschaeftlich;
+        $vcard->email = $request->email;
+        $vcard->webseite = $request->webseite;
+        $vcard->save();
+        return response()->json($vcard);
+        // return response()->json($request->id);
     }
 }

@@ -44,7 +44,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         // });
         $router->get('/getcurrentuser', 'AuthController@getCurrentUser');
         $router->get('/getvcards', 'VCardController@getUsersVCards');
-        $router->post('/editvcard', 'PdfController@editVcard');
+        $router->post('editvcard', 'VCardController@editVcard');
     });
  });
 

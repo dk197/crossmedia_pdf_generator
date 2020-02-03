@@ -53,7 +53,8 @@
                                 <span v-else>{{ vcard.webseite }}</span>
                             </td>
                             <td>
-                                <button class="btn btn-primary" @click="handler(index)">{{ buttonText }}</button>
+                                <button class="btn btn-primary mr-1" @click="editVCard(index)">{{ buttonText }}</button>
+                                <button class="btn btn-danger" @click="deleteVCard(index)">Löschen</button>
                             </td>
                         </tr>
                     </table>
@@ -84,11 +85,7 @@ export default {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             }).then(response  => {
-                console.log(response.data);
-                console.log(response.data.length);
-                if(response.data.length === 0) {
-                    console.log('test');
-                }else {
+                if(response.data.length !== 0) {
                     this.vcards = response.data
                 }
                 this.$store.commit('toggleLoadingState')
@@ -96,14 +93,26 @@ export default {
                 console.log(error);
             });
         },
-        handler(index) {
-            console.log(index);
-            // edit mode is active -> submit form
+        deleteVCard(index) {
+            this.$store.commit('toggleLoadingState')
+            axios.get('http://localhost/api/secured/deletevcard/'+index, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response  => {
+                console.log(response);
+                this.$store.commit('toggleLoadingState')
+            }).catch(function(error) {
+                console.log(error);
+            });
+        },
+        editVCard(index) {
             if(this.edit) {
-                // this.$store.commit('toggleLoadingState')
+                this.$store.commit('toggleLoadingState')
 
                 const vcard = this.vcards[index]
                 const inputData = {
+                    id: index,
                     name: vcard.name,
                     position: vcard.position,
                     firma: vcard.firma,
@@ -114,13 +123,13 @@ export default {
                     webseite: vcard.webseite
                 }
 
-                axios.post('http://localhost/api/secured/editvcard/', inputData, {
+                axios.post('http://localhost/api/secured/editvcard', inputData, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token')
                     }
                 }).then(response  => {
-                    console.log(response.data);             
-                    // this.$store.commit('toggleLoadingState')
+                    this.vcards[index] = response.data  
+                    this.$store.commit('toggleLoadingState')
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -144,5 +153,9 @@ td input {
     min-width: 30px;
     max-width: 100%;
     width: 100%;
+}
+.btn-danger {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
 }
 </style>
