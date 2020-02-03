@@ -24,13 +24,13 @@ class PdfController extends Controller
     public function pdfGenerieren(Request $request)
     {
         //save the file for Pdf generation
-        // if (!file_exists('uploads/')) {
-        //     mkdir('uploads/', 0777, true);
-        // }
-        // $uniqueIdent = uniqid();
-        // $target_dir = "uploads/";
-        // $target_file = $target_dir . $uniqueIdent . basename($_FILES['fileToUpload']['name']);
-        // move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
+        if (!file_exists('uploads/')) {
+            mkdir('uploads/', 0777, true);
+        }
+        $uniqueIdent = uniqid();
+        $target_dir = "uploads/";
+        $target_file = $target_dir . $uniqueIdent . basename($_FILES['fileToUpload']['name']);
+        move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
 
         header("Access-Control-Allow-Origin: *");
 
@@ -72,11 +72,16 @@ class PdfController extends Controller
 
         $htmlInput = $request->input(['htmlInput']);
 
-        //replace src from blob to the temp. Filepath
-        // $search = '/src="blob:http(.*?")/';
-        // $replace = 'src="' . $target_file . '"';
-        // $string = $htmlInput;
-        // $htmlInput = preg_replace($search,$replace,$string);
+        // replace src from blob to the temp. Filepath
+        $search = '/src="blob:http(.*?")/';
+        $replace = 'src="' . $target_file . '"';
+        $string = $htmlInput;
+        $htmlInput = preg_replace($search,$replace,$string);
+
+        $search = '/<img data-v-4823d924="" src="https:(.*?>)/';
+        $replace = $qrcode;
+        $string = $htmlInput;
+        $htmlInput = preg_replace($search,$replace,$string);
 
         $html = $htmlInput . '
         <style>
@@ -99,9 +104,9 @@ class PdfController extends Controller
 
         $mpdf->WriteHTML($html);
         $mpdf->Output('', 'I');
-        
+         echo $target_file;
         //delete temp file
-        // unlink($target_file);
+        unlink($target_file);
     }
 
     public function insertVCardInformation($data, $userId) {
