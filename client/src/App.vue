@@ -20,8 +20,10 @@ export default {
 		dmcHeader: Header,
 		loader: Loader,
 		Footer: Footer,
-	}
-	
+	},
+	created() {
+        localStorage.removeItem("token");
+    }
 };
 </script>
 
