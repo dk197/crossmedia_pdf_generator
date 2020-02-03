@@ -1,5 +1,5 @@
 <template>
-    <drag-it-dude id="visitcardParent" style="top:1px; left:1px" v-on:click="alert('hello')">
+    <drag-it-dude id="visitcardParent" style="top:1px; left:1px">
         <div class="innerElement">{{ text }}</div>
     </drag-it-dude>
 
