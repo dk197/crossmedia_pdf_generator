@@ -93,7 +93,7 @@
             </div>
             <div class="dc-card-area">
                 <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
-                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index + '-text'"></text-brick>
+                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index + '-text'" @clicked="onClickChild(index)"></text-brick>
                     <img-brick v-for="(brickI, index) in bricksI" :key="'img-' + index" :src="brickI.data.src" :width="brickI.data.width" :style="brickI.data.show" :id="index + '-img'"></img-brick>
                 </div>
             </div>
@@ -237,6 +237,9 @@ export default {
         }
     },
     methods: {
+        onClickChild (index) {
+            this.getSelectedInputField(index);
+        },
         getSelectedInputField(index) {
             this.fontSize = this.bricks[index].data.fontSize;
             this.fontStyle = this.bricks[index].data.fontStyle;
