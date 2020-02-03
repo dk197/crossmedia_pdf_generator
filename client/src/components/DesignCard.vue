@@ -81,7 +81,7 @@
                             <h4>Daten:</h4>
                             <div id="businessCardInput">
                                 <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
-                                    <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)" v-on:click="getSelectedInputField(index)">
+                                    <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" :name="bricks[index].attribute.toLowerCase()" @focus="changeCurrentAttribute(index)" v-on:click="getSelectedInputField(index)">
                                 </td>
                                 <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
                                 <input  class="dc-button btn btn-primary" type="button" value=" +/- Logo " @click="toggleLogo()">
@@ -114,12 +114,11 @@ import ImgBrick from './ImgBrick'
 export default {
     name: 'bc-input',
     created: function(){
-        console.log('loading')
         if(!this.$store.getters.getLoginStatus){
             this.$router.push('/');
+        }else {
+            this.getCurrentUser()
         }
-
-        this.getCurrentUser()
     },
     data () {
         return{
