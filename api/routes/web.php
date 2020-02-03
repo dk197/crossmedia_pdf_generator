@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Auth;
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -24,17 +27,23 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->post('login', 'AuthController@login');
 
+    $router->get('/getvcard/{id}', 'PdfController@getDynamicVcard');
+
     // localhost:80/api/test
     $router->get('test', 'AuthController@test');
 
     $router->get('xtest', 'AuthController@xtest');
     // routes that need an authorized user
-    $router->group(['middleware' => 'auth:api'], function () use ($router) {
-        $router->get('/secured', function () {
-            return response()->json([
-                'message' => 'Hello!',
-            ]);
-        });
+    $router->group(['middleware' => 'auth:api', 'prefix' => 'secured'], function () use ($router) {
+        // $router->get('/getvcards', function () {
+        //     // $user = Auth::user();
+        //     return response()->json([
+        //         // 'message' => 'Hello!',
+        //         Auth::user()
+        //     ]);
+        // });
+        $router->get('/getcurrentuser', 'AuthController@getCurrentUser');
+        $router->get('/getvcards', 'VCardController@getUsersVCards');
     });
  });
 
@@ -45,5 +54,7 @@ $router->group(['prefix' => 'generate'], function () use ($router) {
     $router->post('pdf', 'PdfController@pdfGenerieren');
 
     $router->get('vcard', 'VCardController@generateVcard');
+
+    $router->get('staticqrcode', 'QrCodeController@generateStaticQrCode');
 })
 ?>

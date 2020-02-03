@@ -75,6 +75,11 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+    public function getCUrrentUser() {
+        $user = Auth::user();
+        return response()->json(['user_id' => $user->id]);
+    }
+
     public function test() {
         print_r('test');
     }

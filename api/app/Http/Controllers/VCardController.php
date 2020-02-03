@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Auth;
 use JeroenDesloovere\VCard\VCard;
 
 class VCardController extends Controller
@@ -39,5 +41,9 @@ class VCardController extends Controller
 
         // return vcard as a download
         // return $vcard->download();
+    }
+
+    public function getUsersVCards() {
+        return response()->json(Auth::user());
     }
 }

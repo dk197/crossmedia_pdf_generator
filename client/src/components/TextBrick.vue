@@ -12,13 +12,16 @@ export default{
             required: true
         },
         fontSize: {
-            default: '20px'
+            default: '12px'
         },
         fontStyle: {
-            default: 'freesans'
+            default: 'Futura'
         },
         fontColor: {
             default: 'black'
+        },
+        fontURL:{
+            default: ''
         }
     },
     components: {

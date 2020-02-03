@@ -26,6 +26,9 @@
           <router-link class="nav-link" to="designcard" active-class="active" exact>Zum Editor</router-link>
         </li>
         <li v-if="showLoginStatus" class="nav-item">
+          <router-link class="nav-link" to="vcards" active-class="active" exact>Alle Vcards</router-link>
+        </li>
+        <li v-if="showLoginStatus" class="nav-item">
           <a class="nav-link" href="#" @click="logout">Ausloggen</a>
         </li>
         <!-- <li class="nav-item">
