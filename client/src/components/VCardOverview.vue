@@ -95,12 +95,15 @@ export default {
         },
         deleteVCard(index) {
             this.$store.commit('toggleLoadingState')
-            axios.get('http://localhost/api/secured/deletevcard/'+index, {
+            const vcardId = this.vcards[index].id
+            axios.get('http://localhost/api/secured/deletevcard/'+vcardId, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             }).then(response  => {
-                console.log(response);
+                if(response.data === 'success') {
+                    this.vcards.splice(index, 1)
+                }
                 this.$store.commit('toggleLoadingState')
             }).catch(function(error) {
                 console.log(error);
@@ -112,7 +115,7 @@ export default {
 
                 const vcard = this.vcards[index]
                 const inputData = {
-                    id: index,
+                    id: vcard.id,
                     name: vcard.name,
                     position: vcard.position,
                     firma: vcard.firma,

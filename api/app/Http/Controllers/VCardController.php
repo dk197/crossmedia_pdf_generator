@@ -52,9 +52,7 @@ class VCardController extends Controller
     }
 
     public function editVcard(Request $request) {
-        // header("Access-Control-Allow-Origin: *");
-        // print_r($request);
-        $vcard = AppVCard::where('id', $request->id + 1)->get()->first();
+        $vcard = AppVCard::where('id', $request->id)->get()->first();
         $vcard->name = $request->name;
         $vcard->position = $request->position;
         $vcard->firma = $request->firma;
@@ -65,6 +63,10 @@ class VCardController extends Controller
         $vcard->webseite = $request->webseite;
         $vcard->save();
         return response()->json($vcard);
-        // return response()->json($request->id);
+    }
+
+    public function deleteVCard($id) {
+        AppVCard::destroy($id);
+        return response()->json('success');
     }
 }
