@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\VCard;
 use \mpdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use JeroenDesloovere\VCard\VCard as JeroenDesloovereVCardVCard;
 use QRCode;
 
@@ -22,16 +23,17 @@ class PdfController extends Controller
     public function pdfGenerieren(Request $request)
     {
         //save the file for Pdf generation
-        if (!file_exists('uploads/')) {
-            mkdir('uploads/', 0777, true);
-        }
-        $uniqueIdent = uniqid();
-        $target_dir = "uploads/";
-        $target_file = $target_dir . $uniqueIdent . basename($_FILES['fileToUpload']['name']);
-        move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
+        // if (!file_exists('uploads/')) {
+        //     mkdir('uploads/', 0777, true);
+        // }
+        // $uniqueIdent = uniqid();
+        // $target_dir = "uploads/";
+        // $target_file = $target_dir . $uniqueIdent . basename($_FILES['fileToUpload']['name']);
+        // move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
 
         header("Access-Control-Allow-Origin: *");
-        
+        echo Auth::user();
+        return;
         // return response()->json($request);
 
         $this->validate($request, [
@@ -70,10 +72,10 @@ class PdfController extends Controller
         $htmlInput = $request->input(['htmlInput']);
 
         //replace src from blob to the temp. Filepath
-        $search = '/src="blob:http(.*?")/';
-        $replace = 'src="' . $target_file . '"';
-        $string = $htmlInput;
-        $htmlInput = preg_replace($search,$replace,$string);
+        // $search = '/src="blob:http(.*?")/';
+        // $replace = 'src="' . $target_file . '"';
+        // $string = $htmlInput;
+        // $htmlInput = preg_replace($search,$replace,$string);
 
         $html = $htmlInput . '
         <style>
@@ -98,11 +100,12 @@ class PdfController extends Controller
         $mpdf->Output('', 'I');
         
         //delete temp file
-        unlink($target_file);
+        // unlink($target_file);
     }
 
     public function insertVCardInformation($data) {
         $vcard = new VCard();
+        $vcard->user_id = Auth::user()->id;
         $vcard->name = $data['name'];
         $vcard->position  = $data['position'];
         $vcard->firma = $data['firma'];

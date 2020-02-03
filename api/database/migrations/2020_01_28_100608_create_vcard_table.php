@@ -15,6 +15,7 @@ class CreateVcardTable extends Migration
     {
         Schema::create('v_cards', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('user_id');
             $table->string('name');
             $table->string('position');
             $table->string('firma');

@@ -35,13 +35,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('xtest', 'AuthController@xtest');
     // routes that need an authorized user
     $router->group(['middleware' => 'auth:api', 'prefix' => 'secured'], function () use ($router) {
-        $router->get('/getvcards', function () {
-            // $user = Auth::user();
-            return response()->json([
-                // 'message' => 'Hello!',
-                Auth::user()
-            ]);
-        });
+        // $router->get('/getvcards', function () {
+        //     // $user = Auth::user();
+        //     return response()->json([
+        //         // 'message' => 'Hello!',
+        //         Auth::user()
+        //     ]);
+        // });
+        $router->get('/getvcards', 'VCardController@getUsersVCards');
     });
  });
 

@@ -13,6 +13,6 @@ class VCard extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'position', 'firma', 'adresse', 'telefon_privat', 'telefon_geschaeftlich', 'email', 'webseite'
+        'user_id', 'name', 'position', 'firma', 'adresse', 'telefon_privat', 'telefon_geschaeftlich', 'email', 'webseite'
     ];
 }
