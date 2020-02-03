@@ -1,6 +1,6 @@
 <template>
-    <drag-it-dude id="visitcardParent">
-        <div class="innerElement">{{ text }}</div>
+    <drag-it-dude id="visitcardParent" style="top:1px; left:1px">
+        <div class="innerElement" v-on:click="selectAttribute">{{ text }}</div>
     </drag-it-dude>
 
 </template>
@@ -26,11 +26,17 @@ export default{
     },
     components: {
         DragItDude
+    },
+    methods: {
+        selectAttribute: function (event){
+            if(event){
+                this.$emit('clicked')
+            }
+        }
     }
 }
 </script>
 <style scoped>
-
 </style>
 
 
