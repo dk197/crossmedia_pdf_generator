@@ -59,15 +59,14 @@ class PdfController extends Controller
 
         if($request->input('dynamicQrCode') === 'on') {
             $vcardId = $this->insertVCardInformation($qrcodeData, $user->id);
-            $ngrok = 'http://b47ff1e7.ngrok.io';
+            $ngrok = 'http://1c6de019.ngrok.io';
             $url = $ngrok.'/api/getvcard/'.$vcardId;
             $encodedUrl = urlencode($url);
             $qrcode = '<img src="https://chart.googleapis.com/chart?chs='.$qrSize.'x'.$qrSize.'&cht=qr&chl='.$encodedUrl.'&choe=UTF-8">';
         }else {
             $qrcode = $this->generateStaticQrCode($qrcodeData, $qrSize);
         }
-        echo $qrcode;
-        return;
+        
         $cardWidth = $request->input('cardWidth');
         $cardHeight = $request->input('cardHeight');
 
