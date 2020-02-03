@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\User;
 use App\VCard;
 use \mpdf;
 use Illuminate\Http\Request;
@@ -32,8 +33,9 @@ class PdfController extends Controller
         // move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
 
         header("Access-Control-Allow-Origin: *");
-        echo Auth::user();
-        return;
+
+        $user = User::where('id', $request->input(['user_id']))->get()->first();
+
         // return response()->json($request);
 
         $this->validate($request, [
@@ -56,8 +58,8 @@ class PdfController extends Controller
         $qrSize = $request->input(['qrSize']);
 
         if($request->input('dynamicQrCode') === 'on') {
-            $vcardId = $this->insertVCardInformation($qrcodeData);
-            $ngrok = 'http://d152355e.ngrok.io';
+            $vcardId = $this->insertVCardInformation($qrcodeData, $user->id);
+            $ngrok = 'http://b47ff1e7.ngrok.io';
             $url = $ngrok.'/api/getvcard/'.$vcardId;
             $encodedUrl = urlencode($url);
             $qrcode = '<img src="https://chart.googleapis.com/chart?chs='.$qrSize.'x'.$qrSize.'&cht=qr&chl='.$encodedUrl.'&choe=UTF-8">';
@@ -103,9 +105,9 @@ class PdfController extends Controller
         // unlink($target_file);
     }
 
-    public function insertVCardInformation($data) {
+    public function insertVCardInformation($data, $userId) {
         $vcard = new VCard();
-        $vcard->user_id = Auth::user()->id;
+        $vcard->user_id = $userId;
         $vcard->name = $data['name'];
         $vcard->position  = $data['position'];
         $vcard->firma = $data['firma'];

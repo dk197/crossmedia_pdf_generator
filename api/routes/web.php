@@ -42,6 +42,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         //         Auth::user()
         //     ]);
         // });
+        $router->get('/getcurrentuser', 'AuthController@getCurrentUser');
         $router->get('/getvcards', 'VCardController@getUsersVCards');
     });
  });
