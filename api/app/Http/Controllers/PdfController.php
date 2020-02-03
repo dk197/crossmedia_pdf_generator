@@ -59,14 +59,14 @@ class PdfController extends Controller
 
         if($request->input('dynamicQrCode') === 'on') {
             $vcardId = $this->insertVCardInformation($qrcodeData, $user->id);
-            $ngrok = 'http://1c6de019.ngrok.io';
+            $ngrok = 'https://20d6c74c.ngrok.io';
             $url = $ngrok.'/api/getvcard/'.$vcardId;
             $encodedUrl = urlencode($url);
             $qrcode = '<img src="https://chart.googleapis.com/chart?chs='.$qrSize.'x'.$qrSize.'&cht=qr&chl='.$encodedUrl.'&choe=UTF-8">';
         }else {
             $qrcode = $this->generateStaticQrCode($qrcodeData, $qrSize);
         }
-        
+
         $cardWidth = $request->input('cardWidth');
         $cardHeight = $request->input('cardHeight');
 
@@ -126,21 +126,21 @@ class PdfController extends Controller
     }
 
     public function generateStaticQrCode($data, $qrSize) {
-        $oQRC = new QRCode; 
+        $oQRC = new QRCode;
 
-        $oQRC->fullName($data['name']) 
+        $oQRC->fullName($data['name'])
             ->role($data['position'])
             ->organization($data['firma'])
             ->address($data['adresse'])
             ->workPhone($data['telefon_geschaeftlich'])
             ->homePhone($data['telefon_privat'])
-            ->email($data['email']); 
-        
+            ->email($data['email']);
+
         if($data['website'] !== '') {
-            $oQRC->url($data['website']); 
+            $oQRC->url($data['website']);
         }
 
-        $oQRC->finish(); 
+        $oQRC->finish();
 
         return '<img src="' . $oQRC->get($qrSize) . '"/>';
     }
