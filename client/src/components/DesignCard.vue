@@ -67,7 +67,7 @@
                                 <p class="dc-label">Breite des Logos(px):</p>
                                 <input  class="dc-input dc-input-size" type="number" value="50" id="logoSize" @change="changeLogoSize()">
                                 <p class="dc-label">Breite QR-Code(px):</p>
-                                <input  class="dc-input dc-input-size" type="number" value="100" name="qrSize" id="qrSize" @change="changeQrSize()">
+                                <input  class="dc-input dc-input-size" type="number" value="50" name="qrSize" id="qrSize" @change="changeQrSize()">
                                 <p class="dc-label">Dynamischer QR-Code:</p>
                                 <input class="dc-input" type="checkbox" name="dynamicQrCode" v-model="dynamicQrCode">
                             </div>
