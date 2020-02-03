@@ -9,7 +9,6 @@
                         <div class=dc-options>
                             <h4>Optionen:</h4>
                             <div>
-                            <p class="dc-label">Schriftgröße:</p>
                             <select class="dc-input" v-model="fontSize" id="fontSize" @change="changeFontSize(currentAttribute)">
                                 <option disabled value="">Schriftgröße</option>
                                 <option value="8px">8px</option>
@@ -21,10 +20,8 @@
                                 <option value="25px">25px</option>
                                 <option value="30px">30px</option>
                             </select>
-                            <p class="dc-label">Schriftfarbe:</p>
                             <channel-color-picker id="fontColor" v-model="fontColor" :color="color" @color-change="colorChanged"/>
                             <!-- <input class="dc-input" v-model="fontColor" id="fontColor" type="color" @change="changeFontColor(currentAttribute)" name="favcolor" value="#ff0000"><br><br> -->
-                            <p class="dc-label">Schriftart:</p>
                             <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
                                 <option disabled value="">Schriftart</option>
                                 <option style="fontFamily: dejavusanscondensed">  dejavusanscondensed </option> 
@@ -54,7 +51,6 @@
                                 <option style="fontFamily: lateef">  lateef  </option>
                                 <option style="fontFamily: unbatang"> unbatang  </option>
                             </select>
-                            <p class="dc-label">Schriftschnitt:</p>
                             <select class="dc-input" v-model="fontTyp" id="fontTyp" @change="changeFontTyp(currentAttribute)">
                                 <option disabled value="">Schriftschnitt</option>
                                 <option value="italic">italic</option>
@@ -62,19 +58,18 @@
                                 <option value="normal">normal</option>
                                 <option value="bold">bold</option>
                             </select>
-                            <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
-                            <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
                             </div>
                             <div>
-                                <p class="dc-label">Breite QR-Code(px):</p>
-                                <input  class="dc-input dc-input-size" type="number" value="100" name="qrSize" id="qrSize" @change="changeQrSize()">
+                                <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
+                                <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
                                 <p class="dc-label">Datei für Logo:</p>
                                 <input class="dc-input logo-input" type="file" id="fileToUpload" ref="file" @change="handleFileUpload" name="fileToUpload" accept=".jpg, .jpeg, .png"/>
                                 <p class="dc-label">Breite des Logos(px):</p>
                                 <input  class="dc-input dc-input-size" type="number" value="50" id="logoSize" @change="changeLogoSize()">
+                                <p class="dc-label">Breite QR-Code(px):</p>
+                                <input  class="dc-input dc-input-size" type="number" value="100" name="qrSize" id="qrSize" @change="changeQrSize()">
                                 <p class="dc-label">Dynamischer QR-Code:</p>
                                 <input class="dc-input" type="checkbox" name="dynamicQrCode" v-model="dynamicQrCode">
-                                
                             </div>
                         </div>
                         <div class="dc-data">
@@ -83,11 +78,9 @@
                                 <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
                                     <input v-model="bricks[index].data.text" :placeholder="bricks[index].attribute" :name="bricks[index].attribute.toLowerCase()" @focus="changeCurrentAttribute(index)" v-on:click="getSelectedInputField(index)">
                                 </td>
-                                <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
                                 <input  class="dc-button btn btn-primary" type="button" value=" +/- Logo " @click="toggleLogo()">
+                                <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
                             </div>
-                            
-                        
                             <div class="dc-submit">               
                                 <input type="hidden" name="user_id" v-model="userId">                                     
                                 <input type="hidden" name="htmlInput" id="htmlInput">
@@ -504,6 +497,7 @@ export default {
     }
     .dc-options> div {
         display: flex;
+        margin-top: 10px;
     }
     .dc-options h4{
         margin-right: 20px;
