@@ -37,10 +37,8 @@ export default {
                 email: this.email,
                 password: this.password
             }).then(response  => {
-                console.log(response.data);
                 localStorage.setItem('token', response.data.token)
                 this.$store.commit('logUserIn')
-                console.log(this.$store.getters.getLoginStatus);
                 this.$store.commit('toggleLoadingState')
                 this.$router.push('/')
             }).catch(function(error) {

@@ -75,7 +75,11 @@ export default {
         }
     },
     mounted() {
-        this.getUsersVCards()
+        if(!this.$store.getters.getLoginStatus){
+            this.$router.push('/');
+        }else {
+            this.getUsersVCards()
+        }
     },
     methods: {
         getUsersVCards() {
