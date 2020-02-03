@@ -2,7 +2,7 @@
     <div class="row wrapper">
         <div class="col-10">
             <div class="row">
-                <h3 class="col-12">Dynamische VCards:</h3>
+                <h1 class="col-12">Dynamische VCards:</h1>
                 <p class="col-12" v-if="vcards.length === 0">
                     Bisher wurden noch keine dynamischen VCards erstellt
                 </p>

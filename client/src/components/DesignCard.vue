@@ -1,104 +1,106 @@
 <template>
-    <div>
-        <h1 class="dc-heading">Erstelle deine Visitenkarte</h1>
-        <div class="dc-content">
-            <div class="dc-input-area">
-                <form method="post" action="http://localhost:80/generate/pdf" enctype="multipart/form-data">
-                    <!-- <h3>Deine Daten:</h3> -->
-                    <div class=dc-options>
-                        <h4>Optionen:</h4>
-                        <div>
-                        <p class="dc-label">Schriftgröße:</p>
-                        <select class="dc-input" v-model="fontSize" id="fontSize" @change="changeFontSize(currentAttribute)">
-                            <option disabled value="">Schriftgröße</option>
-                            <option value="8px">8px</option>
-                            <option value="10px">10px</option>
-                            <option value="12px">12px</option>
-                            <option value="14px">14px</option>
-                            <option value="16px">16px</option>
-                            <option value="20px">20px</option>
-                            <option value="25px">25px</option>
-                            <option value="30px">30px</option>
-                        </select>
-                        <p class="dc-label">Schriftfarbe:</p>
-                        <channel-color-picker :color="color" @color-change="colorChanged"/>
-                        <!-- <input class="dc-input" v-model="fontColor" id="fontColor" type="color" @change="changeFontColor(currentAttribute)" name="favcolor" value="#ff0000"><br><br> -->
-                        <p class="dc-label">Schriftart:</p>
-                        <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
-                            <option disabled value="">Schriftart</option>
-                            <option style="fontFamily: dejavusanscondensed">  dejavusanscondensed </option> 
-                            <option style="fontFamily: dejavusans"> dejavusans  </option>
-                            <option style="fontFamily: dejavuserif">  dejavuserif  </option>
-                            <option style="fontFamily: dejavuserifcondensed">  dejavuserifcondensed  </option>
-                            <option style="fontFamily: dejavusansmono">  dejavusansmono  </option>
-                            <option style="fontFamily: freesans">  freesans  </option>
-                            <option style="fontFamily: freeserif">  freeserif  </option>
-                            <option style="fontFamily: freemono"> freemono  </option>
-                            <option style="fontFamily: ocrb">  ocrb  </option>
-                            <option style="fontFamily: abyssinicasil">  abyssinicasil  </option>
-                            <option style="fontFamily: aboriginalsans">  aboriginalsans  </option>
-                            <option style="fontFamily: jomolhari">  jomolhari  </option>
-                            <option style="fontFamily: taiheritagepro">  taiheritagepro  </option>
-                            <option style="fontFamily: lannaalif">  lannaalif  </option>
-                            <option style="fontFamily: daibannasilbook">  daibannasilbook  </option>
-                            <option style="fontFamily: garuda">  garuda  </option>
-                            <option style="fontFamily: khmeros">  khmeros  </option>
-                            <option style="fontFamily: dhyana">  dhyana  </option>
-                            <option style="fontFamily: tharlon">  tharlon  </option>
-                            <option style="fontFamily: padaukbook">  padaukbook  </option>
-                            <option style="fontFamily: zawgyi-one">  zawgyi-one  </option>
-                            <option style="fontFamily: ayar">  ayar  </option>
-                            <option style="fontFamily: taameydavidclm">  taameydavidclm  </option>
-                            <option style="fontFamily: mph2bdamase">mph2bdamase</option>
-                            <option style="fontFamily: lateef">  lateef  </option>
-                            <option style="fontFamily: unbatang"> unbatang  </option>
-                        </select>
-                        <p class="dc-label">Schriftschnitt:</p>
-                        <select class="dc-input" v-model="fontTyp" id="fontTyp" @change="changeFontTyp(currentAttribute)">
-                            <option disabled value="">Schriftschnitt</option>
-                            <option value="italic">italic</option>
-                            <option value="italic-bold">italic-bold</option>
-                            <option value="normal">normal</option>
-                            <option value="bold">bold</option>
-                        </select>
-                        <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
-                        <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
+    <div class="row">
+        <div class="col-10">
+            <h1 class="dc-heading">Erstelle deine Visitenkarte</h1>
+            <div class="dc-content">
+                <div class="dc-input-area">
+                    <form method="post" action="http://localhost:80/generate/pdf" enctype="multipart/form-data">
+                        <!-- <h3>Deine Daten:</h3> -->
+                        <div class=dc-options>
+                            <h4>Optionen:</h4>
+                            <div>
+                            <p class="dc-label">Schriftgröße:</p>
+                            <select class="dc-input" v-model="fontSize" id="fontSize" @change="changeFontSize(currentAttribute)">
+                                <option disabled value="">Schriftgröße</option>
+                                <option value="8px">8px</option>
+                                <option value="10px">10px</option>
+                                <option value="12px">12px</option>
+                                <option value="14px">14px</option>
+                                <option value="16px">16px</option>
+                                <option value="20px">20px</option>
+                                <option value="25px">25px</option>
+                                <option value="30px">30px</option>
+                            </select>
+                            <p class="dc-label">Schriftfarbe:</p>
+                            <channel-color-picker :color="color" @color-change="colorChanged"/>
+                            <!-- <input class="dc-input" v-model="fontColor" id="fontColor" type="color" @change="changeFontColor(currentAttribute)" name="favcolor" value="#ff0000"><br><br> -->
+                            <p class="dc-label">Schriftart:</p>
+                            <select class="dc-input" v-model="fontStyle" id="fontStyle" @change="changeFontStyle(currentAttribute)">
+                                <option disabled value="">Schriftart</option>
+                                <option style="fontFamily: dejavusanscondensed">  dejavusanscondensed </option> 
+                                <option style="fontFamily: dejavusans"> dejavusans  </option>
+                                <option style="fontFamily: dejavuserif">  dejavuserif  </option>
+                                <option style="fontFamily: dejavuserifcondensed">  dejavuserifcondensed  </option>
+                                <option style="fontFamily: dejavusansmono">  dejavusansmono  </option>
+                                <option style="fontFamily: freesans">  freesans  </option>
+                                <option style="fontFamily: freeserif">  freeserif  </option>
+                                <option style="fontFamily: freemono"> freemono  </option>
+                                <option style="fontFamily: ocrb">  ocrb  </option>
+                                <option style="fontFamily: abyssinicasil">  abyssinicasil  </option>
+                                <option style="fontFamily: aboriginalsans">  aboriginalsans  </option>
+                                <option style="fontFamily: jomolhari">  jomolhari  </option>
+                                <option style="fontFamily: taiheritagepro">  taiheritagepro  </option>
+                                <option style="fontFamily: lannaalif">  lannaalif  </option>
+                                <option style="fontFamily: daibannasilbook">  daibannasilbook  </option>
+                                <option style="fontFamily: garuda">  garuda  </option>
+                                <option style="fontFamily: khmeros">  khmeros  </option>
+                                <option style="fontFamily: dhyana">  dhyana  </option>
+                                <option style="fontFamily: tharlon">  tharlon  </option>
+                                <option style="fontFamily: padaukbook">  padaukbook  </option>
+                                <option style="fontFamily: zawgyi-one">  zawgyi-one  </option>
+                                <option style="fontFamily: ayar">  ayar  </option>
+                                <option style="fontFamily: taameydavidclm">  taameydavidclm  </option>
+                                <option style="fontFamily: mph2bdamase">mph2bdamase</option>
+                                <option style="fontFamily: lateef">  lateef  </option>
+                                <option style="fontFamily: unbatang"> unbatang  </option>
+                            </select>
+                            <p class="dc-label">Schriftschnitt:</p>
+                            <select class="dc-input" v-model="fontTyp" id="fontTyp" @change="changeFontTyp(currentAttribute)">
+                                <option disabled value="">Schriftschnitt</option>
+                                <option value="italic">italic</option>
+                                <option value="italic-bold">italic-bold</option>
+                                <option value="normal">normal</option>
+                                <option value="bold">bold</option>
+                            </select>
+                            <p class="dc-label">Breite(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardWidth" name="cardWidth"  placeholder="Breite" id="cardWidth" @change="handleWidth">
+                            <p class="dc-label">Höhe(mm):</p><input class="dc-input dc-input-size" type="number" v-model="cardHeight" name="cardHeight" placeholder="Höhe" id="cardHeight" @change="handleHeight">
+                            </div>
+                            <div>
+                                <p class="dc-label">Breite QR-Code(px):</p>
+                                <input  class="dc-input dc-input-size" type="number" value="100" name="qrSize" id="qrSize" @change="changeQrSize()">
+                                <p class="dc-label">Datei für Logo:</p>
+                                <input class="dc-input logo-input" type="file" id="fileToUpload" ref="file" @change="handleFileUpload" name="fileToUpload" accept=".jpg, .jpeg, .png"/>
+                                <p class="dc-label">Breite des Logos(px):</p>
+                                <input  class="dc-input dc-input-size" type="number" value="50" id="logoSize" @change="changeLogoSize()">
+                                <p class="dc-label">Dynamischer QR-Code:</p>
+                                <input class="dc-input" type="checkbox" name="dynamicQrCode" v-model="dynamicQrCode">
+                                
+                            </div>
                         </div>
-                        <div>
-                            <p class="dc-label">Breite QR-Code(px):</p>
-                            <input  class="dc-input dc-input-size" type="number" value="100" name="qrSize" id="qrSize" @change="changeQrSize()">
-                            <p class="dc-label">Datei für Logo:</p>
-                            <input class="dc-input logo-input" type="file" id="fileToUpload" ref="file" @change="handleFileUpload" name="fileToUpload" accept=".jpg, .jpeg, .png"/>
-                            <p class="dc-label">Breite des Logos(px):</p>
-                            <input  class="dc-input dc-input-size" type="number" value="50" id="logoSize" @change="changeLogoSize()">
-                            <p class="dc-label">Dynamischer QR-Code:</p>
-                            <input class="dc-input" type="checkbox" name="dynamicQrCode" v-model="dynamicQrCode">
+                        <div class="dc-data">
+                            <h4>Daten:</h4>
+                            <div id="businessCardInput">
+                                <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
+                                    <input v-model="bricks[index].data.text" :name="bricks[index].attribute.toLowerCase()" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
+                                </td>
+                                <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
+                                <input  class="dc-button btn btn-primary" type="button" value=" +/- Logo " @click="toggleLogo()">
+                            </div>
                             
-                        </div>
-                    </div>
-                    <div class="dc-data">
-                        <h4>Daten:</h4>
-                        <div id="businessCardInput">
-                            <td class="dc-input dc-input-card" v-for="(brick, index) in bricks" :key="index">
-                                <input v-model="bricks[index].data.text" :name="bricks[index].attribute.toLowerCase()" :placeholder="bricks[index].attribute" @focus="changeCurrentAttribute(index)">
-                            </td>
-                            <input  class="dc-button btn btn-primary" type="button" value=" +/- QR-Code" @click="toggleQr()">
-                            <input  class="dc-button btn btn-primary" type="button" value=" +/- Logo " @click="toggleLogo()">
-                        </div>
                         
-                    
-                        <div class="dc-submit">               
-                            <input type="hidden" name="user_id" v-model="userId">                                     
-                            <input type="hidden" name="htmlInput" id="htmlInput">
-                            <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
+                            <div class="dc-submit">               
+                                <input type="hidden" name="user_id" v-model="userId">                                     
+                                <input type="hidden" name="htmlInput" id="htmlInput">
+                                <input type="submit" class="btn btn-primary" value="View Pdf" @click="handleHtml">
+                            </div>
                         </div>
+                    </form>                
+                </div>
+                <div class="dc-card-area">
+                    <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
+                        <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index + '-text'" @clicked="onClickChild(index)"></text-brick>
+                        <img-brick v-for="(brickI, index) in bricksI" :key="'img-' + index" :src="brickI.data.src" :width="brickI.data.width" :style="brickI.data.show" :id="index + '-img'"></img-brick>
                     </div>
-                </form>                
-            </div>
-            <div class="dc-card-area">
-                <div id="businessCardCanvas" class="parentElement" style="height: 51mm; width: 86mm;">
-                    <text-brick v-for="(brick, index) in bricks" :key="index" :text="brick.data.text" :font-size="brick.data.fontSize" :font-color="brick.data.fontColor" :font-style="brick.data.fontStyle" :id="index + '-text'" @clicked="onClickChild(index)"></text-brick>
-                    <img-brick v-for="(brickI, index) in bricksI" :key="'img-' + index" :src="brickI.data.src" :width="brickI.data.width" :style="brickI.data.show" :id="index + '-img'"></img-brick>
                 </div>
             </div>
         </div>
